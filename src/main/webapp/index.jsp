@@ -12,18 +12,14 @@
             <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
             <title>Citer</title>
             <link rel="stylesheet" type="text/css" href="css/main.css"/>
+
         </head>
         <body>
             <header>
                 <h1>Citer</h1>
             </header>
 
-            <nav>
-                <a href="javascript:;">random cite</a> -
-                <a href="javascript:;">best cite</a> -
-                <a href="javascript:;">newest cite</a> -
-                <a href="javascript:;">all cites</a>
-            </nav>
+            <nav></nav>
 
             <section>
                 <form>
@@ -42,8 +38,11 @@
                 Presented by Weltraumschaf
             </footer>
 
-            <script lang="text/javascript" src="js/jquery.js"></script>
-            <script lang="text/javascript" src="js/main.js"></script>
+            <![CDATA[
+            <script type="text/javascript" src="js/jquery.js"></script>
+            <script type="text/javascript" src="js/jquery.ninjaui.js"></script>
+            <script type="text/javascript" src="js/main.js"></script>
+            ]]>
         </body>
     </html>
 </jsp:root>
