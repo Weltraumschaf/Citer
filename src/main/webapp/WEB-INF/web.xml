@@ -9,12 +9,51 @@
     <display-name>Citer</display-name>
 
     <servlet>
-        <servlet-name>index</servlet-name>
+        <servlet-name>web</servlet-name>
         <servlet-class>de.weltraumschaf.citer.IndexServlet</servlet-class>
     </servlet>
 
+    <servlet>
+        <servlet-name>api</servlet-name>
+        <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+
+        <init-param>
+            <param-name>com.sun.jersey.config.property.packages</param-name>
+            <param-value>de.weltraumschaf.citer</param-value>
+        </init-param>
+        <init-param>
+            <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+            <param-value>true</param-value>
+        </init-param>
+
+        <!-- debugging -->
+<!--        <init-param>
+            <param-name>com.sun.jersey.spi.container.ContainerRequestFilters</param-name>
+            <param-value>com.sun.jersey.api.container.filter.LoggingFilter</param-value>
+        </init-param>
+        <init-param>
+            <param-name>com.sun.jersey.spi.container.ContainerResponseFilters</param-name>
+            <param-value>com.sun.jersey.api.container.filter.LoggingFilter</param-value>
+        </init-param>-->
+
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
     <servlet-mapping>
-        <servlet-name>index</servlet-name>
-        <url-pattern>/</url-pattern>
+        <servlet-name>web</servlet-name>
+        <url-pattern>/web/*</url-pattern>
     </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>api</servlet-name>
+        <url-pattern>/api/*</url-pattern>
+    </servlet-mapping>
+
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
+     <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
 </web-app>
