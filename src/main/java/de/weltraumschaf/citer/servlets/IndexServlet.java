@@ -1,4 +1,4 @@
-package de.weltraumschaf.citer;
+package de.weltraumschaf.citer.servlets;
 
 
 import java.io.IOException;
@@ -18,7 +18,7 @@ public class IndexServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         PrintWriter out = res.getWriter();
-        out.println("Jetty runs...!");
+        out.println("admin area");
         out.close();
     }
 }

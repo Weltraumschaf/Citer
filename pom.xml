@@ -122,6 +122,12 @@
             <version>2.3.18</version>
             <scope>compile</scope>
         </dependency>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j</artifactId>
+            <version>1.6.M02</version>
+            <scope>compile</scope>
+        </dependency>
 
         <!-- Testing -->
         <dependency>
