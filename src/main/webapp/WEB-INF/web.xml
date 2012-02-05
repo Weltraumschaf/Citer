@@ -9,12 +9,12 @@
     <display-name>Citer</display-name>
 
     <servlet>
-        <servlet-name>hello</servlet-name>
-        <servlet-class>de.weltraumschaf.citer.HelloServlet</servlet-class>
+        <servlet-name>index</servlet-name>
+        <servlet-class>de.weltraumschaf.citer.IndexServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>hello</servlet-name>
-        <url-pattern>/hello</url-pattern>
+        <servlet-name>index</servlet-name>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
 </web-app>

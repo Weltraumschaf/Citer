@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd">
-<Configure id='wac' class="org.mortbay.jetty.plugin.JettyWebAppContext">
+<Configure id='wac' class="org.mortbay.jetty.webapp.WebAppContext">
 
  <!-- Add an override for a global EnvEntry -->
-    <New id="maxAmount"  class="org.eclipse.jetty.plus.jndi.EnvEntry">
+    <New id="maxAmount"  class="org.mortbay.jetty.plus.naming.EnvEntry">
         <Arg>
             <Ref id='wac'/>
         </Arg>
