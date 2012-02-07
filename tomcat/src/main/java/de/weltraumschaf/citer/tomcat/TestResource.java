@@ -1,4 +1,4 @@
-package de.weltraumschaf.testwebapptomcat;
+package de.weltraumschaf.citer.tomcat;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -11,8 +11,8 @@ import javax.ws.rs.Produces;
  */
 @Path("/") public class TestResource {
 
-    @Produces("text/html")
+    @Produces("text/plain")
     @GET public String foo() {
-        return "test\nid: " + UniqueThreadIdGenerator.getCurrentThreadId();
+        return "rest\nid: " + UniqueThreadIdGenerator.getCurrentThreadId();
     }
 }

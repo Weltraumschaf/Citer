@@ -1,4 +1,4 @@
-package de.weltraumschaf.testwebapptomcat;
+package de.weltraumschaf.citer.glassfish;
 
 import java.io.IOException;
 import java.io.PrintWriter;

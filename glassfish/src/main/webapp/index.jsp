@@ -6,6 +6,10 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World</h1>
+        <h1>Hello Glassfish</h1>
+        <ul>
+            <li><a href="servlet/">servlet</a></li>
+            <li><a href="rest/">rest</a></li>
+        </ul>
     </body>
 </html>

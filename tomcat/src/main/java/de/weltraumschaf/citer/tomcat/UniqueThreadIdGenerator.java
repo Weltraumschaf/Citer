@@ -1,4 +1,4 @@
-package de.weltraumschaf.testwebapptomcat;
+package de.weltraumschaf.citer.tomcat;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
