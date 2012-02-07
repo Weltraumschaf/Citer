@@ -1,0 +1,160 @@
+/**
+ * LICENSE
+ *
+ * "THE BEER-WARE LICENSE" (Revision 42):
+ * "Sven Strittmatter" <ich@weltraumschaf.de> wrote this file.
+ * As long as you retain this notice you can do whatever you want with
+ * this stuff. If we meet some day, and you think this stuff is worth it,
+ * you can buy me a beer in return.
+ *
+ * @author    Weltraumschaf
+ * @copyright Copyright (c) 01.12.2010, Sven Strittmatter.
+ * @version   0.2
+ * @license   http://www.weltraumschaf.de/the-beer-ware-license.txt
+ */
+
+ @import "normalize";
+
+$colorBlack:      #1C1C1C;
+$colorDarkGrey:   #5A5A5A;
+$colorMiddleGrey: #8D8D8D;
+$colorLightGrey:  #E4E4E4;
+$colorWhite:      #fff;
+
+html {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family:      'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+    text-align:       center;
+    background-color: $colorLightGrey;
+}
+
+h1 {
+    margin: 150px 0 50px 0;
+    font-size: 3.8em;
+    color: $colorMiddleGrey;
+    text-shadow: -2px -2px 2px $colorBlack, 2px 2px 2px $colorWhite;
+}
+
+h2 {
+    text-align: center;
+}
+
+p {
+    min-width:  500px;
+    margin: 1em auto;
+}
+
+img {
+    border: 0;
+}
+
+a {
+    color: $colorBlack;
+}
+
+a:visited, a:active {
+    color: $colorDarkGrey;
+}
+
+a:hover {
+    color: $colorDarkGrey;
+    text-shadow: 0 0 5px $colorMiddleGrey;
+}
+
+/* The container which the menu is "locked" to the bottom of */
+#menuwrapper {
+    position: relative;
+    height:   77px;
+
+    /* Fixes the whole menu to the bottom of the parent div */
+    #menu {
+        position: absolute;
+        bottom:   0;
+    }
+
+    /* Each individual menu item fixed to the bottom with display:inline-block to create elasticity */
+    .menuitem {
+        text-decoration: none;
+    }
+}
+
+#links, #profiles {
+    background-color: $colorLightGrey;
+    padding-top: 25px;
+}
+
+#cite {
+    text-align: center;
+}
+
+#facebox div.content {
+    padding: 30px;
+}
+
+#impressum, #work {
+    text-align: left;
+}
+
+#text-shadow-box {
+    position:   relative;
+    width:      798px;
+    height:     406px;
+    background: $colorLightGrey;
+    overflow:   hidden;
+    cursor:     none;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-user-select: none;
+
+    div.wall {
+        position: absolute;
+        top:      175px;
+        left:     0;
+        width:    100%;
+
+        div {
+            position:   absolute;
+            background: $colorLightGrey;
+            top:        42px;
+            left:       0;
+            height:     300px;
+            width:      100%;
+        }
+    }
+}
+
+#tsb-text {
+    position:    absolute;
+    top:         0;
+    left:        0;
+    right:       0;
+    margin:      0;
+    color:       $colorWhite;
+    line-height: 0.5em;
+    height:      1px;
+    text-align:  center;
+
+    font {
+        weight:    bold;
+        size:      80px;
+    }
+}
+
+#tsb-box {
+    left: -100px;
+    width: 800px;
+}
+
+#tsb-spot {
+    position:   absolute;
+    top:        0;
+    left:       0;
+    width:      200%;
+    height:     200%;
+    background: url(spotlight.png) center center;
+    background: -moz-radial-gradient(center 45deg, circle closest-side, transparent 0%, black 60%);
+    background: -webkit-gradient(radial, center center, 0, center center, 250, from(rgba(0,0,0,0)), to(rgba(0,0,0,1)));
+}

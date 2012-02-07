@@ -1,3 +1,4 @@
 target/
 /src/main/webapp/css/.sass-cache/
 /jetty/src/main/webapp/css/.sass-cache/
+/tomcat/src/main/webapp/css/.sass-cache/
