@@ -12,14 +12,12 @@ import javax.servlet.http.HttpServletResponse;
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  * @license http://www.weltraumschaf.de/the-beer-ware-license.txt THE BEER-WARE LICENSE
  */
-public class TestServlet extends HttpServlet {
+public class AdminServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
         PrintWriter out = res.getWriter();
-        out.println("servlet");
-        out.print("id: ");
-        out.print(UniqueThreadIdGenerator.getCurrentThreadId());
+        out.println("ADMIN");
         out.close();
     }
 }

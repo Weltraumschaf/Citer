@@ -9,10 +9,10 @@ import javax.ws.rs.Produces;
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  * @license http://www.weltraumschaf.de/the-beer-ware-license.txt THE BEER-WARE LICENSE
  */
-@Path("/") public class TestResource {
+@Path("/") public class ApiResource {
 
     @Produces("text/plain")
     @GET public String foo() {
-        return "rest\nid: " + UniqueThreadIdGenerator.getCurrentThreadId();
+        return "API";
     }
 }
