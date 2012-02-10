@@ -1,6 +1,6 @@
 package de.weltraumschaf.citer.domain;
 
-//import org.joda.time.DateTime;
+import org.joda.time.DateTime;
 
 /**
  *
@@ -12,7 +12,7 @@ public class Cite {
     private String id;
     private String text;
     private Author crator;
-//    private DateTime date;
+    private DateTime date;
 
     public Author getCrator() {
         return crator;
@@ -22,13 +22,13 @@ public class Cite {
         this.crator = crator;
     }
 
-//    public DateTime getDate() {
-//        return date;
-//    }
-//
-//    public void setDate(DateTime date) {
-//        this.date = date;
-//    }
+    public DateTime getDate() {
+        return date;
+    }
+
+    public void setDate(DateTime date) {
+        this.date = date;
+    }
 
     public String getId() {
         return id;
@@ -48,8 +48,7 @@ public class Cite {
 
     @Override
     public String toString() {
-//        return String.format("Cite:\nid: %s\ntext: %s\ndate: %s\ncreator: %s\n", id, text, date, crator);
-        return String.format("Cite:\nid: %s\ntext: %s\ndate: %s\ncreator: %s\n", id, text, crator);
+        return String.format("Cite:\nid: %s\ntext: %s\ndate: %s\ncreator: %s\n", id, text, date, crator);
     }
 
 }
