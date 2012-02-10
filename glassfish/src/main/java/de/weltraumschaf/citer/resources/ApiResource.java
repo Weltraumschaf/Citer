@@ -1,4 +1,4 @@
-package de.weltraumschaf.citer.glassfish;
+package de.weltraumschaf.citer.resources;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;

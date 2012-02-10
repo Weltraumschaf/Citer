@@ -5,7 +5,7 @@
         <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
         <init-param>
             <param-name>com.sun.jersey.config.property.packages</param-name>
-            <param-value>de.weltraumschaf.citer.glassfish</param-value>
+            <param-value>de.weltraumschaf.citer.resources</param-value>
         </init-param>
         <!--        <init-param>
             <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
@@ -24,7 +24,7 @@
     </servlet>
     <servlet>
         <servlet-name>AdminServlet</servlet-name>
-        <servlet-class>de.weltraumschaf.citer.glassfish.AdminServlet</servlet-class>
+        <servlet-class>de.weltraumschaf.citer.servlets.AdminServlet</servlet-class>
     </servlet>
     <!--    <class-loader delegate="true"/>
 
@@ -33,7 +33,6 @@
             <description>Keep a copy of the generated servlet class' java code.</description>
         </property>
     </jsp-config>-->
-
     <servlet-mapping>
         <servlet-name>ApiResources</servlet-name>
         <url-pattern>/api/*</url-pattern>

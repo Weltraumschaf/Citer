@@ -1,4 +1,4 @@
-package de.weltraumschaf.citer.glassfish;
+package de.weltraumschaf.citer;
 
 import java.util.concurrent.atomic.AtomicInteger;
 

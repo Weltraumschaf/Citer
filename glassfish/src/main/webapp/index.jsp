@@ -12,7 +12,10 @@
             <h1>Citer</h1>
         </header>
 
-        <nav></nav>
+        <nav>
+            <a href="admin/">admin</a>
+            <a href="api/">api</a>
+        </nav>
 
         <section>
             <form>
