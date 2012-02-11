@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 /**
  *
@@ -14,6 +15,7 @@ public class Data {
 
     private final List<Cite> cites = new ArrayList<Cite>();
     private final Map<String, Author> authors = new HashMap<String, Author>();
+    private final Random randomGenerator = new Random();
 
     public boolean hasAuthorWithName(String name) {
         return authors.containsKey(name);
@@ -41,5 +43,10 @@ public class Data {
 
     public List<Cite> getCites() {
         return cites;
+    }
+
+    public Cite getRandomCite() {
+        int randomInt = randomGenerator.nextInt(cites.size());
+        return cites.get(randomInt);
     }
 }

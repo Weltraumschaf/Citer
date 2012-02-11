@@ -1,6 +1,7 @@
 package de.weltraumschaf.citer.domain;
 
 import org.joda.time.DateTime;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -49,6 +50,15 @@ public class Cite {
     @Override
     public String toString() {
         return String.format("Cite:\nid: %s\ntext: %s\ndate: %s\ncreator: %s\n", id, text, date, crator);
+    }
+
+    public JSONObject toJson() {
+        JSONObject container = new JSONObject();
+        container.put("id", id);
+        container.put("text", text);
+        container.put("date", date.toString("dd.MM.yyyy"));
+        container.put("creator", crator.toJson());
+        return container;
     }
 
 }

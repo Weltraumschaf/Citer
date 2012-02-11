@@ -1,6 +1,7 @@
 package de.weltraumschaf.citer.domain;
 
 import java.util.Set;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -34,6 +35,11 @@ public class Author {
         return String.format("%s (%s)", name, id);
     }
 
-
+    public JSONObject toJson() {
+        JSONObject container = new JSONObject();
+        container.put("id", id);
+        container.put("name", name);
+        return container;
+    }
 
 }
