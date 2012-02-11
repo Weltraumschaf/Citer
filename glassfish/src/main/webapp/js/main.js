@@ -2,33 +2,20 @@
  * main.js
  */
 (function() {
-    var $tabs = $.ninja.tabs({
-        values: [
-        {
-            html: 'random cite',
-            select: function () {
-                console.log("random cite");
-            }
-        },
-        {
-            html: 'best cite',
-            select: function () {
-                console.log("best cite");
-            }
-        },
-        {
-            html: 'newest cite',
-            select: function () {
-                console.log("newest cite");
-            }
-        },
-        {
-            html: 'all cites',
-            select: function () {
-                console.log("all cites");
-            }
-        }
-        ]
+    $(function() {
+        var $btnReloadCite = $.ninja.button({
+            html: "next cite"
+        }).select(function() {
+            $btnReloadCite.deselect();
+            var $randomCite = $("#randomCite").hide();
+
+            $.getJSON("api/randomcite", function(data, textStatus, jqXHR) {
+                var cite = '<cite>' + data.cite.text + '</cite>';
+                cite += '(' + data.cite.creator.name + ')';
+                $randomCite.empty().html(cite).show();
+            });
+        });
+        $("#btnReloadCite").append($btnReloadCite);
+        $btnReloadCite.click();
     });
-    $("nav").append($tabs);
 }());
