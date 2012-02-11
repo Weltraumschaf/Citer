@@ -1,3 +1,7 @@
+<%@page import="java.util.Enumeration"%>
+<%@page import="de.weltraumschaf.citer.domain.Cite"%>
+<%@page import="de.weltraumschaf.citer.domain.Factory"%>
+<%@page import="de.weltraumschaf.citer.domain.Data"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML>
 <html lang="en">
@@ -12,30 +16,26 @@
             <h1>Citer</h1>
         </header>
 
-        <nav>
-            <a href="admin/">admin</a>
-            <a href="api/">api</a>
-        </nav>
-
-        <section>
+<!--        <section>
             <form>
                 <label for="name">name:</label> <input id="name" type="text"/><br/>
                 <label for="cite">cite:</label> <textarea id="cite">type here</textarea><br/>
                 <input type="submit"/>
             </form>
-        </section>
+        </section>-->
 
-        <article>
-            Quisque tempor interdum purus, ut condimentum sem facilisis sit amet. Aenean imperdiet,
-            ligula ut molestie volutpat, risus purus vestibulum velit.
-        </article>
+<article>
+    <%! Data model = Factory.getModel();%>
+    <%! Cite cite = model.getRandomCite();%>
+    <cite><%= cite.getText()%></cite> (<%= cite.getCrator().getName()%>)
+</article>
 
-        <footer>
-            Presented by Weltraumschaf
-        </footer>
+<footer>
+    Presented by Weltraumschaf
+</footer>
 
-        <script type="text/javascript" src="js/jquery.js"></script>
-        <script type="text/javascript" src="js/jquery.ninjaui.js"></script>
-        <script type="text/javascript" src="js/main.js"></script>
-    </body>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.ninjaui.js"></script>
+<script type="text/javascript" src="js/main.js"></script>
+</body>
 </html>

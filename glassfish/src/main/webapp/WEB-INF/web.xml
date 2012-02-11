@@ -26,6 +26,7 @@
         <servlet-name>AdminServlet</servlet-name>
         <servlet-class>de.weltraumschaf.citer.servlets.AdminServlet</servlet-class>
     </servlet>
+
     <!--    <class-loader delegate="true"/>
 
     <jsp-config>
