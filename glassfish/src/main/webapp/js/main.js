@@ -1,21 +1,38 @@
 /*
  * main.js
  */
-(function() {
+(function($) {
     $(function() {
-        var $btnReloadCite = $.ninja.button({
-            html: "next cite"
-        }).select(function() {
+        var $randomCite = $("#randomCite").hide(),
+            $btnReloadCite = $.ninja.button({
+                html: "next cite"
+            }),
+            $btnAddCite = $.ninja.button({
+                html: "add new cite"
+            }),
+            $dlgCiteForm = $.ninja.dialog({
+                // http://embeddedjs.com/
+                html: new EJS({url: 'ejs/citeform.ejs'}).render()
+            });
+
+        $btnReloadCite.select(function() {
+            $randomCite .fadeOut();
             $btnReloadCite.deselect();
-            var $randomCite = $("#randomCite").hide();
 
             $.getJSON("api/randomcite", function(data, textStatus, jqXHR) {
                 var cite = '<cite>' + data.cite.text + '</cite>';
                 cite += '(' + data.cite.creator.name + ')';
-                $randomCite.empty().html(cite).show();
+                $randomCite.stop(true, true)
+                           .empty()
+                           .html(cite)
+                           .fadeIn();
             });
         });
-        $("#btnReloadCite").append($btnReloadCite);
-        $btnReloadCite.click();
+
+        $("#dlgCiteForm").append($dlgCiteForm).hide();
+        $("#btnReloadCite").append($btnReloadCite.click());
+        $("#btnAddCite").append($btnAddCite);
+        $btnAddCite.select(function() { $dlgCiteForm.attach(); });
+        $dlgCiteForm.detach(function() { $btnAddCite.deselect(); });
     });
-}());
+}(jQuery));
