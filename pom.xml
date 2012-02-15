@@ -45,6 +45,12 @@
             <version>${jersey.version}</version>
             <scope>compile</scope>
         </dependency>
+		<dependency>
+			<groupId>com.sun.jersey</groupId>
+			<artifactId>jersey-servlet</artifactId>
+			<version>${jersey.version}</version>
+            <scope>compile</scope>
+		</dependency>
         <!-- Apache commons -->
         <dependency>
             <groupId>org.apache.commons</groupId>
@@ -95,6 +101,12 @@
             <version>6.0</version>
             <scope>provided</scope>
         </dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.4</version>
+			<scope>provided</scope>
+		</dependency>
         <!-- Testing -->
         <dependency>
             <groupId>junit</groupId>
@@ -106,7 +118,7 @@
 
     <build>
         <finalName>citer</finalName>
-        
+
         <plugins>
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
