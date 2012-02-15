@@ -20,13 +20,14 @@ import org.json.simple.JSONObject;
     @Produces("text/html")
     @GET public String html() {
         Cite cite = model.getRandomCite();
-        return String.format("<cite>%s (%s)</cite>", cite.getText(), cite.getCrator().getName());
+        // @todo convert umls
+        return String.format("<cite>%s</cite> (%s)", cite.getText(), cite.getCrator().getName());
     }
 
     @Produces("text/plain")
     @GET public String plainText() {
         Cite cite = model.getRandomCite();
-        return String.format("%s (%s)", cite.getText(), cite.getCrator().getName());
+        return String.format("\"%s\" (%s)", cite.getText(), cite.getCrator().getName());
     }
 
     @Produces("application/json")
