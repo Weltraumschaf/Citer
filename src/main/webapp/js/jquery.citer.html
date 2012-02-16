@@ -1,0 +1,133 @@
+<!--
+
+ Citer - The Cites Collector
+
+ LICENSE
+
+ This is non-free software!
+
+ $Author$
+ $Revisio$
+
+ @category    jQuery
+ @package     Citer
+ @copyright   Copyright (c) 2009 Sven Strittmatter
+ @link        http://www.sven-space.de
+
+-->
+
+<!--
+ 
+ @category    jQuery
+ @package     Citer
+ @author      Sven Strittmatter <ausserirdisch@sven-space.de>
+-->
+
+<!--
+ jTemplate for the cite submit form
+-->
+<script id="citer_tpl_submit" type="text/html">
+/* <![CDATA[ */
+    *** main template citer_tpl_submit ***
+    {#template MAIN}
+    <h2>Zitat eintragen</h2>
+    <form id="citer_submitForm" action="javascript:;">
+        <div>
+            <label for="citer_submitForm_name">Name:</label>
+            <input type="text" id="citer_submitForm_name" />
+        </div>
+        <div>
+            <label for="citer_submitForm_text">Zitat:</label>
+            <textarea id="citer_submitForm_text" cols="80" rows="5"></textarea>
+        </div>
+        <div>
+            <input type="submit" id="citer_submitForm_submit" value="speichern" />
+            <span id="citer_submitForm_status" />
+        </div>
+    </form>
+    {#/template MAIN}
+    -----------------------------------------
+/* ]]> */
+</script>
+
+<!--
+ jTemplate for the random cite
+-->
+<script id="citer_tpl_random" type="text/html">
+/* <![CDATA[ */
+    *** main template citer_tpl_random ***
+    {#template MAIN}
+    <h3>zuf&auml;lliges Zitat</h3>
+    <div id="rating">
+        <div>
+            <span class="ui-rater">
+                <span class="ui-rater-starsOff" style="width: 90px;">
+                    <span class="ui-rater-starsOn" style="width: {Math.round(90 / 5 * $T.rating.average)}px"></span>
+                </span>
+                <span class="ui-rater-rating">{$T.rating.average}</span>&#160;
+                (<span class="ui-rater-rateCount">{$T.rating.count}</span>)
+            </span>
+        </div>
+    </div>
+
+    <p>
+        <strong>{$T.name}</strong><br />
+        {$T.text}<br />
+        <small>(einetragen am: {$T.date})</small>
+    </p>
+    {#/template MAIN}
+    -----------------------------------------
+/* ]]> */
+</script>
+
+<!--
+ jTemplate for the best rated cite
+-->
+<script id="citer_tpl_best" type="text/html">
+/* <![CDATA[ */
+    *** main template citer_tpl_best ***
+    {#template MAIN}
+    <h3>bestes Zitat</h3>
+    <p>not implemented yet!</p>
+    {#/template MAIN}
+    -----------------------------------------
+/* ]]> */
+</script>
+
+<!--
+ jTemplate for the latest cite
+-->
+<script id="citer_tpl_latest" type="text/html">
+/* <![CDATA[ */
+    *** main template citer_tpl_latest ***
+    {#template MAIN}
+    <h3>neuestes Zitat</h3>
+    <p>
+        <strong>{$T.name}</strong><br />
+        {$T.text}<br />
+        <small>(einetragen am: {$T.date})</small>
+    </p>
+    {#/template MAIN}
+    -----------------------------------------
+/* ]]> */
+</script>
+
+<!--
+ jTemplate for all cites
+-->
+<script id="citer_tpl_all" type="text/html">
+/* <![CDATA[ */
+    *** main template citer_tpl_all ***
+    {#template MAIN}
+    <h3>alle Zitate</h3>
+    {#foreach $T as cite}
+    <p>
+        <strong>{$T.cite.name}</strong><br />
+        {$T.cite.text}<br />
+        <small>(einetragen am: {$T.cite.date})</small>
+    </p>
+    {#/for}
+    {#/template MAIN}
+    -----------------------------------------
+/* ]]> */
+</script>
