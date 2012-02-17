@@ -1,29 +1,4 @@
 <!--
-
- Citer - The Cites Collector
-
- LICENSE
-
- This is non-free software!
-
- $Author$
- $Revisio$
-
- @category    jQuery
- @package     Citer
- @copyright   Copyright (c) 2009 Sven Strittmatter
- @link        http://www.sven-space.de
-
--->
-
-<!--
- 
- @category    jQuery
- @package     Citer
- @author      Sven Strittmatter <ausserirdisch@sven-space.de>
--->
-
-<!--
  jTemplate for the cite submit form
 -->
 <script id="citer_tpl_submit" type="text/html">
@@ -71,8 +46,8 @@
     </div>
 
     <p>
-        <strong>{$T.name}</strong><br />
-        {$T.text}<br />
+        <strong>{$T.creator.name}</strong><br />
+        <cite>{$T.text}</cite><br />
         <small>(einetragen am: {$T.date})</small>
     </p>
     {#/template MAIN}

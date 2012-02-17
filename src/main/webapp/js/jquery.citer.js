@@ -11,14 +11,14 @@
      */
     callService = function (action, callback, opts) {
         $.ajax({
-            type:       'POST',
-            url:        options.serviceUrl,
-            data:       $.extend({action: action}, opts || {}),
+            type:       'GET',
+            url:        options.serviceUrl + action,
+            data:       opts || {},
             dataType:   'json',
             cache:      false,
             success:    callback,
             error:      function (XMLHttpRequest, textStatus, errorThrown) {
-                throw new Error('Cant do AJAX request');
+                throw new Error('Cant do AJAX request: ' + textStatus);
             }
         });
     },
@@ -107,14 +107,15 @@
     };
 
     $.fn.citer.random = function($this) {
-        callService('random', function(result) {
+        callService('randomcite', function(result) {
+            result.cite.rating = {average: 0, count: 0};
             $this.setTemplate($('#citer_tpl_random').html());
-            $this.processTemplate(result.message);
-            $this.find('#rating').rater({
-                id:         result.message.id,
-                rating:     result.message.rating.average,
-                postHref:   'api/?action=rate'
-            });
+            $this.processTemplate(result.cite);
+//            $this.find('#rating').rater({
+//                id:         result.message.id,
+//                rating:     result.message.rating.average,
+//                postHref:   'api/?action=rate'
+//            });
         });
     };
 
@@ -140,8 +141,10 @@
     };
 
     $.fn.citer.best = function($this) {
-        $this.setTemplate($('#citer_tpl_best').html());
-        $this.processTemplate();
+        callService('best', function(result) {
+            $this.setTemplate($('#citer_tpl_best').html());
+            $this.processTemplate(result.message);
+        });
     };
 
     $.fn.citer.latest = function($this) {
