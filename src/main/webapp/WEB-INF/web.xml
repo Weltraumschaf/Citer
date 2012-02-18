@@ -27,13 +27,6 @@
         <servlet-class>de.weltraumschaf.citer.servlets.AdminServlet</servlet-class>
     </servlet>
 
-    <!--    <class-loader delegate="true"/>
-
-    <jsp-config>
-        <property name="keepgenerated" value="true">
-            <description>Keep a copy of the generated servlet class' java code.</description>
-        </property>
-    </jsp-config>-->
     <servlet-mapping>
         <servlet-name>ApiResources</servlet-name>
         <url-pattern>/api/*</url-pattern>
@@ -42,4 +35,10 @@
         <servlet-name>AdminServlet</servlet-name>
         <url-pattern>/admin/*</url-pattern>
     </servlet-mapping>
+
+    <welcome-file-list>
+        <welcome-file>
+            index.jsp
+        </welcome-file>
+    </welcome-file-list>
 </web-app>
