@@ -6,6 +6,7 @@ import de.weltraumschaf.citer.domain.Factory;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 import org.json.simple.JSONObject;
 
 /**
@@ -17,20 +18,20 @@ import org.json.simple.JSONObject;
 
     private final Data model = Factory.getModel();
 
-    @Produces("text/html")
+    @Produces(MediaType.TEXT_HTML)
     @GET public String html() {
         Cite cite = model.getRandomCite();
         // @todo convert umls
         return String.format("<cite>%s</cite> (%s)", cite.getText(), cite.getCrator().getName());
     }
 
-    @Produces("text/plain")
+    @Produces(MediaType.TEXT_PLAIN)
     @GET public String plainText() {
         Cite cite = model.getRandomCite();
         return String.format("\"%s\" (%s)", cite.getText(), cite.getCrator().getName());
     }
 
-    @Produces("application/json")
+    @Produces(MediaType.APPLICATION_JSON)
     @GET public String json() {
         JSONObject container = new JSONObject();
         container.put("cite", model.getRandomCite().toJson());

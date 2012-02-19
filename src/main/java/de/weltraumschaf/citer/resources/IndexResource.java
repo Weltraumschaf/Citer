@@ -1,5 +1,6 @@
 package de.weltraumschaf.citer.resources;
 
+import de.weltraumschaf.citer.util.Html5;
 import java.util.Enumeration;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
@@ -7,6 +8,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
 
 /**
@@ -16,43 +18,10 @@ import javax.ws.rs.core.UriInfo;
  */
 @Path("/") public class IndexResource {
 
-    public class Html5 {
-
-        private final String template = "<!DOCTYPE HTML>\n"
-            + "<html lang=\"en\">\n"
-            + "<head>\n"
-            + "<meta http-equiv=\"content-type\" content=\"text/html; charset=utf-8\"/>\n"
-            + "<title>%s</title>\n"
-            + "</head>\n"
-            + "<body>\n"
-            + "%s"
-            + "</body>\n"
-            + "</html>";
-
-        private final String title;
-        private final StringBuilder body;
-
-        public Html5(String title) {
-            this.title = title;
-            this.body  = new StringBuilder();
-        }
-
-        public Html5 append(String s) {
-            body.append(s);
-            return this;
-        }
-
-        @Override
-        public String toString() {
-            return String.format(template, title, body.toString());
-        }
-
-    }
-
     @Context ServletConfig config;
     @Context UriInfo uriInfo;
 
-    @Produces("text/plain")
+    @Produces(MediaType.TEXT_PLAIN)
     @GET public String indexAsPlain() {
         StringBuilder links = new StringBuilder();
         links.append(uriInfo.getBaseUri().toString()).append("randomcite").append('\n');
@@ -60,7 +29,7 @@ import javax.ws.rs.core.UriInfo;
         return links.toString();
     }
 
-    @Produces("text/html")
+    @Produces(MediaType.TEXT_HTML)
     @GET public String indexAsHtml() {
         String title = "Index";
         Html5 html = new Html5(title);
@@ -74,7 +43,7 @@ import javax.ws.rs.core.UriInfo;
         return html.toString();
     }
 
-    @Produces("text/html")
+    @Produces(MediaType.TEXT_HTML)
     @Path("test")
     @GET public String test() {
         String title = "Testing around";
@@ -102,12 +71,21 @@ import javax.ws.rs.core.UriInfo;
 
         ServletContext context = config.getServletContext();
         Enumeration<String> contextAtrributeNames = context.getAttributeNames();
-        html.append("<h3>Serlvlet Context</h3>");
+        html.append("<h3>Serlvlet Context of ")
+            .append(context.getServerInfo()).append("</h3>");
         html.append("<pre>");
 
         while (contextAtrributeNames.hasMoreElements()) {
             String name = contextAtrributeNames.nextElement();
-            html.append(name).append(": ").append(context.getAttribute(name).toString()).append("\n");
+            html.append(name).append(": ");
+
+            try {
+                html.append(context.getAttribute(name).toString());
+            } catch (NullPointerException ex) {
+                html.append("null");
+            }
+
+            html.append("\n");
         }
 
         html.append("</pre>");
