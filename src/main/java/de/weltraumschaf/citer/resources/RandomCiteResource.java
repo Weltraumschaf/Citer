@@ -7,7 +7,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import org.json.simple.JSONObject;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 
 /**
  *
@@ -32,9 +33,9 @@ import org.json.simple.JSONObject;
     }
 
     @Produces(MediaType.APPLICATION_JSON)
-    @GET public String json() {
+    @GET public JSONObject json() throws JSONException {
         JSONObject container = new JSONObject();
         container.put("cite", model.getRandomCite().toJson());
-        return container.toJSONString();
+        return container;
     }
 }

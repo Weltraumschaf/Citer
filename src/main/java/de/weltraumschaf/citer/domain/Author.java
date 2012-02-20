@@ -1,7 +1,8 @@
 package de.weltraumschaf.citer.domain;
 
 import java.util.Set;
-import org.json.simple.JSONObject;
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 
 /**
  *
@@ -35,7 +36,7 @@ public class Author {
         return String.format("%s (%s)", name, id);
     }
 
-    public JSONObject toJson() {
+    public JSONObject toJson() throws JSONException {
         JSONObject container = new JSONObject();
         container.put("id", id);
         container.put("name", name);

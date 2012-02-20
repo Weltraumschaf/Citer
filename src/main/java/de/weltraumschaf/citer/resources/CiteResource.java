@@ -1,13 +1,11 @@
 package de.weltraumschaf.citer.resources;
 
-
-import java.util.ArrayList;
-import java.util.List;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
-import org.json.simple.JSONArray;
+import org.codehaus.jettison.json.JSONArray;
+import org.codehaus.jettison.json.JSONObject;
 
 /**
  *
@@ -19,58 +17,33 @@ public class CiteResource {
 
     @Context UriInfo uriInfo;
 
-    private List<String> citeUris() {
-        List<String> ids = new ArrayList<String>();
-        ids.add("1");
-        ids.add("2");
-        ids.add("3");
-        ids.add("4");
-        return ids;
-    }
-
-    @Produces(MediaType.TEXT_PLAIN)
-    @GET public String allCitesAsText() {
-        StringBuilder uris = new StringBuilder();
-
-        for (String id : citeUris()) {
-            uris.append(uriInfo.getAbsolutePath()).append(id).append('\n');
-        }
-
-        return uris.toString();
-    }
-
     @Produces(MediaType.APPLICATION_JSON)
-    @GET public String allCites() {
+    @GET public JSONArray allCites() {
         JSONArray cites = new JSONArray();
-
-        for (String id : citeUris()) {
-            cites.add(uriInfo.getAbsolutePath().toString() + id);
-        }
-
-        return cites.toJSONString();
+        return cites;
     }
 
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    @GET public String citeById(@PathParam("id") String id) {
-        return "{}";
+    @GET public JSONObject citeById(@PathParam("id") String id) {
+        return new JSONObject();
     }
 
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    @PUT public String create(@PathParam("id") String id) {
+    @PUT public JSONObject create(@PathParam("id") String id) {
         if (null == id) {
             // create
         } else {
             // update
         }
 
-        return "{}";
+        return new JSONObject();
     }
 
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    @DELETE public String delete(@PathParam("id") String id) {
-        return "{}";
+    @DELETE public JSONObject delete(@PathParam("id") String id) {
+        return new JSONObject();
     }
 }

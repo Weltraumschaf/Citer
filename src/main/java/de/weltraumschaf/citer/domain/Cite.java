@@ -1,7 +1,8 @@
 package de.weltraumschaf.citer.domain;
 
+import org.codehaus.jettison.json.JSONException;
+import org.codehaus.jettison.json.JSONObject;
 import org.joda.time.DateTime;
-import org.json.simple.JSONObject;
 
 /**
  *
@@ -52,7 +53,7 @@ public class Cite {
         return String.format("Cite:\nid: %s\ntext: %s\ndate: %s\ncreator: %s\n", id, text, date, crator);
     }
 
-    public JSONObject toJson() {
+    public JSONObject toJson() throws JSONException {
         JSONObject container = new JSONObject();
         container.put("id", id);
         container.put("text", text);
