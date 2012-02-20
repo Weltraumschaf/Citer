@@ -10,7 +10,7 @@ import org.neo4j.kernel.EmbeddedGraphDatabase;
  */
 public class DbProvider {
 
-    private static final GraphDatabaseService db = new EmbeddedGraphDatabase("");
+    private static final GraphDatabaseService db = new EmbeddedGraphDatabase("/tmp/citer.db");
 
     public static GraphDatabaseService get() {
         return db;
