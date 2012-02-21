@@ -49,4 +49,14 @@ public class Data {
         int randomInt = randomGenerator.nextInt(cites.size());
         return cites.get(randomInt);
     }
+
+    public Cite getCiteById(String id) {
+        for (Cite cite : cites) {
+            if (cite.getId().equals(id)) {
+                return cite; 
+            }
+        }
+
+        return null;
+    }
 }

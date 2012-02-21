@@ -4,7 +4,6 @@ import de.weltraumschaf.citer.domain.Cite;
 import de.weltraumschaf.citer.domain.Data;
 import de.weltraumschaf.citer.domain.Factory;
 import javax.ws.rs.GET;
-import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import org.codehaus.jettison.json.JSONException;
@@ -15,7 +14,7 @@ import org.codehaus.jettison.json.JSONObject;
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  * @license http://www.weltraumschaf.de/the-beer-ware-license.txt THE BEER-WARE LICENSE
  */
-@Path("/randomcite") public class RandomCiteResource {
+public class RandomCite {
 
     private final Data model = Factory.getModel();
 

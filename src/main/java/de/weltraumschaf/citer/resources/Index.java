@@ -1,5 +1,6 @@
 package de.weltraumschaf.citer.resources;
 
+import de.weltraumschaf.citer.domain.DbProvider;
 import de.weltraumschaf.citer.util.Html5;
 import java.util.Enumeration;
 import javax.servlet.ServletConfig;
@@ -10,13 +11,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.UriInfo;
+import org.neo4j.graphdb.GraphDatabaseService;
 
 /**
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  * @license http://www.weltraumschaf.de/the-beer-ware-license.txt THE BEER-WARE LICENSE
  */
-@Path("/") public class IndexResource {
+@Path("/") public class Index {
 
     @Context ServletConfig config;
     @Context UriInfo uriInfo;
@@ -24,8 +26,9 @@ import javax.ws.rs.core.UriInfo;
     @Produces(MediaType.TEXT_PLAIN)
     @GET public String indexAsPlain() {
         StringBuilder links = new StringBuilder();
-        links.append(uriInfo.getBaseUri().toString()).append("randomcite").append('\n');
-        links.append(uriInfo.getBaseUri().toString()).append("test");
+        links.append(uriInfo.getBaseUri().toString()).append("cite").append('\n');
+        links.append(uriInfo.getBaseUri().toString()).append("test").append('\n');
+        links.append(uriInfo.getBaseUri().toString()).append("neo4j");
         return links.toString();
     }
 
@@ -35,10 +38,12 @@ import javax.ws.rs.core.UriInfo;
         Html5 html = new Html5(title);
         html.append("<h1>").append(title).append("</h1>");
         html.append("<ul>");
-        html.append(String.format("<li><a href=\"%s%s\">", uriInfo.getBaseUri().toString(), "randomcite"))
-            .append("randomcite").append("</a></li>");
+        html.append(String.format("<li><a href=\"%s%s\">", uriInfo.getBaseUri().toString(), "cite"))
+            .append("cite").append("</a></li>");
         html.append(String.format("<li><a href=\"%s%s\">", uriInfo.getBaseUri().toString(), "test"))
             .append("test").append("</a></li>");
+        html.append(String.format("<li><a href=\"%s%s\">", uriInfo.getBaseUri().toString(), "neo4j"))
+            .append("neo4j").append("</a></li>");
         html.append("</ul>");
         return html.toString();
     }
@@ -90,5 +95,12 @@ import javax.ws.rs.core.UriInfo;
 
         html.append("</pre>");
         return html.toString();
+    }
+
+    @Produces(MediaType.TEXT_PLAIN)
+    @Path("neo4j")
+    @GET public String neo4j() {
+        GraphDatabaseService db = DbProvider.get();
+        return "";
     }
 }

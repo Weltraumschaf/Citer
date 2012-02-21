@@ -10,7 +10,7 @@ import org.neo4j.kernel.EmbeddedGraphDatabase;
  */
 public class ServiceProvider {
 
-    private static final GraphDatabaseService database = new EmbeddedGraphDatabase("/tmp/citer/neo4j.db");
+    private static final GraphDatabaseService database = new EmbeddedGraphDatabase("/tmp/citer.db");
     private static final ThreadLocal<GraphDatabaseService> threadLocal = new ThreadLocal<GraphDatabaseService>() {
 
         @Override protected GraphDatabaseService initialValue() {
