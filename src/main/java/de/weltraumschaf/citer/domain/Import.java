@@ -4,50 +4,36 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.util.Iterator;
-import java.util.UUID;
-import org.apache.commons.io.FileUtils;
+import java.util.*;
+import org.codehaus.jackson.map.ObjectMapper;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 
 /**
  *
  * @todo refactor to jettison.
- * 
+ *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  * @license http://www.weltraumschaf.de/the-beer-ware-license.txt THE BEER-WARE LICENSE
  */
 public class Import {
 
     private static final DateTimeFormatter fmt = DateTimeFormat.forPattern("dd.MM.yyyy");
+    private static ObjectMapper mapper = new ObjectMapper();;
 
-    private static String readFile(String filename) throws URISyntaxException, IOException {
-        URL resource = Import.class.getResource(filename);
-        File file    = new File(resource.toURI());
-        return  FileUtils.readFileToString(file);
-    }
-
-    private static JSONArray parseJson(String json) {
-        Object obj = JSONValue.parse(json);
-        return (JSONArray)((JSONObject)obj).get("cites");
-    }
-
-    private static Data convertJsonToModel(JSONArray citesIn) {
+    private static Data convertJsonToModel(List cites) {
         Data data = new Data();
-        iterateJson(data, citesIn.iterator());
+        iterateJson(data, cites.iterator());
         return data;
     }
 
     private static void iterateJson(Data data, Iterator it) {
-        JSONObject jsonCite;
+        Map jsonCite;
 
         while (it.hasNext()) {
-            jsonCite = (JSONObject)it.next();
-            Cite cite = createCite((String)jsonCite.get("text"));
+            jsonCite    = (HashMap)it.next();
+            Cite cite   = createCite((String)jsonCite.get("text"));
             String name = (String)jsonCite.get("name");
             Author author;
 
@@ -79,8 +65,9 @@ public class Import {
     }
 
     public static Data createModel(String filename) throws URISyntaxException, IOException {
-        String jsonString = readFile(filename);
-        JSONArray citesIn = parseJson(jsonString);
-        return convertJsonToModel(citesIn);
+        URL resource = Import.class.getResource(filename);
+        List cites = mapper.readValue(new File(resource.toURI()), ArrayList.class);
+        return convertJsonToModel(cites);
     }
+
 }

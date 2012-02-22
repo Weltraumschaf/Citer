@@ -1,75 +1,73 @@
-{
-    "cites":[{
-        "id":0,
-        "name":"Angela Merkel",
-        "date":"1.9.2009",
-        "text":"Es w\u00e4re absolut falsch jetzt nicht das richtige zu tun.",
-        "rating":{
-            "count":0,
-            "average":0
-        }
-    },{
-        "id":3,
-        "name":"Sven Strittmatter",
-        "date":"1.9.2009",
-        "text":"Ficken f\u00fcr den Weltfrieden.",
-        "rating":{
-            "count":0,
-            "average":0
-        }
-    },{
-        "id":4,
-        "name":"Rodolfo Ventorim",
-        "date":"1.9.2009",
-        "text":"Fuder par a paz do mundo!",
-        "rating":{
-            "count":0,
-            "average":0
-        }
-    },{
-        "id":9,
-        "name":"Albert Einstein",
-        "date":"2.9.2009",
-        "text":"Zwei Dinge sind unendlich, das Universum und die menschliche Dummheit, aber bei dem Universum bin ich mir noch nicht ganz sicher.",
-        "rating":{
-            "count":0,
-            "average":0
-        }
-    },{
-        "id":10,
-        "name":"Phil Karlton",
-        "date":"2.9.2009",
-        "text":"There are only two hard things in Computer Science: cache invalidation and naming things.",
-        "rating":{
-            "count":0,
-            "average":0
-        }
-    },{
-        "id":11,
-        "name":"Bdale Garbee",
-        "date":"2.9.2009",
-        "text":"Untersch\u00e4tzt niemals die ethischen Normen des Projekts. \nErst kommen diese Normen, dann die Visionen, dann die \nStrategie und ganz zum Schluss die Projekte. \nDie Normen sind unser Anker, wenn die Dinge etwas st\u00fcrmisch werden.",
-        "rating":{
-            "count":0,
-            "average":0
-        }
-    },{
-        "id":12,
-        "name":"Dan Bodart",
-        "date":"7.9.2009",
-        "text":"Feature Branching is a poor man\\'s modular architecture, instead of building systems with the ability to easy swap in and out features at runtime\/deploytime they couple themselves to the source control providing this mechanism through manual merging.",
-        "rating":{
-            "count":1,
-            "average":3
-        }
-    },{
-        "id":15,
-        "name":"Francis Bacon",
-        "date":"26.11.2011",
-        "text":"Nichts macht den Menschen argw\u00f6hnischer, als wenig zu wissen.",
-        "rating":{
-            "count":0,
-            "average":0
-        }
-    }]
-}
+[{
+    "id":0,
+    "name":"Angela Merkel",
+    "date":"1.9.2009",
+    "text":"Es w\u00e4re absolut falsch jetzt nicht das richtige zu tun.",
+    "rating":{
+        "count":0,
+        "average":0
+    }
+},{
+    "id":3,
+    "name":"Sven Strittmatter",
+    "date":"1.9.2009",
+    "text":"Ficken f\u00fcr den Weltfrieden.",
+    "rating":{
+        "count":0,
+        "average":0
+    }
+},{
+    "id":4,
+    "name":"Rodolfo Ventorim",
+    "date":"1.9.2009",
+    "text":"Fuder par a paz do mundo!",
+    "rating":{
+        "count":0,
+        "average":0
+    }
+},{
+    "id":9,
+    "name":"Albert Einstein",
+    "date":"2.9.2009",
+    "text":"Zwei Dinge sind unendlich, das Universum und die menschliche Dummheit, aber bei dem Universum bin ich mir noch nicht ganz sicher.",
+    "rating":{
+        "count":0,
+        "average":0
+    }
+},{
+    "id":10,
+    "name":"Phil Karlton",
+    "date":"2.9.2009",
+    "text":"There are only two hard things in Computer Science: cache invalidation and naming things.",
+    "rating":{
+        "count":0,
+        "average":0
+    }
+},{
+    "id":11,
+    "name":"Bdale Garbee",
+    "date":"2.9.2009",
+    "text":"Untersch\u00e4tzt niemals die ethischen Normen des Projekts. \nErst kommen diese Normen, dann die Visionen, dann die \nStrategie und ganz zum Schluss die Projekte. \nDie Normen sind unser Anker, wenn die Dinge etwas st\u00fcrmisch werden.",
+    "rating":{
+        "count":0,
+        "average":0
+    }
+},{
+    "id":12,
+    "name":"Dan Bodart",
+    "date":"7.9.2009",
+    "text":"Feature Branching is a poor man\\'s modular architecture, instead of building systems with the ability to easy swap in and out features at runtime\/deploytime they couple themselves to the source control providing this mechanism through manual merging.",
+    "rating":{
+        "count":1,
+        "average":3
+    }
+},{
+    "id":15,
+    "name":"Francis Bacon",
+    "date":"26.11.2011",
+    "text":"Nichts macht den Menschen argw\u00f6hnischer, als wenig zu wissen.",
+    "rating":{
+        "count":0,
+        "average":0
+    }
+}]

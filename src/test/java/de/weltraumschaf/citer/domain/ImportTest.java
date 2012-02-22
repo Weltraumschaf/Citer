@@ -2,7 +2,7 @@ package de.weltraumschaf.citer.domain;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
-import org.junit.Ignore;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
@@ -12,13 +12,10 @@ import org.junit.Test;
  */
 public class ImportTest {
 
-    @Test @Ignore
+    @Test
     public void foo() throws URISyntaxException, IOException {
         Data data = Import.createModel("/cites.json");
-
-        for (Cite c : data.getCites()) {
-            System.out.println(c.toString());
-        }
+        assertEquals(8, data.getCites().size());
+        assertEquals(8, data.getAuthors().size());
     }
-
 }

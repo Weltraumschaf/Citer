@@ -4,7 +4,6 @@ import com.sun.jersey.api.NotFoundException;
 import de.weltraumschaf.citer.domain.Cite;
 import de.weltraumschaf.citer.domain.Data;
 import de.weltraumschaf.citer.domain.Factory;
-import java.util.List;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
