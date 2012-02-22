@@ -1,7 +1,5 @@
 package de.weltraumschaf.citer.domain;
 
-import org.codehaus.jettison.json.JSONException;
-import org.codehaus.jettison.json.JSONObject;
 import org.joda.time.DateTime;
 
 /**
@@ -13,15 +11,15 @@ public class Cite {
 
     private String id;
     private String text;
-    private Author crator;
+    private Author creator;
     private DateTime date;
 
-    public Author getCrator() {
-        return crator;
+    public Author getCreator() {
+        return creator;
     }
 
-    public void setCrator(Author crator) {
-        this.crator = crator;
+    public void setCreator(Author creator) {
+        this.creator = creator;
     }
 
     public DateTime getDate() {
@@ -50,16 +48,7 @@ public class Cite {
 
     @Override
     public String toString() {
-        return String.format("Cite:\nid: %s\ntext: %s\ndate: %s\ncreator: %s\n", id, text, date, crator);
-    }
-
-    public JSONObject toJson() throws JSONException {
-        JSONObject container = new JSONObject();
-        container.put("id", id);
-        container.put("text", text);
-        container.put("date", date.toString("dd.MM.yyyy"));
-        container.put("creator", crator.toJson());
-        return container;
+        return String.format("Cite:\nid: %s\ntext: %s\ndate: %s\ncreator: %s\n", id, text, date, creator);
     }
 
 }

@@ -108,9 +108,9 @@
 
     $.fn.citer.random = function($this) {
         callService('cite/random', function(result) {
-            result.cite.rating = {average: 0, count: 0};
+            result.rating = {average: 0, count: 0};
             $this.setTemplate($('#citer_tpl_random').html());
-            $this.processTemplate(result.cite);
+            $this.processTemplate(result);
 //            $this.find('#rating').rater({
 //                id:         result.message.id,
 //                rating:     result.message.rating.average,

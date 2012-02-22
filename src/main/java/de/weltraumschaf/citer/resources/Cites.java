@@ -43,14 +43,14 @@ public class Cites {
 
     @Path("{id}/")
     @Produces(MediaType.APPLICATION_JSON)
-    @GET public JSONObject citeById(@PathParam("id") String id) throws JSONException {
+    @GET public Cite citeById(@PathParam("id") String id) throws JSONException {
         Cite cite = model.getCiteById(id);
 
         if (null == cite) {
             throw new NotFoundException(String.format("Can't find cite with id %s.", id));
         }
 
-        return cite.toJson();
+        return cite;
     }
 
     @Consumes("application/json")

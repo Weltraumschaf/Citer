@@ -44,7 +44,7 @@ public class Import {
                 data.addAuthor(author);
             }
 
-            cite.setCrator(author);
+            cite.setCreator(author);
             DateTime date = fmt.parseDateTime((String)jsonCite.get("date"));
             cite.setDate(date);
             data.addCite(cite);

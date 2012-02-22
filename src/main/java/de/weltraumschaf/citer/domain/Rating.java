@@ -7,7 +7,7 @@ package de.weltraumschaf.citer.domain;
  */
 public class Rating {
 
-    private Cite cite;
+    Cite cite;
     int stars;
-    
+
 }
