@@ -7,7 +7,7 @@ import java.util.Set;
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  * @license http://www.weltraumschaf.de/the-beer-ware-license.txt THE BEER-WARE LICENSE
  */
-public class Author {
+public class Originator {
 
     private String id;
     private String name;

@@ -11,15 +11,15 @@ public class Cite {
 
     private String id;
     private String text;
-    private Author creator;
+    private Originator originator;
     private DateTime date;
 
-    public Author getCreator() {
-        return creator;
+    public Originator getOriginator() {
+        return originator;
     }
 
-    public void setCreator(Author creator) {
-        this.creator = creator;
+    public void setOriginator(Originator originator) {
+        this.originator = originator;
     }
 
     public DateTime getDate() {
@@ -48,7 +48,7 @@ public class Cite {
 
     @Override
     public String toString() {
-        return String.format("Cite:\nid: %s\ntext: %s\ndate: %s\ncreator: %s\n", id, text, date, creator);
+        return String.format("Cite:\nid: %s\ntext: %s\ndate: %s\ncreator: %s\n", id, text, date, originator);
     }
 
 }

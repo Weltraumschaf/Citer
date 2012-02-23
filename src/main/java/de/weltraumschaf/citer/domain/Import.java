@@ -6,6 +6,7 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.*;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.type.TypeReference;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -35,16 +36,16 @@ public class Import {
             jsonCite    = (HashMap)it.next();
             Cite cite   = createCite((String)jsonCite.get("text"));
             String name = (String)jsonCite.get("name");
-            Author author;
+            Originator author;
 
-            if (data.hasAuthorWithName(name)) {
-                author = data.getAuthorByName(name);
+            if (data.hasOriginatorWithName(name)) {
+                author = data.getOriginatorByName(name);
             } else {
                 author = createAuthor(name);
-                data.addAuthor(author);
+                data.addOriginator(author);
             }
 
-            cite.setCreator(author);
+            cite.setOriginator(author);
             DateTime date = fmt.parseDateTime((String)jsonCite.get("date"));
             cite.setDate(date);
             data.addCite(cite);
@@ -57,8 +58,8 @@ public class Import {
         cite.setText(text);
         return cite;
     }
-    private static Author createAuthor(String name) {
-        Author author = new Author();
+    private static Originator createAuthor(String name) {
+        Originator author = new Originator();
         author.setId(UUID.randomUUID().toString());
         author.setName(name);
         return author;
@@ -69,5 +70,4 @@ public class Import {
         List cites = mapper.readValue(new File(resource.toURI()), ArrayList.class);
         return convertJsonToModel(cites);
     }
-
 }

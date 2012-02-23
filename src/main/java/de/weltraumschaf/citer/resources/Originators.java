@@ -19,32 +19,31 @@ import org.codehaus.jettison.json.JSONObject;
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  * @license http://www.weltraumschaf.de/the-beer-ware-license.txt THE BEER-WARE LICENSE
  */
-@Path("/cite/")
-public class Cites {
+@Path("/originator/")
+public class Originators {
 
     private final Data model = Factory.getModel();
-
     @Context UriInfo uriInfo;
 
-    private Cite findById(String id) {
-        Cite cite = model.getCiteById(id);
+    private Originator findById(String id) {
+        Originator originator = model.getOriginatorById(id);
 
-        if (null == cite) {
-            throw new NotFoundException(String.format("Can't find cite with id %s.", id));
+        if (null == originator) {
+            throw new NotFoundException(String.format("Can't find originator with id %s.", id));
         }
 
-        return cite;
+        return originator;
     }
 
     @Produces(MediaType.APPLICATION_JSON)
-    @GET public JSONArray allCites() {
-        JSONArray cites = new JSONArray();
+    @GET public JSONArray allOriginators() {
+        JSONArray originators = new JSONArray();
 
-        for (Cite cite : model.getCites()) {
-            cites.put(uriInfo.getAbsolutePath() + cite.getId());
+        for (Originator originator : model.getOriginators().values()) {
+            originators.put(uriInfo.getAbsolutePath() + originator.getId());
         }
 
-        return cites;
+        return originators;
     }
 
     @Consumes(MediaType.APPLICATION_JSON)
@@ -54,7 +53,7 @@ public class Cites {
 
     @Path("{id}/")
     @Produces(MediaType.APPLICATION_JSON)
-    @GET public Cite get(@PathParam("id") String id) throws JSONException {
+    @GET public Originator get(@PathParam("id") String id) throws JSONException {
         return findById(id);
     }
 
@@ -69,14 +68,9 @@ public class Cites {
         return Response.noContent().build();
     }
 
-    @Path("{id}/originator")
-    @Produces(MediaType.APPLICATION_JSON)
-    @GET public Originator originator(@PathParam("id") String id) {
-        return findById(id).getOriginator();
-    }
-
-    @Path("random/")
-    public RandomCite randomCite() {
-        return new RandomCite();
+    @Path("{id}/cites")
+    @Consumes(MediaType.APPLICATION_JSON)
+    @GET public JSONArray cites() {
+        return new JSONArray();
     }
 }

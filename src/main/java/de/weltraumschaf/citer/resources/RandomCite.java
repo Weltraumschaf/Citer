@@ -21,13 +21,13 @@ public class RandomCite {
     @GET public String html() {
         Cite cite = model.getRandomCite();
         // @todo convert umls
-        return String.format("<cite>%s</cite> (%s)", cite.getText(), cite.getCreator().getName());
+        return String.format("<cite>%s</cite> (%s)", cite.getText(), cite.getOriginator().getName());
     }
 
     @Produces(MediaType.TEXT_PLAIN)
     @GET public String plainText() {
         Cite cite = model.getRandomCite();
-        return String.format("\"%s\" (%s)", cite.getText(), cite.getCreator().getName());
+        return String.format("\"%s\" (%s)", cite.getText(), cite.getOriginator().getName());
     }
 
     @Produces(MediaType.APPLICATION_JSON)

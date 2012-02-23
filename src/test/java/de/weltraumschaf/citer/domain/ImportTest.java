@@ -16,6 +16,6 @@ public class ImportTest {
     public void foo() throws URISyntaxException, IOException {
         Data data = Import.createModel("/cites.json");
         assertEquals(8, data.getCites().size());
-        assertEquals(8, data.getAuthors().size());
+        assertEquals(8, data.getOriginators().size());
     }
 }

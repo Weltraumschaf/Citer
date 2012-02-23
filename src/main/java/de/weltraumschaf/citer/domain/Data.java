@@ -1,10 +1,6 @@
 package de.weltraumschaf.citer.domain;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 /**
  *
@@ -14,27 +10,36 @@ import java.util.Random;
 public class Data {
 
     private final List<Cite> cites = new ArrayList<Cite>();
-    private final Map<String, Author> authors = new HashMap<String, Author>();
+    private final Map<String, Originator> originators = new HashMap<String, Originator>();
     private final Random randomGenerator = new Random();
 
-    public boolean hasAuthorWithName(String name) {
-        return authors.containsKey(name);
+    public boolean hasOriginatorWithName(String name) {
+        return originators.containsKey(name);
     }
 
-    public Author getAuthorByName(String name) {
-        if (hasAuthorWithName(name)) {
-            return authors.get(name);
+    public Originator getOriginatorById(String id) {
+        for (Originator originator : originators.values()) {
+            if (originator.getId().equals(id)) {
+                return originator;
+            }
+        }
+        return null;
+    }
+
+    public Originator getOriginatorByName(String name) {
+        if (hasOriginatorWithName(name)) {
+            return originators.get(name);
         }
 
         return null;
     }
 
-    public void addAuthor(Author author) {
-        authors.put(author.getName(), author);
+    public void addOriginator(Originator originator) {
+        originators.put(originator.getName(), originator);
     }
 
-    public Map<String, Author> getAuthors() {
-        return authors;
+    public Map<String, Originator> getOriginators() {
+        return originators;
     }
 
     public void addCite(Cite cite) {
@@ -53,7 +58,7 @@ public class Data {
     public Cite getCiteById(String id) {
         for (Cite cite : cites) {
             if (cite.getId().equals(id)) {
-                return cite; 
+                return cite;
             }
         }
 
