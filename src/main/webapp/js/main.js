@@ -36,10 +36,8 @@
 //        $dlgCiteForm.detach(function() { $btnAddCite.deselect(); });
 //    });
 
-    var serviceUrl = window.location.href;
-
-    serviceUrl.replace(/index.html/i, '');
-    serviceUrl += 'api/';
+    var serviceUrl = window.location.href.replace(/index.jsp/i, "") + "api/";
+console.log(serviceUrl);
     $(function() {
         var $cite = $('#cite');
         $.citer({serviceUrl: serviceUrl});

@@ -19,7 +19,8 @@
                 <h1><span>Citer</span></h1>
             </div>
 
-            <a href="${pageContext.request.contextPath}/api">api</a>
+            <a href="${pageContext.request.contextPath}/api">API</a>
+            <a href="${pageContext.request.contextPath}/apitest.jsp">API-Test</a>
 
             <div id="menu"></div>
             <div id="form"></div>
