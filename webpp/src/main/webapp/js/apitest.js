@@ -5,82 +5,215 @@
 
     module("API-Test");
 
-    test("GET /api/cite", function() {
-        ok(false, "Not implemented yet!");
+    asyncTest("GET /api/cite", function() {
         $.ajax({
             type:     "GET",
             url:      serviceUrl + "cite",
             dataType: 'json',
             cache:    false,
-            success:   function (XMLHttpRequest, textStatus, errorThrown) {
+            success:   function (data, textStatus, xhr) {
+                ok(true, "Service responded.");
+                start();
             },
-            error:     function (XMLHttpRequest, textStatus, errorThrown) {
+            error:     function (xhr, textStatus, errorThrown) {
+                ok(false, "Can't perform Ajax call!");
+                start();
             }
         });
     });
 
-    test("PUT /api/cite", function() {
-        ok(false, "Not implemented yet!");
+    asyncTest("PUT /api/cite", function() {
         $.ajax({
             type:     "PUT",
             url:      serviceUrl + "cite",
             dataType: 'json',
             cache:    false,
-            success:   function (XMLHttpRequest, textStatus, errorThrown) {
+            success:   function (data, textStatus, xhr) {
+                ok(true, "Service responded.");
+                start();
             },
-            error:     function (XMLHttpRequest, textStatus, errorThrown) {
+            error:     function (xhr, textStatus, errorThrown) {
+                ok(false, "Can't perform Ajax call! " + textStatus + ": " + errorThrown);
+                start();
             }
         });
     });
 
-    test("PUT /api/cite/{id}", function() {
-        ok(false, "Not implemented yet!");
+    asyncTest("PUT /api/cite/{id}", function() {
+        var id = "an-id";
         $.ajax({
             type:     "PUT",
             url:      serviceUrl + "cite/" + id,
             dataType: 'json',
             cache:    false,
-            success:   function (XMLHttpRequest, textStatus, errorThrown) {
+            success:   function (data, textStatus, xhr) {
+                ok(true, "Service responded.");
+                start();
             },
-            error:     function (XMLHttpRequest, textStatus, errorThrown) {
+            error:     function (xhr, textStatus, errorThrown) {
+                ok(false, "Can't perform Ajax call! " + textStatus + ": " + errorThrown);
+                start();
             }
         });
     });
 
-    test("DELETE /api/cite/{id}", function() {
-        ok(true);
+    asyncTest("DELETE /api/cite/{id}", function() {
+        var id = "an-id";
+        $.ajax({
+            type:     "DELETE",
+            url:      serviceUrl + "cite/" + id,
+            dataType: 'json',
+            cache:    false,
+            success:   function (data, textStatus, xhr) {
+                ok(true, "Service responded.");
+                start();
+            },
+            error:     function (xhr, textStatus, errorThrown) {
+                ok(false, "Can't perform Ajax call! " + textStatus + ": " + errorThrown);
+                start();
+            }
+        });
     });
 
-    test("GET /api/cite/{id}/originator", function() {
-        ok(true);
+    asyncTest("GET /api/cite/{id}/originator", function() {
+        var id = "ab-id";
+        $.ajax({
+            type:     "GET",
+            url:      serviceUrl + "cite/" + id + "/originator",
+            dataType: 'json',
+            cache:    false,
+            success:   function (data, textStatus, xhr) {
+                ok(true, "Service responded.");
+                start();
+            },
+            error:     function (xhr, textStatus, errorThrown) {
+                ok(false, "Can't perform Ajax call! " + textStatus + ": " + errorThrown);
+                start();
+            }
+        });
     });
 
-    test("GET /api/cite/random", function() {
-        ok(true);
+    asyncTest("GET /api/cite/random", function() {
+        $.ajax({
+            type:     "GET",
+            url:      serviceUrl + "cite/random",
+            dataType: 'json',
+            cache:    false,
+            success:   function (data, textStatus, xhr) {
+                ok(true, "Service responded.");
+                start();
+            },
+            error:     function (xhr, textStatus, errorThrown) {
+                ok(false, "Can't perform Ajax call! " + textStatus + ": " + errorThrown);
+                start();
+            }
+        });
     });
 
-    test("GET /api/originator/", function() {
-        ok(true);
+    asyncTest("GET /api/originator/", function() {
+        $.ajax({
+            type:     "GET",
+            url:      serviceUrl + "originator/",
+            dataType: 'json',
+            cache:    false,
+            success:   function (data, textStatus, xhr) {
+                ok(true, "Service responded.");
+                start();
+            },
+            error:     function (xhr, textStatus, errorThrown) {
+                ok(false, "Can't perform Ajax call! " + textStatus + ": " + errorThrown);
+                start();
+            }
+        });
     });
 
-    test("PUT /api/originator/", function() {
-        ok(true);
+    asyncTest("PUT /api/originator/", function() {
+        $.ajax({
+            type:     "PUT",
+            url:      serviceUrl + "originator/",
+            dataType: 'json',
+            cache:    false,
+            success:   function (data, textStatus, xhr) {
+                ok(true, "Service responded.");
+                start();
+            },
+            error:     function (xhr, textStatus, errorThrown) {
+                ok(false, "Can't perform Ajax call! " + textStatus + ": " + errorThrown);
+                start();
+            }
+        });
     });
 
-    test("PUT /api/originator/{id}", function() {
-        ok(true);
+    asyncTest("PUT /api/originator/{id}", function() {
+        var id = "an-id";
+        $.ajax({
+            type:     "PUT",
+            url:      serviceUrl + "originator/" + id,
+            dataType: 'json',
+            cache:    false,
+            success:   function (data, textStatus, xhr) {
+                ok(true, "Service responded.");
+                start();
+            },
+            error:     function (xhr, textStatus, errorThrown) {
+                ok(false, "Can't perform Ajax call! " + textStatus + ": " + errorThrown);
+                start();
+            }
+        });
     });
 
-    test("GET /api/originator/{id}", function() {
-        ok(true);
+    asyncTest("GET /api/originator/{id}", function() {
+        var id = "an-id";
+        $.ajax({
+            type:     "GET",
+            url:      serviceUrl + "originator/" + id,
+            dataType: 'json',
+            cache:    false,
+            success:   function (data, textStatus, xhr) {
+                ok(true, "Service responded.");
+                start();
+            },
+            error:     function (xhr, textStatus, errorThrown) {
+                ok(false, "Can't perform Ajax call! " + textStatus + ": " + errorThrown);
+                start();
+            }
+        });
     });
 
-    test("DELETE /api/originator/{id}", function() {
-        ok(true);
+    asyncTest("DELETE /api/originator/{id}", function() {
+        var id = "an-id";
+        $.ajax({
+            type:     "DELETE",
+            url:      serviceUrl + "originator/" + id,
+            dataType: 'json',
+            cache:    false,
+            success:   function (data, textStatus, xhr) {
+                ok(true, "Service responded.");
+                start();
+            },
+            error:     function (xhr, textStatus, errorThrown) {
+                ok(false, "Can't perform Ajax call! " + textStatus + ": " + errorThrown);
+                start();
+            }
+        });
     });
 
-    test("GET /api/originator/{id}/cites", function() {
-        ok(true);
+    asyncTest("GET /api/originator/{id}/cites", function() {
+        var id = "an-id";
+        $.ajax({
+            type:     "GET",
+            url:      serviceUrl + "originator/" + id + "/cites",
+            dataType: 'json',
+            cache:    false,
+            success:   function (data, textStatus, xhr) {
+                ok(true, "Service responded.");
+                start();
+            },
+            error:     function (xhr, textStatus, errorThrown) {
+                ok(false, "Can't perform Ajax call! " + textStatus + ": " + errorThrown);
+                start();
+            }
+        });
     });
 
 })(jQuery);
