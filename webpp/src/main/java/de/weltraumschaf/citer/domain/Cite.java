@@ -13,6 +13,7 @@ public class Cite {
     private String text;
     private Originator originator;
     private DateTime date;
+    private Language language;
 
     public Originator getOriginator() {
         return originator;
