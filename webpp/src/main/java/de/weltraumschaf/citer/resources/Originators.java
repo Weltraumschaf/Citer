@@ -54,7 +54,8 @@ public class Originators {
     @Path("{id}/")
     @Produces(MediaType.APPLICATION_JSON)
     @GET public Originator get(@PathParam("id") String id) throws JSONException {
-        return findById(id);
+        return new Originator();
+//        return findById(id);
     }
 
     @Path("{id}/")

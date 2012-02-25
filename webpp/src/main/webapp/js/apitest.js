@@ -3,14 +3,20 @@
 (function ($) {
     var serviceUrl = window.location.href.replace(/apitest.jsp/i, 'api/');
 
+    $.ajaxSetup({
+        cache:    false,
+        processData:    false,
+        dataType: 'json',
+        accepts: "application/json",
+        contentType: "application/json"
+    });
+
     module("API-Test");
 
     asyncTest("GET /api/cite", function() {
         $.ajax({
             type:     "GET",
             url:      serviceUrl + "cite",
-            dataType: 'json',
-            cache:    false,
             success:   function (data, textStatus, xhr) {
                 ok(true, "Service responded.");
                 start();
@@ -26,8 +32,7 @@
         $.ajax({
             type:     "PUT",
             url:      serviceUrl + "cite",
-            dataType: 'json',
-            cache:    false,
+            data:     JSON.stringify({foo: "bar", baz: 1}),
             success:   function (data, textStatus, xhr) {
                 ok(true, "Service responded.");
                 start();
@@ -44,8 +49,7 @@
         $.ajax({
             type:     "PUT",
             url:      serviceUrl + "cite/" + id,
-            dataType: 'json',
-            cache:    false,
+            data:     JSON.stringify({foo: "bar", baz: 1}),
             success:   function (data, textStatus, xhr) {
                 ok(true, "Service responded.");
                 start();
@@ -62,8 +66,6 @@
         $.ajax({
             type:     "DELETE",
             url:      serviceUrl + "cite/" + id,
-            dataType: 'json',
-            cache:    false,
             success:   function (data, textStatus, xhr) {
                 ok(true, "Service responded.");
                 start();
@@ -76,12 +78,10 @@
     });
 
     asyncTest("GET /api/cite/{id}/originator", function() {
-        var id = "ab-id";
+        var id = "5";
         $.ajax({
             type:     "GET",
-            url:      serviceUrl + "cite/" + id + "/originator",
-            dataType: 'json',
-            cache:    false,
+            url:      serviceUrl + "cite/" + id + "/originator/",
             success:   function (data, textStatus, xhr) {
                 ok(true, "Service responded.");
                 start();
@@ -97,8 +97,6 @@
         $.ajax({
             type:     "GET",
             url:      serviceUrl + "cite/random",
-            dataType: 'json',
-            cache:    false,
             success:   function (data, textStatus, xhr) {
                 ok(true, "Service responded.");
                 start();
@@ -114,8 +112,6 @@
         $.ajax({
             type:     "GET",
             url:      serviceUrl + "originator/",
-            dataType: 'json',
-            cache:    false,
             success:   function (data, textStatus, xhr) {
                 ok(true, "Service responded.");
                 start();
@@ -131,8 +127,7 @@
         $.ajax({
             type:     "PUT",
             url:      serviceUrl + "originator/",
-            dataType: 'json',
-            cache:    false,
+            data:     JSON.stringify({foo: "bar", baz: 1}),
             success:   function (data, textStatus, xhr) {
                 ok(true, "Service responded.");
                 start();
@@ -149,8 +144,7 @@
         $.ajax({
             type:     "PUT",
             url:      serviceUrl + "originator/" + id,
-            dataType: 'json',
-            cache:    false,
+            data:     JSON.stringify({foo: "bar", baz: 1}),
             success:   function (data, textStatus, xhr) {
                 ok(true, "Service responded.");
                 start();
@@ -167,8 +161,6 @@
         $.ajax({
             type:     "GET",
             url:      serviceUrl + "originator/" + id,
-            dataType: 'json',
-            cache:    false,
             success:   function (data, textStatus, xhr) {
                 ok(true, "Service responded.");
                 start();
@@ -185,8 +177,6 @@
         $.ajax({
             type:     "DELETE",
             url:      serviceUrl + "originator/" + id,
-            dataType: 'json',
-            cache:    false,
             success:   function (data, textStatus, xhr) {
                 ok(true, "Service responded.");
                 start();
@@ -203,8 +193,6 @@
         $.ajax({
             type:     "GET",
             url:      serviceUrl + "originator/" + id + "/cites",
-            dataType: 'json',
-            cache:    false,
             success:   function (data, textStatus, xhr) {
                 ok(true, "Service responded.");
                 start();

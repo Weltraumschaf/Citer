@@ -49,6 +49,7 @@ public class Cites {
 
     @Consumes(MediaType.APPLICATION_JSON)
     @PUT public Response create(JSONObject jsonEntity) throws JSONException {
+        System.out.println(jsonEntity.toString());
         return Response.created(uriInfo.getAbsolutePath()).build();
     }
 
@@ -69,10 +70,11 @@ public class Cites {
         return Response.noContent().build();
     }
 
-    @Path("{id}/originator")
+    @Path("{id}/originator/")
     @Produces(MediaType.APPLICATION_JSON)
     @GET public Originator originator(@PathParam("id") String id) {
-        return findById(id).getOriginator();
+        return new Originator();
+//        return findById(id).getOriginator();
     }
 
     @Path("random/")
