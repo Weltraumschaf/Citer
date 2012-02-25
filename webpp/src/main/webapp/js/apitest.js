@@ -4,10 +4,9 @@
     var serviceUrl = window.location.href.replace(/apitest.jsp/i, 'api/');
 
     $.ajaxSetup({
-        cache:    false,
-        processData:    false,
-        dataType: 'json',
-        accepts: "application/json",
+        cache:       false,
+        processData: false,
+        dataType:    "json",
         contentType: "application/json"
     });
 
