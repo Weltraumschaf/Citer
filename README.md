@@ -17,3 +17,8 @@
 /api/originator/{id}       | GET    | Return an originator.
 /api/originator/{id}       | DELETE | Deletes an originator.
 /api/originator/{id}/cites | GET    | Returns an originators cites.
+
+## JS Template Engines
+
+- http://mustache.github.com/
+- http://handlebarsjs.com/
