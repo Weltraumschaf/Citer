@@ -10,6 +10,10 @@
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
+    <listener>
+        <listener-class>de.weltraumschaf.citer.CiterContextListener</listener-class>
+    </listener>
+
     <servlet>
         <servlet-name>ApiResources</servlet-name>
         <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
