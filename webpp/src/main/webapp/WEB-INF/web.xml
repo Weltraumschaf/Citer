@@ -17,7 +17,6 @@
     <servlet>
         <servlet-name>ApiResources</servlet-name>
         <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
-        <load-on-startup>1</load-on-startup>
         <init-param>
             <param-name>com.sun.jersey.config.property.packages</param-name>
             <param-value>de.weltraumschaf.citer.resources</param-value>
@@ -35,6 +34,7 @@
             <param-name>com.sun.jersey.spi.container.ContainerResponseFilters</param-name>
             <param-value>com.sun.jersey.api.container.filter.LoggingFilter</param-value>
         </init-param>-->
+        <load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet-mapping>
