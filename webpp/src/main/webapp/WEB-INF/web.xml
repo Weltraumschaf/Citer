@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <display-name>citer</display-name>
+
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+
     <servlet>
         <servlet-name>ApiResources</servlet-name>
         <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+        <load-on-startup>1</load-on-startup>
         <init-param>
             <param-name>com.sun.jersey.config.property.packages</param-name>
             <param-value>de.weltraumschaf.citer.resources</param-value>
@@ -12,7 +23,7 @@
             <param-value>true</param-value>
         </init-param>
         <!-- debugging -->
-        <!--        <init-param>
+<!--        <init-param>
             <param-name>com.sun.jersey.spi.container.ContainerRequestFilters</param-name>
             <param-value>com.sun.jersey.api.container.filter.LoggingFilter</param-value>
         </init-param>
@@ -20,25 +31,21 @@
             <param-name>com.sun.jersey.spi.container.ContainerResponseFilters</param-name>
             <param-value>com.sun.jersey.api.container.filter.LoggingFilter</param-value>
         </init-param>-->
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet>
-        <servlet-name>AdminServlet</servlet-name>
-        <servlet-class>de.weltraumschaf.citer.servlets.AdminServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
         <servlet-name>ApiResources</servlet-name>
         <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdminServlet</servlet-name>
+        <servlet-class>de.weltraumschaf.citer.servlets.AdminServlet</servlet-class>
+    </servlet>
+
     <servlet-mapping>
         <servlet-name>AdminServlet</servlet-name>
         <url-pattern>/admin/*</url-pattern>
     </servlet-mapping>
 
-    <welcome-file-list>
-        <welcome-file>
-            index.jsp
-        </welcome-file>
-    </welcome-file-list>
 </web-app>
