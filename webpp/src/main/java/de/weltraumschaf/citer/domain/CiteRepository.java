@@ -17,16 +17,17 @@ public class CiteRepository implements Repository<Cite> {
 
     private final GraphDatabaseService graphDb;
     private final Index<Node> index;
-    private final Node citeRefNode;
+    private final Node referenceNode;
 
     public CiteRepository(GraphDatabaseService graphDb, Index<Node> index) {
         this.graphDb = graphDb;
         this.index   = index;
-        citeRefNode  = getRootNode(graphDb);
+        referenceNode  = getRootNode(graphDb);
     }
 
     private Node getRootNode(GraphDatabaseService graphDb) {
-        Relationship rel = graphDb.getReferenceNode().getSingleRelationship(REF_CITES, Direction.OUTGOING);
+        Relationship rel = graphDb.getReferenceNode()
+                                  .getSingleRelationship(REF_CITES, Direction.OUTGOING);
 
         if (null != rel) {
             return rel.getEndNode();
@@ -50,7 +51,7 @@ public class CiteRepository implements Repository<Cite> {
 
         try {
             Node newCiteNode = graphDb.createNode();
-            citeRefNode.createRelationshipTo(newCiteNode, A_CITE);
+            referenceNode.createRelationshipTo(newCiteNode, A_CITE);
 
             for (String paramName : params.keySet()) {
                 newCiteNode.setProperty(paramName, params.get(paramName));
@@ -64,7 +65,6 @@ public class CiteRepository implements Repository<Cite> {
         } finally {
             tx.finish();
         }
-
     }
 
     @Override
@@ -96,7 +96,7 @@ public class CiteRepository implements Repository<Cite> {
 
     @Override
     public Iterable<Cite> getAll() {
-        return new IterableWrapper<Cite, Relationship>(citeRefNode.getRelationships(A_CITE)) {
+        return new IterableWrapper<Cite, Relationship>(referenceNode.getRelationships(A_CITE)) {
             @Override
             protected Cite underlyingObjectToObject(Relationship citeRel) {
                 return new Cite(citeRel.getEndNode());
