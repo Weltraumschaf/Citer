@@ -9,7 +9,7 @@ import org.neo4j.kernel.EmbeddedGraphDatabase;
  * Implements a servlet context listener.
  *
  * Creates and provides an instance of a Neo4j database.
- * 
+ *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  * @license http://www.weltraumschaf.de/the-beer-ware-license.txt THE BEER-WARE LICENSE
  */
@@ -20,8 +20,7 @@ public class CiterContextListener implements ServletContextListener {
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        GraphDatabaseService db = new EmbeddedGraphDatabase(DB_PATH);
-        sce.getServletContext().setAttribute(DB, db);
+        sce.getServletContext().setAttribute(DB, Factory.createGraphDb(DB_PATH));
     }
 
     @Override

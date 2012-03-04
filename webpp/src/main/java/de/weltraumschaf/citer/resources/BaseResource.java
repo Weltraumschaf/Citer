@@ -1,6 +1,7 @@
 package de.weltraumschaf.citer.resources;
 
 import de.weltraumschaf.citer.CiterContextListener;
+import de.weltraumschaf.citer.Factory;
 import de.weltraumschaf.citer.domain.CiteRepository;
 import de.weltraumschaf.citer.domain.OriginatorRepository;
 import javax.servlet.ServletConfig;
@@ -37,7 +38,7 @@ public abstract class BaseResource {
      * @return Returns a repository object to deal with cites.
      */
     protected CiteRepository getCiteRepo() {
-        return new CiteRepository(getGraphDb(), getGraphDb().index().forNodes(CITES_INDEX));
+        return Factory.createCiteRepo(getGraphDb());
     }
 
     /**
@@ -46,6 +47,6 @@ public abstract class BaseResource {
      * @return Returns a repository object to deal with cites.
      */
     protected OriginatorRepository getOriginatorRepo() {
-        return new OriginatorRepository(getGraphDb(), getGraphDb().index().forNodes(ORIGINATOR_INDEX));
+        return Factory.createOriginatorRepo(getGraphDb());
     }
 }
