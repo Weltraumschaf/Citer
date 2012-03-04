@@ -2,8 +2,6 @@ package de.weltraumschaf.citer.resources;
 
 import com.sun.jersey.api.NotFoundException;
 import de.weltraumschaf.citer.domain.Cite;
-import de.weltraumschaf.citer.domain.Data;
-import de.weltraumschaf.citer.domain.Factory;
 import de.weltraumschaf.citer.domain.Originator;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -20,27 +18,15 @@ import org.codehaus.jettison.json.JSONObject;
  * @license http://www.weltraumschaf.de/the-beer-ware-license.txt THE BEER-WARE LICENSE
  */
 @Path("/cite/")
-public class Cites {
-
-    private final Data model = Factory.getModel();
+public class Cites extends BaseResource {
 
     @Context UriInfo uriInfo;
-
-    private Cite findById(String id) {
-        Cite cite = model.getCiteById(id);
-
-        if (null == cite) {
-            throw new NotFoundException(String.format("Can't find cite with id %s.", id));
-        }
-
-        return cite;
-    }
 
     @Produces(MediaType.APPLICATION_JSON)
     @GET public JSONArray allCites() {
         JSONArray cites = new JSONArray();
 
-        for (Cite cite : model.getCites()) {
+        for (Cite cite : getCiteRepo().getAllCites()) {
             cites.put(uriInfo.getAbsolutePath() + cite.getId());
         }
 
@@ -56,7 +42,11 @@ public class Cites {
     @Path("{id}/")
     @Produces(MediaType.APPLICATION_JSON)
     @GET public Cite get(@PathParam("id") String id) throws JSONException {
-        return findById(id);
+        try {
+            return getCiteRepo().getCiteById(id);
+        } catch (IllegalArgumentException iae) {
+            throw new NotFoundException(String.format("Can't find cite with id %s.", id));
+        }
     }
 
     @Path("{id}/")
@@ -73,8 +63,11 @@ public class Cites {
     @Path("{id}/originator/")
     @Produces(MediaType.APPLICATION_JSON)
     @GET public Originator originator(@PathParam("id") String id) {
-        return new Originator();
-//        return findById(id).getOriginator();
+        try {
+            return getCiteRepo().getCiteById(id).getOriginator();
+        } catch (IllegalArgumentException iae) {
+            throw new NotFoundException(String.format("Can't find cite with id %s.", id));
+        }
     }
 
     @Path("random/")

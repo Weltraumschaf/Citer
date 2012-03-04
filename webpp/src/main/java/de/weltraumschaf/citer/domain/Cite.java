@@ -14,7 +14,7 @@ public class Cite {
     public static final String ID = "id";
 
     private final Node underlyingNode;
-    private Originator originator;
+    private Originator originator = new Originator();;
     private DateTime date;
     private Language language;
 
