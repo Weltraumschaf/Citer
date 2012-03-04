@@ -1,8 +1,6 @@
 package de.weltraumschaf.citer.resources;
 
 import de.weltraumschaf.citer.domain.Cite;
-import de.weltraumschaf.citer.domain.Data;
-import de.weltraumschaf.citer.domain.Factory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;

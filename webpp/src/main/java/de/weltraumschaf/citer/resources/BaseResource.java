@@ -8,20 +8,33 @@ import javax.ws.rs.core.Context;
 import org.neo4j.graphdb.GraphDatabaseService;
 
 /**
+ * Base resource providing resources to resource classes.
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  * @license http://www.weltraumschaf.de/the-beer-ware-license.txt THE BEER-WARE LICENSE
  */
 public abstract class BaseResource {
 
+    private static final String CITES_INDEX = "cites";
+
     @Context ServletConfig config;
 
+    /**
+     * Getter for neo4j graph database.
+     *
+     * @return Returns a neo4j embedded graph database.
+     */
     protected GraphDatabaseService getGraphDb() {
         ServletContext context = config.getServletContext();
         return (GraphDatabaseService)context.getAttribute(CiterContextListener.DB);
     }
 
+    /**
+     * Getter for the cite domain repository.
+     *
+     * @return Returns a repository object to deal with cites.
+     */
     protected CiteRepository getCiteRepo() {
-        return new CiteRepository(getGraphDb(), null);
+        return new CiteRepository(getGraphDb(), getGraphDb().index().forNodes(CITES_INDEX));
     }
 }

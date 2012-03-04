@@ -24,7 +24,7 @@ public class CiteRepository {
     }
 
     private Node getCiteRootNode(GraphDatabaseService graphDb) {
-        Relationship rel = graphDb.getReferenceNode().getSingleRelationship(REF_CITES, Direction.OUTGOING );
+        Relationship rel = graphDb.getReferenceNode().getSingleRelationship(REF_CITES, Direction.OUTGOING);
 
         if (null != rel) {
             return rel.getEndNode();
@@ -52,14 +52,6 @@ public class CiteRepository {
         try {
             Node newCiteNode = graphDb.createNode();
             citeRefNode.createRelationshipTo(newCiteNode, A_CITE);
-            // lock now taken, we can check if  already exist in index
-            Node alreadyExist = index.get(Cite.TEXT, text).getSingle();
-
-            if (alreadyExist != null) {
-                tx.failure();
-                throw new Exception("Cite with this text already exists!");
-            }
-
             String id = UUID.randomUUID().toString();
             newCiteNode.setProperty(Cite.TEXT, text);
             newCiteNode.setProperty(Cite.ID, id);
