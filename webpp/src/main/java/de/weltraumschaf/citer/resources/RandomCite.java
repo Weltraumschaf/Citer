@@ -21,7 +21,7 @@ public class RandomCite extends BaseResource {
 
     public Cite getRandomCite() {
         // @todo Return collection instead of iterator.
-        Iterable<Cite> cites = getCiteRepo().getAllCites();
+        Iterable<Cite> cites = getCiteRepo().getAll();
         List<Cite> l = new ArrayList<Cite>();
 
         for (Cite c : cites){

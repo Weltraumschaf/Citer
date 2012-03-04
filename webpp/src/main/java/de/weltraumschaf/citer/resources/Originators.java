@@ -25,7 +25,7 @@ public class Originators extends BaseResource {
     @GET public JSONArray allOriginators() {
         JSONArray originators = new JSONArray();
 
-        for (Originator originator : getOriginatorRepo().getAllOriginators()) {
+        for (Originator originator : getOriginatorRepo().getAll()) {
             originators.put(uriInfo.getAbsolutePath() + originator.getId());
         }
 
@@ -41,7 +41,7 @@ public class Originators extends BaseResource {
     @Produces(MediaType.APPLICATION_JSON)
     @GET public Originator get(@PathParam("id") String id) throws JSONException {
         try {
-            return getOriginatorRepo().getOriginatorById(id);
+            return getOriginatorRepo().findById(id);
         } catch (IllegalArgumentException iae) {
             throw new NotFoundException(String.format("Can't find originator with id %s.", id));
         }

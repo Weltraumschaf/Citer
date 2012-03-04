@@ -26,7 +26,7 @@ public class Cites extends BaseResource {
     @GET public JSONArray allCites() {
         JSONArray cites = new JSONArray();
 
-        for (Cite cite : getCiteRepo().getAllCites()) {
+        for (Cite cite : getCiteRepo().getAll()) {
             cites.put(uriInfo.getAbsolutePath() + cite.getId());
         }
 
@@ -43,7 +43,7 @@ public class Cites extends BaseResource {
     @Produces(MediaType.APPLICATION_JSON)
     @GET public Cite get(@PathParam("id") String id) throws JSONException {
         try {
-            return getCiteRepo().getCiteById(id);
+            return getCiteRepo().findById(id);
         } catch (IllegalArgumentException iae) {
             throw new NotFoundException(String.format("Can't find cite with id %s.", id));
         }
@@ -64,7 +64,7 @@ public class Cites extends BaseResource {
     @Produces(MediaType.APPLICATION_JSON)
     @GET public Originator originator(@PathParam("id") String id) {
         try {
-            return getCiteRepo().getCiteById(id).getOriginator();
+            return getCiteRepo().findById(id).getOriginator();
         } catch (IllegalArgumentException iae) {
             throw new NotFoundException(String.format("Can't find cite with id %s.", id));
         }

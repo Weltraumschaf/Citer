@@ -9,7 +9,7 @@ import org.neo4j.graphdb.index.Index;
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  * @license http://www.weltraumschaf.de/the-beer-ware-license.txt THE BEER-WARE LICENSE
  */
-public class OriginatorRepository {
+public class OriginatorRepository implements Repository<Originator> {
 
     private final GraphDatabaseService graphDb;
     private final Index<Node> index;
@@ -18,26 +18,29 @@ public class OriginatorRepository {
     public OriginatorRepository(GraphDatabaseService graphDb, Index<Node> index) {
         this.graphDb      = graphDb;
         this.index        = index;
-        originatorRefNode = getOriginatorRootNode(graphDb);
+        originatorRefNode = getRootNode(graphDb);
     }
 
-    private Node getOriginatorRootNode(GraphDatabaseService graphDb) {
+    private Node getRootNode(GraphDatabaseService graphDb) {
         return null;
     }
 
-    public Originator createCite(String name) throws Exception {
+    public Originator create(String name) throws Exception {
         return null;
     }
 
-    public Originator getOriginatorById(String id) {
+    @Override
+    public Originator findById(String id) {
         return null;
     }
 
-    public void deleteCite(Originator originator) {
+    @Override
+    public void delete(Originator originator) {
 
     }
 
-    public Iterable<Originator> getAllOriginators() {
+    @Override
+    public Iterable<Originator> getAll() {
         return null;
     }
 }

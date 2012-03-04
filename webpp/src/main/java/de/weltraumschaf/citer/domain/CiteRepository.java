@@ -12,7 +12,8 @@ import org.neo4j.helpers.collection.IterableWrapper;
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  * @license http://www.weltraumschaf.de/the-beer-ware-license.txt THE BEER-WARE LICENSE
  */
-public class CiteRepository {
+public class CiteRepository implements Repository<Cite> {
+
     private final GraphDatabaseService graphDb;
     private final Index<Node> index;
     private final Node citeRefNode;
@@ -20,10 +21,10 @@ public class CiteRepository {
     public CiteRepository(GraphDatabaseService graphDb, Index<Node> index) {
         this.graphDb = graphDb;
         this.index   = index;
-        citeRefNode  = getCiteRootNode(graphDb);
+        citeRefNode  = getRootNode(graphDb);
     }
 
-    private Node getCiteRootNode(GraphDatabaseService graphDb) {
+    private Node getRootNode(GraphDatabaseService graphDb) {
         Relationship rel = graphDb.getReferenceNode().getSingleRelationship(REF_CITES, Direction.OUTGOING);
 
         if (null != rel) {
@@ -42,7 +43,7 @@ public class CiteRepository {
         }
     }
 
-    public Cite createCite(String text, Originator originator) throws Exception {
+    public Cite create(String text, Originator originator) {
         /*
          * To guard against duplications we use the lock grabbed on ref node
          * when creating a relationship and are optimistic about person not existing.
@@ -64,7 +65,8 @@ public class CiteRepository {
 
     }
 
-    public Cite getCiteById(String id) {
+    @Override
+    public Cite findById(String id) {
         Node citeNode = index.get(Cite.ID, id).getSingle();
 
         if (null == citeNode) {
@@ -74,7 +76,8 @@ public class CiteRepository {
         return new Cite(citeNode);
     }
 
-    public void deleteCite(Cite cite) {
+    @Override
+    public void delete(Cite cite) {
         Transaction tx = graphDb.beginTx();
 
         try {
@@ -89,7 +92,8 @@ public class CiteRepository {
         }
     }
 
-    public Iterable<Cite> getAllCites() {
+    @Override
+    public Iterable<Cite> getAll() {
         return new IterableWrapper<Cite, Relationship>(citeRefNode.getRelationships(A_CITE)) {
             @Override
             protected Cite underlyingObjectToObject(Relationship citeRel) {
