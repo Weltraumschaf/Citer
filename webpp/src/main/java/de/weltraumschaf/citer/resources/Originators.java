@@ -40,11 +40,13 @@ public class Originators extends BaseResource {
     @Path("{id}/")
     @Produces(MediaType.APPLICATION_JSON)
     @GET public Originator get(@PathParam("id") String id) throws JSONException {
-        try {
-            return getOriginatorRepo().findById(id);
-        } catch (IllegalArgumentException iae) {
+        Originator originator = getOriginatorRepo().findById(id);
+
+        if (null == originator) {
             throw new NotFoundException(String.format("Can't find originator with id %s.", id));
         }
+
+        return originator;
     }
 
     @Path("{id}/")

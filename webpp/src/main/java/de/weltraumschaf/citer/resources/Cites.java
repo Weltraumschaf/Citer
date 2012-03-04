@@ -42,11 +42,13 @@ public class Cites extends BaseResource {
     @Path("{id}/")
     @Produces(MediaType.APPLICATION_JSON)
     @GET public Cite get(@PathParam("id") String id) throws JSONException {
-        try {
-            return getCiteRepo().findById(id);
-        } catch (IllegalArgumentException iae) {
+        Cite cite =  getCiteRepo().findById(id);
+
+        if (null == cite) {
             throw new NotFoundException(String.format("Can't find cite with id %s.", id));
         }
+
+        return cite;
     }
 
     @Path("{id}/")
@@ -63,11 +65,14 @@ public class Cites extends BaseResource {
     @Path("{id}/originator/")
     @Produces(MediaType.APPLICATION_JSON)
     @GET public Originator originator(@PathParam("id") String id) {
-        try {
-            return getCiteRepo().findById(id).getOriginator();
-        } catch (IllegalArgumentException iae) {
+        Cite cite =  getCiteRepo().findById(id);
+
+        if (null == cite) {
             throw new NotFoundException(String.format("Can't find cite with id %s.", id));
         }
+
+
+        return cite.getOriginator();
     }
 
     @Path("random/")

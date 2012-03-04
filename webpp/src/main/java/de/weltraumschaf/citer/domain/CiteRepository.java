@@ -72,7 +72,7 @@ public class CiteRepository implements Repository<Cite> {
         Node citeNode = index.get(Cite.ID, id).getSingle();
 
         if (null == citeNode) {
-            throw new IllegalArgumentException( "Cite[" + id + "] not found!");
+            return null;
         }
 
         return new Cite(citeNode);
