@@ -1,9 +1,8 @@
 package de.weltraumschaf.citer.resources;
 
-import de.weltraumschaf.citer.domain.DbProvider;
 import de.weltraumschaf.citer.util.Html5;
 import java.util.Enumeration;
-import javax.servlet.ServletConfig;
+import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -18,9 +17,10 @@ import org.neo4j.graphdb.GraphDatabaseService;
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  * @license http://www.weltraumschaf.de/the-beer-ware-license.txt THE BEER-WARE LICENSE
  */
-@Path("/") public class Index {
+@Path("/") public class Index extends BaseResource {
 
-    @Context ServletConfig config;
+    private static final Logger LOGGER = Logger.getLogger(Index.class.getName());
+
     @Context UriInfo uriInfo;
 
     @Produces(MediaType.TEXT_PLAIN)
@@ -94,13 +94,19 @@ import org.neo4j.graphdb.GraphDatabaseService;
         }
 
         html.append("</pre>");
+
         return html.toString();
     }
 
     @Produces(MediaType.TEXT_PLAIN)
     @Path("neo4j")
     @GET public String neo4j() {
-        GraphDatabaseService db = DbProvider.get();
-        return "";
+        GraphDatabaseService db = getGraphDb();
+
+        if (null == db) {
+            return "Does not have graph db!";
+        }
+
+        return db.toString();
     }
 }
