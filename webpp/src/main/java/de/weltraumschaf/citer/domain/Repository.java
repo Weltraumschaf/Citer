@@ -1,5 +1,7 @@
 package de.weltraumschaf.citer.domain;
 
+import java.util.Map;
+
 /**
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
@@ -7,6 +9,7 @@ package de.weltraumschaf.citer.domain;
  */
 public interface Repository<E> {
 
+    public E create(Map<String, Object> params);
     public E findById(String id);
     public void delete(E entity);
     public Iterable<E> getAll();

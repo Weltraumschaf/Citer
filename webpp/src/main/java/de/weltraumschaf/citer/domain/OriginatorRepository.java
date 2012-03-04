@@ -1,5 +1,6 @@
 package de.weltraumschaf.citer.domain;
 
+import java.util.Map;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.index.Index;
@@ -25,7 +26,8 @@ public class OriginatorRepository implements Repository<Originator> {
         return null;
     }
 
-    public Originator create(String name) throws Exception {
+    @Override
+    public Originator create(Map<String, Object> params) {
         return null;
     }
 

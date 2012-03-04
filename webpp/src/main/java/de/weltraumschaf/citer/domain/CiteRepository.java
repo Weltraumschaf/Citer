@@ -2,6 +2,7 @@ package de.weltraumschaf.citer.domain;
 
 import static de.weltraumschaf.citer.domain.RelTypes.A_CITE;
 import static de.weltraumschaf.citer.domain.RelTypes.REF_CITES;
+import java.util.Map;
 import java.util.UUID;
 import org.neo4j.graphdb.*;
 import org.neo4j.graphdb.index.Index;
@@ -43,18 +44,19 @@ public class CiteRepository implements Repository<Cite> {
         }
     }
 
-    public Cite create(String text, Originator originator) {
-        /*
-         * To guard against duplications we use the lock grabbed on ref node
-         * when creating a relationship and are optimistic about person not existing.
-         */
+    @Override
+    public Cite create(Map<String, Object> params) {
         Transaction tx = graphDb.beginTx();
 
         try {
             Node newCiteNode = graphDb.createNode();
             citeRefNode.createRelationshipTo(newCiteNode, A_CITE);
+
+            for (String paramName : params.keySet()) {
+                newCiteNode.setProperty(paramName, params.get(paramName));
+            }
+
             String id = UUID.randomUUID().toString();
-            newCiteNode.setProperty(Cite.TEXT, text);
             newCiteNode.setProperty(Cite.ID, id);
             index.add(newCiteNode, Cite.ID, id);
             tx.success();
