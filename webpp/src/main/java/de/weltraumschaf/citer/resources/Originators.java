@@ -1,9 +1,6 @@
 package de.weltraumschaf.citer.resources;
 
 import com.sun.jersey.api.NotFoundException;
-import de.weltraumschaf.citer.domain.Cite;
-import de.weltraumschaf.citer.domain.Data;
-import de.weltraumschaf.citer.domain.Factory;
 import de.weltraumschaf.citer.domain.Originator;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
@@ -20,26 +17,15 @@ import org.codehaus.jettison.json.JSONObject;
  * @license http://www.weltraumschaf.de/the-beer-ware-license.txt THE BEER-WARE LICENSE
  */
 @Path("/originator/")
-public class Originators {
+public class Originators extends BaseResource {
 
-    private final Data model = Factory.getModel();
     @Context UriInfo uriInfo;
-
-    private Originator findById(String id) {
-        Originator originator = model.getOriginatorById(id);
-
-        if (null == originator) {
-            throw new NotFoundException(String.format("Can't find originator with id %s.", id));
-        }
-
-        return originator;
-    }
 
     @Produces(MediaType.APPLICATION_JSON)
     @GET public JSONArray allOriginators() {
         JSONArray originators = new JSONArray();
 
-        for (Originator originator : model.getOriginators().values()) {
+        for (Originator originator : getOriginatorRepo().getAllOriginators()) {
             originators.put(uriInfo.getAbsolutePath() + originator.getId());
         }
 
@@ -54,8 +40,11 @@ public class Originators {
     @Path("{id}/")
     @Produces(MediaType.APPLICATION_JSON)
     @GET public Originator get(@PathParam("id") String id) throws JSONException {
-        return new Originator();
-//        return findById(id);
+        try {
+            return getOriginatorRepo().getOriginatorById(id);
+        } catch (IllegalArgumentException iae) {
+            throw new NotFoundException(String.format("Can't find originator with id %s.", id));
+        }
     }
 
     @Path("{id}/")

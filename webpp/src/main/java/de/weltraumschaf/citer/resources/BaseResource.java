@@ -2,6 +2,7 @@ package de.weltraumschaf.citer.resources;
 
 import de.weltraumschaf.citer.CiterContextListener;
 import de.weltraumschaf.citer.domain.CiteRepository;
+import de.weltraumschaf.citer.domain.OriginatorRepository;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.ws.rs.core.Context;
@@ -16,6 +17,7 @@ import org.neo4j.graphdb.GraphDatabaseService;
 public abstract class BaseResource {
 
     private static final String CITES_INDEX = "cites";
+    private static final String ORIGINATOR_INDEX = "originators";
 
     @Context ServletConfig config;
 
@@ -36,5 +38,14 @@ public abstract class BaseResource {
      */
     protected CiteRepository getCiteRepo() {
         return new CiteRepository(getGraphDb(), getGraphDb().index().forNodes(CITES_INDEX));
+    }
+
+    /**
+     * Getter for the cite domain repository.
+     *
+     * @return Returns a repository object to deal with cites.
+     */
+    protected OriginatorRepository getOriginatorRepo() {
+        return new OriginatorRepository(getGraphDb(), getGraphDb().index().forNodes(ORIGINATOR_INDEX));
     }
 }
