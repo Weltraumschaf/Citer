@@ -25,6 +25,12 @@
     </repositories>
 
     <dependencies>
+        <dependency>
+            <groupId>org.neo4j</groupId>
+            <artifactId>neo4j</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+
         <!-- provided at runtime by servlet container -->
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -78,11 +84,6 @@
         </dependency>
 
         <!-- other -->
-        <dependency>
-            <groupId>org.neo4j</groupId>
-            <artifactId>neo4j</artifactId>
-            <version>1.6.1</version>
-        </dependency>
         <dependency>
             <groupId>joda-time</groupId>
             <artifactId>joda-time</artifactId>
