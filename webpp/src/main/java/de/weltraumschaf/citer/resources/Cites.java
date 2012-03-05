@@ -86,7 +86,15 @@ public class Cites extends BaseResource {
 
     @Path("{id}/")
     @DELETE public Response delete(@PathParam("id") String id) {
-        return Response.noContent().build();
+        Cite cite =  getCiteRepo().findById(id);
+
+        if (null == cite) {
+            throw new NotFoundException(String.format("Can't find cite with id %s.", id));
+        }
+
+        getCiteRepo().delete(cite);
+        return Response.noContent()
+                       .build();
     }
 
     @Path("{id}/originator/")
