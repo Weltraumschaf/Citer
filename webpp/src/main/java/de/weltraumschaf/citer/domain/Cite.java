@@ -15,7 +15,7 @@ public class Cite extends NodeEntity {
 
     public static final String TEXT = "text";
 
-    private Originator originator = new Originator(null);
+    private Originator originator;
     private DateTime date;
     private Language language;
 
@@ -23,6 +23,7 @@ public class Cite extends NodeEntity {
         super(underlyingNode);
     }
 
+	@XmlTransient
     public Originator getOriginator() {
         return originator;
     }
