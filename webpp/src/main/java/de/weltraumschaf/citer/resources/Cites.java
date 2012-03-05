@@ -3,6 +3,9 @@ package de.weltraumschaf.citer.resources;
 import com.sun.jersey.api.NotFoundException;
 import de.weltraumschaf.citer.domain.Cite;
 import de.weltraumschaf.citer.domain.Originator;
+import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -27,7 +30,10 @@ public class Cites extends BaseResource {
         JSONArray cites = new JSONArray();
 
         for (Cite cite : getCiteRepo().getAll()) {
-            cites.put(uriInfo.getAbsolutePath() + cite.getId());
+            URI citeUri = uriInfo.getAbsolutePathBuilder()
+                              .path(cite.getId())
+                              .build();
+            cites.put(citeUri.toString());
         }
 
         return cites;
@@ -35,8 +41,16 @@ public class Cites extends BaseResource {
 
     @Consumes(MediaType.APPLICATION_JSON)
     @PUT public Response create(JSONObject jsonEntity) throws JSONException {
-        System.out.println(jsonEntity.toString());
-        return Response.created(uriInfo.getAbsolutePath()).build();
+        String text = jsonEntity.getString("text");
+//        String name = jsonEntity.getString("name");
+        Map params = new HashMap<String, Object>();
+        params.put(Cite.TEXT, text);
+        Cite newCite = getCiteRepo().create(params);
+
+        URI citeUri = uriInfo.getAbsolutePathBuilder()
+                              .path(newCite.getId())
+                              .build();
+        return Response.created(citeUri).build();
     }
 
     @Path("{id}/")
