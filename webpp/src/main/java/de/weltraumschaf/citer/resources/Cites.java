@@ -50,7 +50,8 @@ public class Cites extends BaseResource {
         URI citeUri = uriInfo.getAbsolutePathBuilder()
                               .path(newCite.getId())
                               .build();
-        return Response.created(citeUri).build();
+        return Response.created(citeUri)
+                       .build();
     }
 
     @Path("{id}/")
@@ -67,8 +68,20 @@ public class Cites extends BaseResource {
 
     @Path("{id}/")
     @Consumes(MediaType.APPLICATION_JSON)
-    @PUT public Response update(JSONObject jsonEntity) throws JSONException {
-        return Response.noContent().build();
+    @PUT public Response update(@PathParam("id") String id, JSONObject jsonEntity) throws JSONException {
+        String text = jsonEntity.getString("text");
+        Cite cite   =  getCiteRepo().findById(id);
+
+        if (null == cite) {
+            throw new NotFoundException(String.format("Can't find cite with id %s.", id));
+        }
+
+        cite.setText(text);
+        URI citeUri = uriInfo.getAbsolutePathBuilder()
+                              .path(cite.getId())
+                              .build();
+        return Response.created(citeUri)
+                       .build();
     }
 
     @Path("{id}/")

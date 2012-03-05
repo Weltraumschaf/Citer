@@ -42,16 +42,19 @@ public class Cite extends NodeEntity {
     }
 
     public String getText() {
-        return (String)getUnderlyingNode().getProperty(TEXT);
+        return (String)getProperty(TEXT);
     }
 
     public void setText(String text) {
-        getUnderlyingNode().setProperty(TEXT, text);
+        setProperty(TEXT, text);
     }
 
     @Override
     public String toString() {
-        return String.format("Cite:\nid: %s\ntext: %s\ndate: %s\ncreator: %s\n", getId(), getText(), date, originator);
+        return String.format(
+            "Cite:\nid: %s\ntext: %s\ndate: %s\ncreator: %s\n",
+            getId(), getText(), date, originator
+        );
     }
 
 }

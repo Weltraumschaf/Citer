@@ -22,11 +22,11 @@ public class Originator extends NodeEntity {
     }
 
     public String getName() {
-        return (String)getUnderlyingNode().getProperty(NAME);
+        return (String)getProperty(NAME);
     }
 
     public void setName(String name) {
-        getUnderlyingNode().setProperty(NAME, name);
+        setProperty(NAME, name);
     }
 
     @XmlTransient
