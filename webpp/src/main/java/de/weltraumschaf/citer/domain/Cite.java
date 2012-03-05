@@ -1,5 +1,7 @@
 package de.weltraumschaf.citer.domain;
 
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 import org.joda.time.DateTime;
 import org.neo4j.graphdb.Node;
 
@@ -8,22 +10,17 @@ import org.neo4j.graphdb.Node;
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  * @license http://www.weltraumschaf.de/the-beer-ware-license.txt THE BEER-WARE LICENSE
  */
-public class Cite {
+@XmlRootElement
+public class Cite extends NodeEntity {
 
     public static final String TEXT = "text";
-    public static final String ID = "id";
 
-    private final Node underlyingNode;
     private Originator originator = new Originator(null);
     private DateTime date;
     private Language language;
 
     public Cite(Node underlyingNode) {
-        this.underlyingNode = underlyingNode;
-    }
-
-    public Node getUnderlyingNode() {
-        return underlyingNode;
+        super(underlyingNode);
     }
 
     public Originator getOriginator() {
@@ -34,6 +31,7 @@ public class Cite {
         this.originator = originator;
     }
 
+    @XmlTransient
     public DateTime getDate() {
         return date;
     }
@@ -42,20 +40,12 @@ public class Cite {
         this.date = date;
     }
 
-    public String getId() {
-        return (String)underlyingNode.getProperty(ID);
-    }
-
-    public void setId(String id) {
-        underlyingNode.setProperty(ID, id);
-    }
-
     public String getText() {
-        return (String)underlyingNode.getProperty(TEXT);
+        return (String)getUnderlyingNode().getProperty(TEXT);
     }
 
     public void setText(String text) {
-        underlyingNode.setProperty(TEXT, text);
+        getUnderlyingNode().setProperty(TEXT, text);
     }
 
     @Override
