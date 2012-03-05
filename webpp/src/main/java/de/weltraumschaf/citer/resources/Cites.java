@@ -30,10 +30,10 @@ public class Cites extends BaseResource {
         JSONArray cites = new JSONArray();
 
         for (Cite cite : getCiteRepo().getAll()) {
-            URI citeUri = uriInfo.getAbsolutePathBuilder()
-                              .path(cite.getId())
-                              .build();
-            cites.put(citeUri.toString());
+            URI uri = uriInfo.getAbsolutePathBuilder()
+                             .path(cite.getId())
+                             .build();
+            cites.put(uri.toString());
         }
 
         return cites;
@@ -47,10 +47,10 @@ public class Cites extends BaseResource {
         params.put(Cite.TEXT, text);
         Cite newCite = getCiteRepo().create(params);
 
-        URI citeUri = uriInfo.getAbsolutePathBuilder()
-                              .path(newCite.getId())
-                              .build();
-        return Response.created(citeUri)
+        URI uri = uriInfo.getAbsolutePathBuilder()
+                         .path(newCite.getId())
+                         .build();
+        return Response.created(uri)
                        .build();
     }
 
@@ -77,10 +77,10 @@ public class Cites extends BaseResource {
         }
 
         cite.setText(text);
-        URI citeUri = uriInfo.getAbsolutePathBuilder()
-                              .path(cite.getId())
-                              .build();
-        return Response.created(citeUri)
+        URI uri = uriInfo.getAbsolutePathBuilder()
+                         .path(cite.getId())
+                         .build();
+        return Response.created(uri)
                        .build();
     }
 

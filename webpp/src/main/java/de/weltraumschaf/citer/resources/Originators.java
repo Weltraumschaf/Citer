@@ -2,6 +2,9 @@ package de.weltraumschaf.citer.resources;
 
 import com.sun.jersey.api.NotFoundException;
 import de.weltraumschaf.citer.domain.Originator;
+import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -26,7 +29,10 @@ public class Originators extends BaseResource {
         JSONArray originators = new JSONArray();
 
         for (Originator originator : getOriginatorRepo().getAll()) {
-            originators.put(uriInfo.getAbsolutePath() + originator.getId());
+            URI uri = uriInfo.getAbsolutePathBuilder()
+                             .path(originator.getId())
+                             .build();
+            originators.put(uri.toString());
         }
 
         return originators;
@@ -34,7 +40,16 @@ public class Originators extends BaseResource {
 
     @Consumes(MediaType.APPLICATION_JSON)
     @PUT public Response create(JSONObject jsonEntity) throws JSONException {
-        return Response.created(uriInfo.getAbsolutePath()).build();
+        String name = jsonEntity.getString("name");
+        Map params  = new HashMap<String, Object>();
+        params.put(Originator.NAME, name);
+        Originator newOriginator = getOriginatorRepo().create(params);
+
+        URI uri = uriInfo.getAbsolutePathBuilder()
+                         .path(newOriginator.getId())
+                         .build();
+        return Response.created(uri)
+                       .build();
     }
 
     @Path("{id}/")
@@ -51,13 +66,34 @@ public class Originators extends BaseResource {
 
     @Path("{id}/")
     @Consumes(MediaType.APPLICATION_JSON)
-    @PUT public Response update(JSONObject jsonEntity) throws JSONException {
-        return Response.noContent().build();
+    @PUT public Response update(@PathParam("id") String id, JSONObject jsonEntity) throws JSONException {
+        String name = jsonEntity.getString("name");
+
+        Originator originator = getOriginatorRepo().findById(id);
+
+        if (null == originator) {
+            throw new NotFoundException(String.format("Can't find originator with id %s.", id));
+        }
+
+        originator.setName(name);
+        URI uri = uriInfo.getAbsolutePathBuilder()
+                         .path(originator.getId())
+                         .build();
+        return Response.created(uri)
+                       .build();
     }
 
     @Path("{id}/")
     @DELETE public Response delete(@PathParam("id") String id) {
-        return Response.noContent().build();
+        Originator originator = getOriginatorRepo().findById(id);
+
+        if (null == originator) {
+            throw new NotFoundException(String.format("Can't find originator with id %s.", id));
+        }
+
+        getOriginatorRepo().delete(originator);
+        return Response.noContent()
+                       .build();
     }
 
     @Path("{id}/cites")
