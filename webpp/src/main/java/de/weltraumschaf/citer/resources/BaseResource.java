@@ -58,7 +58,7 @@ public abstract class BaseResource {
         return new DateTime();
     }
 
-    protected Response createError(String message) {
+    protected Response createErrorResponse(String message) {
         return Response.serverError()
                        .entity(message)
                        .build();
@@ -71,6 +71,6 @@ public abstract class BaseResource {
 
     protected void raiseMissingPropertyError(String name) throws WebApplicationException {
         String message = String.format("Property '%s' missing!", name);
-        throw new WebApplicationException(createError(message));
+        throw new WebApplicationException(createErrorResponse(message));
     }
 }

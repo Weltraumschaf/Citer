@@ -9,7 +9,7 @@ import java.util.Map;
  */
 public interface Repository<E> {
 
-    public E create(Map<String, Object> params);
+    public E create(Map<String, Object> params) throws Exception;
     public E findById(String id);
     public void delete(E entity);
     public Iterable<E> getAll();

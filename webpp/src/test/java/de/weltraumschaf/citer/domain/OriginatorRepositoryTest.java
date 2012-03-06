@@ -25,7 +25,7 @@ public class OriginatorRepositoryTest extends NeoBase {
         stopDb();
     }
 
-    @Test public void createFindAndDeleteOriginator() {
+    @Test public void createFindAndDeleteOriginator() throws Exception {
         OriginatorRepository repo = Factory.createOriginatorRepo(db());
         String name = "Sven Strittmatter";
         Map<String, Object> params = new HashMap<String, Object>();

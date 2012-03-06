@@ -49,7 +49,13 @@ public class Originators extends BaseResource {
         String now = now().toString();
         params.put(Originator.DATE_CREATED, now);
         params.put(Originator.DATE_UPDATED, now);
-        Originator newOriginator = getOriginatorRepo().create(params);
+        Originator newOriginator;
+
+        try {
+            newOriginator = getOriginatorRepo().create(params);
+        } catch (Exception e) {
+            return createErrorResponse(e.getMessage());
+        }
 
         URI uri = uriInfo.getAbsolutePathBuilder()
                          .path(newOriginator.getId())

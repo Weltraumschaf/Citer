@@ -14,8 +14,9 @@ import org.neo4j.kernel.EmbeddedGraphDatabase;
  */
 public class Factory {
 
-    private static final String CITES_INDEX = "cites";
-    private static final String ORIGINATOR_INDEX = "originators";
+    private static final String CITES_BY_ID = "citesById";
+    private static final String ORIGINATOR_BY_ID = "originatorsById";
+    private static final String ORIGINATOR_BY_NAME = "originatorsByName";
 
     public static GraphDatabaseService createGraphDb(String path) {
         return new EmbeddedGraphDatabase(path);
@@ -26,10 +27,14 @@ public class Factory {
     }
 
     public static CiteRepository createCiteRepo(GraphDatabaseService db) {
-        return new CiteRepository(db, createNodeIndex(db, CITES_INDEX));
+        return new CiteRepository(db, createNodeIndex(db, CITES_BY_ID));
     }
 
     public static OriginatorRepository createOriginatorRepo(GraphDatabaseService db) {
-        return new OriginatorRepository(db, createNodeIndex(db, ORIGINATOR_INDEX));
+        return new OriginatorRepository(
+            db,
+            createNodeIndex(db, ORIGINATOR_BY_ID),
+            createNodeIndex(db, ORIGINATOR_BY_NAME)
+        );
     }
 }
