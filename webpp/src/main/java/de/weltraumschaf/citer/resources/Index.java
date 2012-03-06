@@ -1,7 +1,9 @@
 package de.weltraumschaf.citer.resources;
 
 import de.weltraumschaf.citer.util.Html5;
+import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.List;
 import java.util.logging.Logger;
 import javax.servlet.ServletContext;
 import javax.ws.rs.GET;
@@ -20,15 +22,26 @@ import org.neo4j.graphdb.GraphDatabaseService;
 @Path("/") public class Index extends BaseResource {
 
     private static final Logger LOGGER = Logger.getLogger(Index.class.getName());
+    private static final List<String> PATHS = Arrays.asList("cite", "originator", "test", "neo4j");
 
     @Context UriInfo uriInfo;
+
+    private String generateUri(String path) {
+        return uriInfo.getAbsolutePathBuilder()
+                      .path(path)
+                      .build()
+                      .toString();
+    }
 
     @Produces(MediaType.TEXT_PLAIN)
     @GET public String indexAsPlain() {
         StringBuilder links = new StringBuilder();
-        links.append(uriInfo.getBaseUri().toString()).append("cite").append('\n');
-        links.append(uriInfo.getBaseUri().toString()).append("test").append('\n');
-        links.append(uriInfo.getBaseUri().toString()).append("neo4j");
+
+        for (String path : PATHS) {
+            links.append(generateUri(path))
+                 .append('\n');
+        }
+
         return links.toString();
     }
 
@@ -36,14 +49,15 @@ import org.neo4j.graphdb.GraphDatabaseService;
     @GET public String indexAsHtml() {
         String title = "Index";
         Html5 html = new Html5(title);
-        html.append("<h1>").append(title).append("</h1>");
-        html.append("<ul>");
-        html.append(String.format("<li><a href=\"%s%s\">", uriInfo.getBaseUri().toString(), "cite"))
-            .append("cite").append("</a></li>");
-        html.append(String.format("<li><a href=\"%s%s\">", uriInfo.getBaseUri().toString(), "test"))
-            .append("test").append("</a></li>");
-        html.append(String.format("<li><a href=\"%s%s\">", uriInfo.getBaseUri().toString(), "neo4j"))
-            .append("neo4j").append("</a></li>");
+        html.append("<h1>")
+            .append(title)
+            .append("</h1>")
+            .append("<ul>");
+
+        for (String path : PATHS) {
+            html.append(String.format("<li><a href=\"%s\">%s</a></li>", generateUri(path), path));
+        }
+
         html.append("</ul>");
         return html.toString();
     }
