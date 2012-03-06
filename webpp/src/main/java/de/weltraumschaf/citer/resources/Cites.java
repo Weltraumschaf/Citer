@@ -41,10 +41,11 @@ public class Cites extends BaseResource {
 
     @Consumes(MediaType.APPLICATION_JSON)
     @PUT public Response create(JSONObject jsonEntity) throws JSONException {
-        String text = jsonEntity.getString("text");
-//        String name = jsonEntity.getString("name");
         Map params = new HashMap<String, Object>();
-        params.put(Cite.TEXT, text);
+        params.put(Cite.TEXT, jsonEntity.getString("text"));
+        String now = now().toString();
+        params.put(Cite.DATE_CREATED, now);
+        params.put(Cite.DATE_UPDATED, now);
         Cite newCite = getCiteRepo().create(params);
 
         URI uri = uriInfo.getAbsolutePathBuilder()
@@ -77,6 +78,7 @@ public class Cites extends BaseResource {
         }
 
         cite.setText(text);
+        cite.setDateUpdated(now());
         URI uri = uriInfo.getAbsolutePathBuilder()
                          .path(cite.getId())
                          .build();

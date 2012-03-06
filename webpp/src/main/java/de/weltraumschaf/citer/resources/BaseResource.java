@@ -7,6 +7,7 @@ import de.weltraumschaf.citer.domain.OriginatorRepository;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.ws.rs.core.Context;
+import org.joda.time.DateTime;
 import org.neo4j.graphdb.GraphDatabaseService;
 
 /**
@@ -48,5 +49,9 @@ public abstract class BaseResource {
      */
     protected OriginatorRepository getOriginatorRepo() {
         return Factory.createOriginatorRepo(getGraphDb());
+    }
+    
+    protected DateTime now() {
+        return new DateTime();
     }
 }

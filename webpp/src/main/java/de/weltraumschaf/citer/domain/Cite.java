@@ -2,7 +2,6 @@ package de.weltraumschaf.citer.domain;
 
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import org.joda.time.DateTime;
 import org.neo4j.graphdb.Node;
 
 /**
@@ -16,7 +15,6 @@ public class Cite extends NodeEntity {
     public static final String TEXT = "text";
 
     private Originator originator;
-    private DateTime date;
     private Language language;
 
     public Cite(Node underlyingNode) {
@@ -32,29 +30,12 @@ public class Cite extends NodeEntity {
         this.originator = originator;
     }
 
-    @XmlTransient
-    public DateTime getDate() {
-        return date;
-    }
-
-    public void setDate(DateTime date) {
-        this.date = date;
-    }
-
     public String getText() {
         return (String)getProperty(TEXT);
     }
 
     public void setText(String text) {
         setProperty(TEXT, text);
-    }
-
-    @Override
-    public String toString() {
-        return String.format(
-            "Cite:\nid: %s\ntext: %s\ndate: %s\ncreator: %s\n",
-            getId(), getText(), date, originator
-        );
     }
 
 }

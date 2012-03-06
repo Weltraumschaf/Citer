@@ -34,9 +34,4 @@ public class Originator extends NodeEntity {
         return cites;
     }
 
-    @Override
-    public String toString() {
-        return String.format("%s (%s)", getName(), getId());
-    }
-
 }

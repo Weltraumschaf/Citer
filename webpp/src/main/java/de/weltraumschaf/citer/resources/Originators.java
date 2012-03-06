@@ -43,6 +43,9 @@ public class Originators extends BaseResource {
         String name = jsonEntity.getString("name");
         Map params  = new HashMap<String, Object>();
         params.put(Originator.NAME, name);
+        String now = now().toString();
+        params.put(Originator.DATE_CREATED, now);
+        params.put(Originator.DATE_UPDATED, now);
         Originator newOriginator = getOriginatorRepo().create(params);
 
         URI uri = uriInfo.getAbsolutePathBuilder()
@@ -76,6 +79,7 @@ public class Originators extends BaseResource {
         }
 
         originator.setName(name);
+        originator.setDateUpdated(now());
         URI uri = uriInfo.getAbsolutePathBuilder()
                          .path(originator.getId())
                          .build();
