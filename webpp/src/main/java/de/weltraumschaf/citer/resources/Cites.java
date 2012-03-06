@@ -1,6 +1,5 @@
 package de.weltraumschaf.citer.resources;
 
-import com.sun.jersey.api.NotFoundException;
 import de.weltraumschaf.citer.domain.Cite;
 import de.weltraumschaf.citer.domain.Originator;
 import java.net.URI;
@@ -21,11 +20,11 @@ import org.codehaus.jettison.json.JSONObject;
  * @license http://www.weltraumschaf.de/the-beer-ware-license.txt THE BEER-WARE LICENSE
  */
 @Path("/cite/")
+@Produces(MediaType.APPLICATION_JSON)
 public class Cites extends BaseResource {
 
     @Context UriInfo uriInfo;
 
-    @Produces(MediaType.APPLICATION_JSON)
     @GET public JSONArray allCites() {
         JSONArray cites = new JSONArray();
 
@@ -41,8 +40,12 @@ public class Cites extends BaseResource {
 
     @Consumes(MediaType.APPLICATION_JSON)
     @PUT public Response create(JSONObject jsonEntity) throws JSONException {
+        if (!jsonEntity.has(Cite.TEXT)) {
+            raiseMissingPropertyError(Cite.TEXT);
+        }
+
         Map params = new HashMap<String, Object>();
-        params.put(Cite.TEXT, jsonEntity.getString("text"));
+        params.put(Cite.TEXT, jsonEntity.getString(Cite.TEXT));
         String now = now().toString();
         params.put(Cite.DATE_CREATED, now);
         params.put(Cite.DATE_UPDATED, now);
@@ -52,16 +55,16 @@ public class Cites extends BaseResource {
                          .path(newCite.getId())
                          .build();
         return Response.created(uri)
+                       .entity(newCite)
                        .build();
     }
 
     @Path("{id}/")
-    @Produces(MediaType.APPLICATION_JSON)
     @GET public Cite get(@PathParam("id") String id) throws JSONException {
         Cite cite =  getCiteRepo().findById(id);
 
         if (null == cite) {
-            throw new NotFoundException(String.format("Can't find cite with id %s.", id));
+            raiseIdNotFoundError("cite", id);
         }
 
         return cite;
@@ -70,11 +73,15 @@ public class Cites extends BaseResource {
     @Path("{id}/")
     @Consumes(MediaType.APPLICATION_JSON)
     @PUT public Response update(@PathParam("id") String id, JSONObject jsonEntity) throws JSONException {
-        String text = jsonEntity.getString("text");
+        if (!jsonEntity.has(Cite.TEXT)) {
+            raiseMissingPropertyError(Cite.TEXT);
+        }
+
+        String text = jsonEntity.getString(Cite.TEXT);
         Cite cite   =  getCiteRepo().findById(id);
 
         if (null == cite) {
-            throw new NotFoundException(String.format("Can't find cite with id %s.", id));
+            raiseIdNotFoundError("cite", id);
         }
 
         cite.setText(text);
@@ -83,6 +90,7 @@ public class Cites extends BaseResource {
                          .path(cite.getId())
                          .build();
         return Response.created(uri)
+                       .entity(cite)
                        .build();
     }
 
@@ -91,7 +99,7 @@ public class Cites extends BaseResource {
         Cite cite =  getCiteRepo().findById(id);
 
         if (null == cite) {
-            throw new NotFoundException(String.format("Can't find cite with id %s.", id));
+            raiseIdNotFoundError("cite", id);
         }
 
         getCiteRepo().delete(cite);
@@ -100,12 +108,11 @@ public class Cites extends BaseResource {
     }
 
     @Path("{id}/originator/")
-    @Produces(MediaType.APPLICATION_JSON)
     @GET public Originator originator(@PathParam("id") String id) {
         Cite cite =  getCiteRepo().findById(id);
 
         if (null == cite) {
-            throw new NotFoundException(String.format("Can't find cite with id %s.", id));
+            raiseIdNotFoundError("cite", id);
         }
 
 

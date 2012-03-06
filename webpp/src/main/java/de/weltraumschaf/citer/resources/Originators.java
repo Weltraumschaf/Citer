@@ -1,6 +1,5 @@
 package de.weltraumschaf.citer.resources;
 
-import com.sun.jersey.api.NotFoundException;
 import de.weltraumschaf.citer.domain.Originator;
 import java.net.URI;
 import java.util.HashMap;
@@ -20,11 +19,11 @@ import org.codehaus.jettison.json.JSONObject;
  * @license http://www.weltraumschaf.de/the-beer-ware-license.txt THE BEER-WARE LICENSE
  */
 @Path("/originator/")
+@Produces(MediaType.APPLICATION_JSON)
 public class Originators extends BaseResource {
 
     @Context UriInfo uriInfo;
 
-    @Produces(MediaType.APPLICATION_JSON)
     @GET public JSONArray allOriginators() {
         JSONArray originators = new JSONArray();
 
@@ -40,7 +39,11 @@ public class Originators extends BaseResource {
 
     @Consumes(MediaType.APPLICATION_JSON)
     @PUT public Response create(JSONObject jsonEntity) throws JSONException {
-        String name = jsonEntity.getString("name");
+        if (!jsonEntity.has(Originator.NAME)) {
+            raiseMissingPropertyError(Originator.NAME);
+        }
+
+        String name = jsonEntity.getString(Originator.NAME);
         Map params  = new HashMap<String, Object>();
         params.put(Originator.NAME, name);
         String now = now().toString();
@@ -52,16 +55,16 @@ public class Originators extends BaseResource {
                          .path(newOriginator.getId())
                          .build();
         return Response.created(uri)
+                       .entity(newOriginator)
                        .build();
     }
 
     @Path("{id}/")
-    @Produces(MediaType.APPLICATION_JSON)
     @GET public Originator get(@PathParam("id") String id) throws JSONException {
         Originator originator = getOriginatorRepo().findById(id);
 
         if (null == originator) {
-            throw new NotFoundException(String.format("Can't find originator with id %s.", id));
+            raiseIdNotFoundError("originator", id);
         }
 
         return originator;
@@ -70,12 +73,16 @@ public class Originators extends BaseResource {
     @Path("{id}/")
     @Consumes(MediaType.APPLICATION_JSON)
     @PUT public Response update(@PathParam("id") String id, JSONObject jsonEntity) throws JSONException {
-        String name = jsonEntity.getString("name");
+        if (!jsonEntity.has(Originator.NAME)) {
+            raiseMissingPropertyError(Originator.NAME);
+        }
+
+        String name = jsonEntity.getString(Originator.NAME);
 
         Originator originator = getOriginatorRepo().findById(id);
 
         if (null == originator) {
-            throw new NotFoundException(String.format("Can't find originator with id %s.", id));
+            raiseIdNotFoundError("originator", id);
         }
 
         originator.setName(name);
@@ -84,6 +91,7 @@ public class Originators extends BaseResource {
                          .path(originator.getId())
                          .build();
         return Response.created(uri)
+                       .entity(originator)
                        .build();
     }
 
@@ -92,7 +100,7 @@ public class Originators extends BaseResource {
         Originator originator = getOriginatorRepo().findById(id);
 
         if (null == originator) {
-            throw new NotFoundException(String.format("Can't find originator with id %s.", id));
+            raiseIdNotFoundError("originator", id);
         }
 
         getOriginatorRepo().delete(originator);
