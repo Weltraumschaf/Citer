@@ -79,6 +79,16 @@ public class OriginatorRepository implements Repository<Originator> {
         }
     }
 
+    public Originator findByName(String name) {
+        Node originatorNode = indexByName.get(Originator.NAME, name).getSingle();
+
+        if (null == originatorNode) {
+            return null;
+        }
+
+        return new Originator(originatorNode);
+    }
+
     @Override
     public Originator findById(String id) {
         Node originatorNode = indexById.get(Originator.ID, id).getSingle();

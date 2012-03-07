@@ -69,4 +69,14 @@ abstract public class NodeEntity {
         return underlyingNode.getProperty(key);
     }
 
+    @Override
+    public int hashCode() {
+        return underlyingNode.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof NodeEntity &&
+            getUnderlyingNode().equals(((NodeEntity)other).getUnderlyingNode());
+    }
 }
