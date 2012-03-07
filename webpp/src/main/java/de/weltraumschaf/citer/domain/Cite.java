@@ -38,4 +38,14 @@ public class Cite extends NodeEntity {
         setProperty(TEXT, text);
     }
 
+    @Override
+    public String toString() {
+        String text = getText();
+
+        if (text.length() > 15) {
+            text = text.substring(0, 15);
+        }
+
+        return String.format("Cite[%s, %s, %s]", getId(), text, getOriginator().getName());
+    }
 }
