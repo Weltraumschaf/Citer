@@ -50,20 +50,17 @@ public class OriginatorRepository implements Repository<Originator> {
     @Override
     public Originator create(Map<String, Object> params) throws Exception {
         Transaction tx = graphDb.beginTx();
+        String name = (String)params.get(Originator.NAME);
 
         try {
-            Node newOriginatorNode = graphDb.createNode();
-            referenceNode.createRelationshipTo(newOriginatorNode, A_ORIGINATOR);
-            String name = (String)params.get(Originator.NAME);
-            // lock now taken, we can check if  already exist in index
-            Node alreadyExist = indexByName.get(Originator.NAME, name)
-                                           .getSingle();
-
-            if (alreadyExist != null) {
+            if (findByName(name) != null) {
                 tx.failure();
-                throw new Exception(String.format("Originator with name '%s' already exists!", name));
+                throw new Exception(String.format("Originator with name '%s' already exists! %s", name, findByName(name).toString()));
             }
 
+            Node newOriginatorNode = graphDb.createNode();
+            referenceNode.createRelationshipTo(newOriginatorNode, A_ORIGINATOR);
+        
             for (String paramName : params.keySet()) {
                 newOriginatorNode.setProperty(paramName, params.get(paramName));
             }
