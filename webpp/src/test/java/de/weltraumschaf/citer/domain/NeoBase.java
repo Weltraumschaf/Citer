@@ -2,6 +2,8 @@ package de.weltraumschaf.citer.domain;
 
 import de.weltraumschaf.citer.Factory;
 import java.io.File;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.neo4j.graphdb.GraphDatabaseService;
 
 /**
@@ -38,13 +40,15 @@ abstract public class NeoBase {
         });
     }
 
-    protected static void startDb() {
+    @BeforeClass
+    public static void startDb() {
         deleteFileOrDirectory(new File(DB_FILE_PATH));
         db = Factory.createGraphDb(DB_FILE_PATH);
         registerShutdownHook();
     }
 
-    protected static void stopDb() {
+    @AfterClass
+    public static void stopDb() {
         db.shutdown();
     }
 

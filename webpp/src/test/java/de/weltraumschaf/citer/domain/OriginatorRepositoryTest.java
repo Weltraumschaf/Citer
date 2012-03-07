@@ -3,9 +3,8 @@ package de.weltraumschaf.citer.domain;
 import de.weltraumschaf.citer.Factory;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.AfterClass;
 import static org.junit.Assert.*;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -15,18 +14,14 @@ import org.junit.Test;
  */
 public class OriginatorRepositoryTest extends NeoBase {
 
-    @BeforeClass
-    public static void setUp() {
-        startDb();
-    }
+    private OriginatorRepository repo;
 
-    @AfterClass
-    public static void tearDown() {
-        stopDb();
+    @Before
+    public void setUp() {
+        repo = Factory.createOriginatorRepo(db());
     }
 
     @Test public void createFindAndDeleteOriginator() throws Exception {
-        OriginatorRepository repo = Factory.createOriginatorRepo(db());
         String name = "Sven Strittmatter";
         Map<String, Object> params = new HashMap<String, Object>();
         params.put(Originator.NAME, name);
@@ -44,7 +39,6 @@ public class OriginatorRepositoryTest extends NeoBase {
     }
 
     @Test public void findByName() throws Exception {
-        OriginatorRepository repo = Factory.createOriginatorRepo(db());
         String name = "Sven Strittmatter";
         Map<String, Object> params = new HashMap<String, Object>();
         params.put(Originator.NAME, name);

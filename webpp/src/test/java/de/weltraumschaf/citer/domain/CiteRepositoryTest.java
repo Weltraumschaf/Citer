@@ -3,9 +3,7 @@ package de.weltraumschaf.citer.domain;
 import de.weltraumschaf.citer.Factory;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.AfterClass;
 import static org.junit.Assert.*;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -14,16 +12,6 @@ import org.junit.Test;
  * http://www.weltraumschaf.de/the-beer-ware-license.txt THE BEER-WARE LICENSE
  */
 public class CiteRepositoryTest extends NeoBase {
-
-    @BeforeClass
-    public static void setUp() {
-        startDb();
-    }
-
-    @AfterClass
-    public static void tearDown() {
-        stopDb();
-    }
 
     @Test public void createFindAndDeleteCite() {
         CiteRepository repo = Factory.createCiteRepo(db());
