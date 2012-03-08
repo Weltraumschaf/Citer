@@ -2,7 +2,6 @@ package de.weltraumschaf.citer.domain;
 
 import java.util.Collection;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 import org.neo4j.graphdb.*;
 
 /**
@@ -22,7 +21,6 @@ public class Cite extends NodeEntity {
         super(underlyingNode);
     }
 
-	@XmlTransient
     public Originator getOriginator() {
         Traverser traverser =  getUnderlyingNode().traverse(
             Traverser.Order.BREADTH_FIRST,
@@ -46,7 +44,14 @@ public class Cite extends NodeEntity {
     }
 
     public void setOriginator(Originator originator) {
-        getUnderlyingNode().createRelationshipTo(originator.getUnderlyingNode(), RelTypes.CREATED_BY);
+        Transaction tx = getUnderlyingNode().getGraphDatabase().beginTx();
+
+        try {
+            getUnderlyingNode().createRelationshipTo(originator.getUnderlyingNode(), RelTypes.CREATED_BY);
+            tx.success();
+        } finally {
+            tx.finish();
+        }
     }
 
     public String getText() {

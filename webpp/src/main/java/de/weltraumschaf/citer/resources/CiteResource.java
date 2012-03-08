@@ -39,21 +39,33 @@ public class CiteResource extends BaseResource {
     }
 
     @Consumes(MediaType.APPLICATION_JSON)
-    @PUT public Response create(JSONObject jsonEntity) throws JSONException {
+    @PUT public Response create(JSONObject jsonEntity) throws JSONException, Exception {
         if (!jsonEntity.has(Cite.TEXT)) {
             raiseMissingPropertyError(Cite.TEXT);
         }
 
-        if (!jsonEntity.has("name")) {
-            raiseMissingPropertyError("name");
+        if (!jsonEntity.has(Originator.NAME)) {
+            raiseMissingPropertyError(Originator.NAME);
+        }
+
+        String name = jsonEntity.getString(Originator.NAME);
+        Originator originator = getOriginatorRepo().findByName(name);
+        String now = now().toString();
+
+        if (null == originator) {
+            Map params  = new HashMap<String, Object>();
+            params.put(Originator.NAME, name);
+            params.put(Cite.DATE_CREATED, now);
+            params.put(Cite.DATE_UPDATED, now);
+            originator = getOriginatorRepo().create(params);
         }
 
         Map params = new HashMap<String, Object>();
         params.put(Cite.TEXT, jsonEntity.getString(Cite.TEXT));
-        String now = now().toString();
         params.put(Cite.DATE_CREATED, now);
         params.put(Cite.DATE_UPDATED, now);
         Cite newCite = getCiteRepo().create(params);
+        newCite.setOriginator(originator);
 
         URI uri = uriInfo.getAbsolutePathBuilder()
                          .path(newCite.getId())
@@ -76,7 +88,7 @@ public class CiteResource extends BaseResource {
 
     @Path("{id}/")
     @Consumes(MediaType.APPLICATION_JSON)
-    @PUT public Response update(@PathParam("id") String id, JSONObject jsonEntity) throws JSONException {
+    @PUT public Response update(@PathParam("id") String id, JSONObject jsonEntity) throws JSONException, Exception {
         if (!jsonEntity.has(Cite.TEXT)) {
             raiseMissingPropertyError(Cite.TEXT);
         }
@@ -91,8 +103,19 @@ public class CiteResource extends BaseResource {
         cite.setText(text);
         cite.setDateUpdated(now());
 
-        if (jsonEntity.has("name")) {
-            // @todo Updte originator.
+        if (jsonEntity.has(Originator.NAME)) {
+            String name = jsonEntity.getString(Originator.NAME);
+
+            Originator originator = getOriginatorRepo().findByName(name);
+
+            if (null == originator) {
+                Map params  = new HashMap<String, Object>();
+                params.put(Originator.NAME, name);
+                originator = getOriginatorRepo().create(params);
+                cite.setOriginator(originator);
+            } else if (!cite.getOriginator().equals(originator)) {
+                cite.setOriginator(originator);
+            }
         }
 
         URI uri = uriInfo.getAbsolutePathBuilder()

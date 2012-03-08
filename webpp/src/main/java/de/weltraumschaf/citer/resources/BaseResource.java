@@ -21,19 +21,10 @@ import org.neo4j.graphdb.GraphDatabaseService;
  */
 public abstract class BaseResource {
 
-    private static final String CITES_INDEX = "cites";
-    private static final String ORIGINATOR_INDEX = "originators";
-
     @Context ServletConfig config;
 
-    private final CiteRepository citeRepo;
-    private final OriginatorRepository originatorRepo;
-
-
-    public BaseResource() {
-        citeRepo       = Factory.createCiteRepo(getGraphDb());
-        originatorRepo = Factory.createOriginatorRepo(getGraphDb());
-    }
+    private CiteRepository citeRepo;
+    private OriginatorRepository originatorRepo;
 
     /**
      * Getter for neo4j graph database.
@@ -51,6 +42,10 @@ public abstract class BaseResource {
      * @return Returns a repository object to deal with cites.
      */
     protected CiteRepository getCiteRepo() {
+        if (null == citeRepo) {
+            citeRepo = Factory.createCiteRepo(getGraphDb());
+        }
+
         return citeRepo;
     }
 
@@ -60,6 +55,10 @@ public abstract class BaseResource {
      * @return Returns a repository object to deal with cites.
      */
     protected OriginatorRepository getOriginatorRepo() {
+        if (null == originatorRepo) {
+            originatorRepo = Factory.createOriginatorRepo(getGraphDb());
+        }
+
         return originatorRepo;
     }
 
