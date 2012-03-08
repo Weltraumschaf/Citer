@@ -4,6 +4,7 @@ import static de.weltraumschaf.citer.domain.RelTypes.A_CITE;
 import static de.weltraumschaf.citer.domain.RelTypes.REF_CITES;
 import java.util.Map;
 import java.util.UUID;
+import org.joda.time.DateTime;
 import org.neo4j.graphdb.*;
 import org.neo4j.graphdb.index.Index;
 import org.neo4j.helpers.collection.IterableWrapper;
@@ -58,7 +59,10 @@ public class CiteRepository implements Repository<Cite> {
             }
 
             String id = UUID.randomUUID().toString();
+            DateTime now = new DateTime();
             newCiteNode.setProperty(Cite.ID, id);
+            newCiteNode.setProperty(Cite.DATE_CREATED, now.toString());
+            newCiteNode.setProperty(Cite.DATE_UPDATED, now.toString());
             index.add(newCiteNode, Cite.ID, id);
             tx.success();
             return new Cite(newCiteNode);

@@ -12,6 +12,7 @@ import javax.ws.rs.core.UriInfo;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+import org.joda.time.DateTime;
 
 /**
  *
@@ -46,9 +47,6 @@ public class OriginatorResource extends BaseResource {
         String name = jsonEntity.getString(Originator.NAME);
         Map params  = new HashMap<String, Object>();
         params.put(Originator.NAME, name);
-        String now = now().toString();
-        params.put(Originator.DATE_CREATED, now);
-        params.put(Originator.DATE_UPDATED, now);
         Originator newOriginator;
 
         try {
@@ -92,7 +90,7 @@ public class OriginatorResource extends BaseResource {
         }
 
         originator.setName(name);
-        originator.setDateUpdated(now());
+        originator.setDateUpdated(new DateTime());
         URI uri = uriInfo.getAbsolutePathBuilder()
                          .path(originator.getId())
                          .build();

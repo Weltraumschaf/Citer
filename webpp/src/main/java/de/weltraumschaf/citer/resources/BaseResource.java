@@ -62,10 +62,6 @@ public abstract class BaseResource {
         return originatorRepo;
     }
 
-    protected DateTime now() {
-        return new DateTime();
-    }
-
     protected Response createErrorResponse(String message) {
         return Response.serverError()
                        .entity(message)

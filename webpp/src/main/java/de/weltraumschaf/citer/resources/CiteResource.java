@@ -13,6 +13,7 @@ import javax.ws.rs.core.UriInfo;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+import org.joda.time.DateTime;
 
 /**
  *
@@ -50,20 +51,15 @@ public class CiteResource extends BaseResource {
 
         String name = jsonEntity.getString(Originator.NAME);
         Originator originator = getOriginatorRepo().findByName(name);
-        String now = now().toString();
-
+        
         if (null == originator) {
             Map params  = new HashMap<String, Object>();
             params.put(Originator.NAME, name);
-            params.put(Cite.DATE_CREATED, now);
-            params.put(Cite.DATE_UPDATED, now);
             originator = getOriginatorRepo().create(params);
         }
 
         Map params = new HashMap<String, Object>();
         params.put(Cite.TEXT, jsonEntity.getString(Cite.TEXT));
-        params.put(Cite.DATE_CREATED, now);
-        params.put(Cite.DATE_UPDATED, now);
         Cite newCite = getCiteRepo().create(params);
         newCite.setOriginator(originator);
 
@@ -101,7 +97,7 @@ public class CiteResource extends BaseResource {
         }
 
         cite.setText(text);
-        cite.setDateUpdated(now());
+        cite.setDateUpdated(new DateTime());
 
         if (jsonEntity.has(Originator.NAME)) {
             String name = jsonEntity.getString(Originator.NAME);

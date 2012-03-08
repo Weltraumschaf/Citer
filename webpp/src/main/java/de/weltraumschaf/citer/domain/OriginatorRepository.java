@@ -4,6 +4,7 @@ import static de.weltraumschaf.citer.domain.RelTypes.A_ORIGINATOR;
 import static de.weltraumschaf.citer.domain.RelTypes.REF_ORIGINATORS;
 import java.util.Map;
 import java.util.UUID;
+import org.joda.time.DateTime;
 import org.neo4j.graphdb.*;
 import org.neo4j.graphdb.index.Index;
 import org.neo4j.helpers.collection.IterableWrapper;
@@ -60,13 +61,16 @@ public class OriginatorRepository implements Repository<Originator> {
 
             Node newOriginatorNode = graphDb.createNode();
             referenceNode.createRelationshipTo(newOriginatorNode, A_ORIGINATOR);
-        
+
             for (String paramName : params.keySet()) {
                 newOriginatorNode.setProperty(paramName, params.get(paramName));
             }
 
             String id = UUID.randomUUID().toString();
+            DateTime now = new DateTime();
             newOriginatorNode.setProperty(Originator.ID, id);
+            newOriginatorNode.setProperty(Originator.DATE_CREATED, now.toString());
+            newOriginatorNode.setProperty(Originator.DATE_UPDATED, now.toString());
             indexById.add(newOriginatorNode, Originator.ID, id);
             indexByName.add(newOriginatorNode, Originator.NAME, name);
             tx.success();
