@@ -1,8 +1,9 @@
 package de.weltraumschaf.citer.domain;
 
+import java.util.Collection;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
-import org.neo4j.graphdb.Node;
+import org.neo4j.graphdb.*;
 
 /**
  *
@@ -14,8 +15,8 @@ public class Cite extends NodeEntity {
 
     public static final String TEXT = "text";
 
-    private Originator originator;
-    private Language language;
+    // @todo Implement languages
+//    private Language language;
 
     public Cite(Node underlyingNode) {
         super(underlyingNode);
@@ -23,11 +24,29 @@ public class Cite extends NodeEntity {
 
 	@XmlTransient
     public Originator getOriginator() {
-        return originator;
+        Traverser traverser =  getUnderlyingNode().traverse(
+            Traverser.Order.BREADTH_FIRST,
+            StopEvaluator.END_OF_GRAPH,
+            ReturnableEvaluator.ALL_BUT_START_NODE, RelTypes.CREATED_BY,
+            Direction.OUTGOING
+        );
+
+        Collection<Node> originatorNodes = traverser.getAllNodes();
+
+        if (originatorNodes.isEmpty()) {
+            return null;
+        }
+
+        if (originatorNodes.size() > 1) {
+            throw new RuntimeException("Insufficant number of originators: " + originatorNodes.size() + "!");
+        }
+
+        Node originatorNode = originatorNodes.iterator().next();
+        return new Originator(originatorNode);
     }
 
     public void setOriginator(Originator originator) {
-        this.originator = originator;
+        getUnderlyingNode().createRelationshipTo(originator.getUnderlyingNode(), RelTypes.CREATED_BY);
     }
 
     public String getText() {

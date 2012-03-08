@@ -15,7 +15,7 @@ import org.codehaus.jettison.json.JSONException;
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  * @license http://www.weltraumschaf.de/the-beer-ware-license.txt THE BEER-WARE LICENSE
  */
-public class RandomCite extends BaseResource {
+public class RandomCiteResource extends BaseResource {
 
     private final Random randomGenerator = new Random();
 

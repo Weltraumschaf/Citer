@@ -21,7 +21,7 @@ import org.codehaus.jettison.json.JSONObject;
  */
 @Path("/cite/")
 @Produces(MediaType.APPLICATION_JSON)
-public class Cites extends BaseResource {
+public class CiteResource extends BaseResource {
 
     @Context UriInfo uriInfo;
 
@@ -42,6 +42,10 @@ public class Cites extends BaseResource {
     @PUT public Response create(JSONObject jsonEntity) throws JSONException {
         if (!jsonEntity.has(Cite.TEXT)) {
             raiseMissingPropertyError(Cite.TEXT);
+        }
+
+        if (!jsonEntity.has("name")) {
+            raiseMissingPropertyError("name");
         }
 
         Map params = new HashMap<String, Object>();
@@ -86,6 +90,11 @@ public class Cites extends BaseResource {
 
         cite.setText(text);
         cite.setDateUpdated(now());
+
+        if (jsonEntity.has("name")) {
+            // @todo Updte originator.
+        }
+
         URI uri = uriInfo.getAbsolutePathBuilder()
                          .path(cite.getId())
                          .build();
@@ -120,7 +129,7 @@ public class Cites extends BaseResource {
     }
 
     @Path("random/")
-    public RandomCite randomCite() {
-        return new RandomCite();
+    public RandomCiteResource randomCite() {
+        return new RandomCiteResource();
     }
 }

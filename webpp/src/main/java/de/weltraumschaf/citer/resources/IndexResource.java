@@ -19,9 +19,9 @@ import org.neo4j.graphdb.GraphDatabaseService;
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  * @license http://www.weltraumschaf.de/the-beer-ware-license.txt THE BEER-WARE LICENSE
  */
-@Path("/") public class Index extends BaseResource {
+@Path("/") public class IndexResource extends BaseResource {
 
-    private static final Logger LOGGER = Logger.getLogger(Index.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(IndexResource.class.getName());
     private static final List<String> PATHS = Arrays.asList("cite", "originator", "test", "neo4j");
 
     @Context UriInfo uriInfo;

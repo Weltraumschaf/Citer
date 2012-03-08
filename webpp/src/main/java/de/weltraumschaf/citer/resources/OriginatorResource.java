@@ -20,7 +20,7 @@ import org.codehaus.jettison.json.JSONObject;
  */
 @Path("/originator/")
 @Produces(MediaType.APPLICATION_JSON)
-public class Originators extends BaseResource {
+public class OriginatorResource extends BaseResource {
 
     @Context UriInfo uriInfo;
 
