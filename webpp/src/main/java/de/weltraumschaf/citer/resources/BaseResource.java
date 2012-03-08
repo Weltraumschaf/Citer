@@ -26,12 +26,21 @@ public abstract class BaseResource {
 
     @Context ServletConfig config;
 
+    private final CiteRepository citeRepo;
+    private final OriginatorRepository originatorRepo;
+
+
+    public BaseResource() {
+        citeRepo       = Factory.createCiteRepo(getGraphDb());
+        originatorRepo = Factory.createOriginatorRepo(getGraphDb());
+    }
+
     /**
      * Getter for neo4j graph database.
      *
      * @return Returns a neo4j embedded graph database.
      */
-    protected GraphDatabaseService getGraphDb() {
+    protected final GraphDatabaseService getGraphDb() {
         ServletContext context = config.getServletContext();
         return (GraphDatabaseService)context.getAttribute(CiterContextListener.DB);
     }
@@ -42,7 +51,7 @@ public abstract class BaseResource {
      * @return Returns a repository object to deal with cites.
      */
     protected CiteRepository getCiteRepo() {
-        return Factory.createCiteRepo(getGraphDb());
+        return citeRepo;
     }
 
     /**
@@ -51,7 +60,7 @@ public abstract class BaseResource {
      * @return Returns a repository object to deal with cites.
      */
     protected OriginatorRepository getOriginatorRepo() {
-        return Factory.createOriginatorRepo(getGraphDb());
+        return originatorRepo;
     }
 
     protected DateTime now() {
