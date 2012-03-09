@@ -51,7 +51,7 @@ public class CiteResource extends BaseResource {
 
         String name = jsonEntity.getString(Originator.NAME);
         Originator originator = getOriginatorRepo().findByName(name);
-        
+
         if (null == originator) {
             Map params  = new HashMap<String, Object>();
             params.put(Originator.NAME, name);
@@ -150,5 +150,19 @@ public class CiteResource extends BaseResource {
     @Path("random/")
     public RandomCiteResource randomCite() {
         return new RandomCiteResource();
+    }
+
+    @Path("bulkupload")
+    @POST public Response upload(JSONArray jsonEntity) throws JSONException, Exception {
+        for (int i = 0; i < jsonEntity.length(); ++i) {
+            JSONObject singleCiteData = jsonEntity.getJSONObject(i);
+            create(singleCiteData);
+        }
+
+        URI uri = uriInfo.getAbsolutePathBuilder()
+                         .path("../")
+                         .build();
+        return Response.created(uri)
+                       .build();
     }
 }
