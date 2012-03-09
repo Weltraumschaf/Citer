@@ -10,7 +10,7 @@ import javax.servlet.ServletContext;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
-import org.joda.time.DateTime;
+import javax.ws.rs.core.UriInfo;
 import org.neo4j.graphdb.GraphDatabaseService;
 
 /**
@@ -21,19 +21,43 @@ import org.neo4j.graphdb.GraphDatabaseService;
  */
 public abstract class BaseResource {
 
-    @Context ServletConfig config;
-
+    private ServletConfig config;
+    private UriInfo uriInfo;
     private CiteRepository citeRepo;
     private OriginatorRepository originatorRepo;
+
+    public ServletConfig getConfig() {
+        return config;
+    }
+
+    @Context
+    public void setConfig(ServletConfig config) {
+        this.config = config;
+    }
+
+    public UriInfo getUriInfo() {
+        return uriInfo;
+    }
+
+    @Context
+    public void setUriInfo(UriInfo uriInfo) {
+        this.uriInfo = uriInfo;
+    }
 
     /**
      * Getter for neo4j graph database.
      *
      * @return Returns a neo4j embedded graph database.
      */
-    protected final GraphDatabaseService getGraphDb() {
+    protected GraphDatabaseService getGraphDb() {
         ServletContext context = config.getServletContext();
-        return (GraphDatabaseService)context.getAttribute(CiterContextListener.DB);
+        GraphDatabaseService db = (GraphDatabaseService)context.getAttribute(CiterContextListener.DB);
+
+        if (null == db) {
+            throw new RuntimeException("Can't obtain graph db from servlet context!");
+        }
+
+        return db;
     }
 
     /**

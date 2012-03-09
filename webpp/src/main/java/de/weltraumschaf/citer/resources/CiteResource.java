@@ -5,6 +5,7 @@ import de.weltraumschaf.citer.domain.Originator;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
+import javax.servlet.ServletConfig;
 import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
@@ -24,15 +25,13 @@ import org.joda.time.DateTime;
 @Produces(MediaType.APPLICATION_JSON)
 public class CiteResource extends BaseResource {
 
-    @Context UriInfo uriInfo;
-
     @GET public JSONArray allCites() {
         JSONArray cites = new JSONArray();
 
         for (Cite cite : getCiteRepo().getAll()) {
-            URI uri = uriInfo.getAbsolutePathBuilder()
-                             .path(cite.getId())
-                             .build();
+            URI uri = getUriInfo().getAbsolutePathBuilder()
+                                  .path(cite.getId())
+                                  .build();
             cites.put(uri.toString());
         }
 
@@ -63,9 +62,9 @@ public class CiteResource extends BaseResource {
         Cite newCite = getCiteRepo().create(params);
         newCite.setOriginator(originator);
 
-        URI uri = uriInfo.getAbsolutePathBuilder()
-                         .path(newCite.getId())
-                         .build();
+        URI uri = getUriInfo().getAbsolutePathBuilder()
+                              .path(newCite.getId())
+                              .build();
         return Response.created(uri)
                        .entity(newCite)
                        .build();
@@ -114,9 +113,9 @@ public class CiteResource extends BaseResource {
             }
         }
 
-        URI uri = uriInfo.getAbsolutePathBuilder()
-                         .path(cite.getId())
-                         .build();
+        URI uri = getUriInfo().getAbsolutePathBuilder()
+                              .path(cite.getId())
+                              .build();
         return Response.created(uri)
                        .entity(cite)
                        .build();
@@ -147,11 +146,6 @@ public class CiteResource extends BaseResource {
         return cite.getOriginator();
     }
 
-    @Path("random/")
-    public RandomCiteResource randomCite() {
-        return new RandomCiteResource();
-    }
-
     @Path("bulkupload")
     @POST public Response upload(JSONArray jsonEntity) throws JSONException, Exception {
         for (int i = 0; i < jsonEntity.length(); ++i) {
@@ -159,9 +153,10 @@ public class CiteResource extends BaseResource {
             create(singleCiteData);
         }
 
-        URI uri = uriInfo.getAbsolutePathBuilder()
-                         .path("../")
-                         .build();
+        URI uri = getUriInfo().getAbsolutePathBuilder()
+                              .path("../")
+                              .build()
+                              .normalize();
         return Response.created(uri)
                        .build();
     }

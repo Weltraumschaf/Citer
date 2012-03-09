@@ -9,9 +9,7 @@ import javax.servlet.ServletContext;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.UriInfo;
 import org.neo4j.graphdb.GraphDatabaseService;
 
 /**
@@ -24,13 +22,11 @@ import org.neo4j.graphdb.GraphDatabaseService;
     private static final Logger LOGGER = Logger.getLogger(IndexResource.class.getName());
     private static final List<String> PATHS = Arrays.asList("cite", "originator", "test", "neo4j");
 
-    @Context UriInfo uriInfo;
-
     private String generateUri(String path) {
-        return uriInfo.getAbsolutePathBuilder()
-                      .path(path)
-                      .build()
-                      .toString();
+        return getUriInfo().getAbsolutePathBuilder()
+                           .path(path)
+                           .build()
+                           .toString();
     }
 
     @Produces(MediaType.TEXT_PLAIN)
@@ -68,27 +64,27 @@ import org.neo4j.graphdb.GraphDatabaseService;
         String title = "Testing around";
         Html5 html = new Html5(title);
         html.append("<h1>").append(title).append("</h1>");
-        html.append("<h2>Servlet ").append(config.getServletName()).append("</h2>");
+        html.append("<h2>Servlet ").append(getConfig().getServletName()).append("</h2>");
 
         html.append("<h3>UriInfo</h3>");
         html.append("<pre>");
-        html.append("baseUri: ").append(uriInfo.getBaseUri().toString()).append("\n");
-        html.append("absolutePath: ").append(uriInfo.getAbsolutePath().toString()).append("\n");
-        html.append("path: ").append(uriInfo.getPath()).append("\n");
+        html.append("baseUri: ").append(getUriInfo().getBaseUri().toString()).append("\n");
+        html.append("absolutePath: ").append(getUriInfo().getAbsolutePath().toString()).append("\n");
+        html.append("path: ").append(getUriInfo().getPath()).append("\n");
         html.append("</pre>");
 
         html.append("<h3>Init Pramaters</h3>");
         html.append("<pre>");
-        Enumeration<String> initParamNames = config.getInitParameterNames();
+        Enumeration<String> initParamNames = getConfig().getInitParameterNames();
 
         while (initParamNames.hasMoreElements()) {
             String name = initParamNames.nextElement();
-            html.append(name).append(": ").append(config.getInitParameter(name)).append("\n");
+            html.append(name).append(": ").append(getConfig().getInitParameter(name)).append("\n");
         }
 
         html.append("</pre>");
 
-        ServletContext context = config.getServletContext();
+        ServletContext context = getConfig().getServletContext();
         Enumeration<String> contextAtrributeNames = context.getAttributeNames();
         html.append("<h3>Serlvlet Context of ")
             .append(context.getServerInfo()).append("</h3>");

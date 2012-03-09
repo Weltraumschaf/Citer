@@ -5,10 +5,8 @@ import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
@@ -23,15 +21,13 @@ import org.joda.time.DateTime;
 @Produces(MediaType.APPLICATION_JSON)
 public class OriginatorResource extends BaseResource {
 
-    @Context UriInfo uriInfo;
-
     @GET public JSONArray allOriginators() {
         JSONArray originators = new JSONArray();
 
         for (Originator originator : getOriginatorRepo().getAll()) {
-            URI uri = uriInfo.getAbsolutePathBuilder()
-                             .path(originator.getId())
-                             .build();
+            URI uri = getUriInfo().getAbsolutePathBuilder()
+                                  .path(originator.getId())
+                                  .build();
             originators.put(uri.toString());
         }
 
@@ -55,9 +51,9 @@ public class OriginatorResource extends BaseResource {
             return createErrorResponse(e.getMessage());
         }
 
-        URI uri = uriInfo.getAbsolutePathBuilder()
-                         .path(newOriginator.getId())
-                         .build();
+        URI uri = getUriInfo().getAbsolutePathBuilder()
+                               .path(newOriginator.getId())
+                               .build();
         return Response.created(uri)
                        .entity(newOriginator)
                        .build();
@@ -91,9 +87,9 @@ public class OriginatorResource extends BaseResource {
 
         originator.setName(name);
         originator.setDateUpdated(new DateTime());
-        URI uri = uriInfo.getAbsolutePathBuilder()
-                         .path(originator.getId())
-                         .build();
+        URI uri = getUriInfo().getAbsolutePathBuilder()
+                              .path(originator.getId())
+                              .build();
         return Response.created(uri)
                        .entity(originator)
                        .build();
