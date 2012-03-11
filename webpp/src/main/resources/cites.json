@@ -22,4 +22,10 @@
 },{
     "name":"Francis Bacon",
     "text":"Nichts macht den Menschen argwöhnischer, als wenig zu wissen."
+},{
+    "name":"Butler Lampson",
+    "text":"Some people are good programmers because they can handle many more details than most people. But there are a lot of disadvantages in selecting programmers for that reason - it can result in programms no one else can maintain."
+}, {
+    "name":"John Warnock",
+    "text":"I believe good software is written by small teams of two, three, or four people interacting with each other at a very high, dense level."
 }]
