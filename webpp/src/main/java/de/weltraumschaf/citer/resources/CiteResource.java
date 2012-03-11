@@ -147,7 +147,7 @@ public class CiteResource extends BaseResource {
     }
 
     @Path("bulkupload")
-    @POST public Response upload(JSONArray jsonEntity) throws JSONException, Exception {
+    @PUT public Response upload(JSONArray jsonEntity) throws JSONException, Exception {
         for (int i = 0; i < jsonEntity.length(); ++i) {
             JSONObject singleCiteData = jsonEntity.getJSONObject(i);
             create(singleCiteData);
