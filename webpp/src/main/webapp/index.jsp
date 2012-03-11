@@ -4,14 +4,18 @@
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
         <title>Citer</title>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/normalize.css"/>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/jquery.fancybox.css"/>
+        <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/jquery.rater.css"/>
         <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/main.css"/>
         <link rel="shortcut icon" type="image/x-icon" href="${pageContext.request.contextPath}/img/favicon.ico"/>
     </head>
     <body>
         <div id="footer">
-            <p><small>Gebaut vom <span class="mailadress">Weltraumschaf</span>.
-            F&uuml;r Anregungen und Bug-Meldungen einfach eine <span class="mailadress">
-            E-Mail</span> schreiben.</small></p>
+            <p><small>Gebaut vom <a href="http://www.weltraumschaf.de">Weltraumschaf</a>.
+            F&uuml;r Anregungen und Bug-Meldungen einfach eine
+            <a id="mailadress" title="E-Mail">ich[at]weltraum+NOSPAM+schaf[dot]de</a>
+            schreiben.</small></p>
         </div>
 
         <div id="centeredContainer">
@@ -30,10 +34,12 @@
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.jtemplates.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.rater.js"></script>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.ninjaui.js"></script>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.asm.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.amail.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.easing.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.mousewheel.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.fancybox.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/js/handlebars.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.citer.js"></script>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/js/ejs_production.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/main.js"></script>
     </body>
 </html>
