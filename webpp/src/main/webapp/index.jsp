@@ -25,6 +25,7 @@
 
             <p>
                 <a id="nextCite" href="javascript:;">nächstes</a> &ndash;
+                <a id="submitCite" href="#citeForm">eintragen</a> &ndash;
                 <a href="${pageContext.request.contextPath}/api">API</a> &ndash;
                 <a href="${pageContext.request.contextPath}/apitest.jsp">API-Test</a>
             </p>
@@ -32,12 +33,31 @@
             <div id="content"></div>
         </div>
 
+        <div id="fancy">
+            <div id="citeForm">
+                <h2>Zitat eintragen</h2>
+                <form>
+                    <p>
+                        <label for="name">Urheber:</label>
+                        <input id="name" type="text"/>
+                    </p>
+                    <p>
+                        <label for="text">Zitat:</label>
+                        <textarea id="text"></textarea>
+                    </p>
+                    <p>
+                        <input type="submit"/>
+                    </p>
+                </form>
+            </div>
+        </div>
+
         <script id="citeTpl" type="text/x-handlebars-template">
-            <h3>zufülliges Zitat</h3>
+            <h2>zufülliges Zitat</h2>
             <p>
                 <strong>{{originator.name}}</strong><br />
                 <cite>{{text}}</cite><br />
-                <small>(einetragen am: {{dateCreated}}</small>
+                <small>(einetragen am: {{date dateCreated}}</small>
             </p>
         </script>
 
