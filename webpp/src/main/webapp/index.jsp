@@ -23,13 +23,23 @@
                 <h1><span>Citer</span></h1>
             </div>
 
-            <a href="${pageContext.request.contextPath}/api">API</a>
-            <a href="${pageContext.request.contextPath}/apitest.jsp">API-Test</a>
+            <p>
+                <a id="nextCite" href="javascript:;">nächstes</a> &ndash;
+                <a href="${pageContext.request.contextPath}/api">API</a> &ndash;
+                <a href="${pageContext.request.contextPath}/apitest.jsp">API-Test</a>
+            </p>
 
-            <div id="menu"></div>
-            <div id="form"></div>
-            <div id="cite"></div>
+            <div id="content"></div>
         </div>
+
+        <script id="citeTpl" type="text/x-handlebars-template">
+            <h3>zufülliges Zitat</h3>
+            <p>
+                <strong>{{originator.name}}</strong><br />
+                <cite>{{text}}</cite><br />
+                <small>(einetragen am: {{dateCreated}}</small>
+            </p>
+        </script>
 
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.jtemplates.js"></script>
@@ -39,7 +49,6 @@
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.mousewheel.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.fancybox.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/handlebars.js"></script>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.citer.js"></script>
         <script type="text/javascript" src="${pageContext.request.contextPath}/js/main.js"></script>
     </body>
 </html>

@@ -2,13 +2,28 @@
  * main.js
  */
 (function($) {
-    var serviceUrl = window.location.href.replace(/index.jsp/i, "") + "api/";
+    var serviceUrl = window.location.href.replace(/index.jsp/i, "") + "api/",
+        citeTpl = Handlebars.compile($("#citeTpl").html());
+
+    function randomCite() {
+        $.ajax({
+            type:     'GET',
+            url:      serviceUrl + 'cite/random',
+            data:     {},
+            dataType: 'json',
+            cache:    false,
+            success:   function(response) {
+                console.debug(response);
+                $("#content").html(citeTpl(response));
+            },
+            error:     function (XMLHttpRequest, textStatus, errorThrown) {
+                throw new Error('Cant do AJAX request: ' + textStatus);
+            }
+        });
+    }
 
     $(function() {
-        var $cite = $('#cite');
-        $.citer({serviceUrl: serviceUrl});
-        $cite.citer('random');
-        $('#form').citer('submit');
         $('#mailadress').amail();
+        $('#nextCite').click(randomCite).click();
     });
 }(jQuery));
