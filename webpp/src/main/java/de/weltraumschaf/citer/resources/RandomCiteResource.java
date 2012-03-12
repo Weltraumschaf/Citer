@@ -30,6 +30,10 @@ public class RandomCiteResource extends BaseResource {
             l.add(c);
         }
 
+		if (l.isEmpty()) {
+			return null;
+		}
+
         int randomInt = randomGenerator.nextInt(l.size());
         return l.get(randomInt);
     }
@@ -37,6 +41,11 @@ public class RandomCiteResource extends BaseResource {
     @Produces(MediaType.TEXT_HTML)
     @GET public String html() {
         Cite cite = getRandomCite();
+
+		if (null == cite) {
+			return "";
+		}
+
         String text = StringEscapeUtils.escapeHtml4(cite.getText());
         String name = StringEscapeUtils.escapeHtml4(cite.getOriginator().getName());
         return String.format("<cite>%s</cite> (%s)", text, name);
@@ -45,6 +54,11 @@ public class RandomCiteResource extends BaseResource {
     @Produces(MediaType.TEXT_PLAIN)
     @GET public String plainText() {
         Cite cite = getRandomCite();
+
+		if (null == cite) {
+			return "";
+		}
+
         return String.format("\"%s\" (%s)", cite.getText(), cite.getOriginator().getName());
     }
 
