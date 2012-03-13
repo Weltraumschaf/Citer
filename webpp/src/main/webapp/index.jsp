@@ -57,7 +57,11 @@
             <p>
                 <strong>{{originator.name}}</strong><br />
                 <cite>{{text}}</cite><br />
-                <small>(einetragen am: {{date dateCreated}}</small>
+                <small>
+                    (einetragen am: {{date dateCreated}} &ndash; bearbeitet am: {{date dateUpdated}}) &ndash;
+                    bearbeiten &ndash;
+                    <a id="deleteCite" href="{{uri}}">löschen</a>
+                </small>
             </p>
         </script>
 

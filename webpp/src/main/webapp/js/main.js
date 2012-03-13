@@ -22,8 +22,8 @@
         $.ajax({
             type:   'GET',
             url:    serviceUrl + 'cite/random',
-            data:   {},
             success: function(response) {
+                response.uri = serviceUrl + 'cite/' + response.id;
                 $("#content").html(citeTpl(response));
             },
             error:   function (XMLHttpRequest, textStatus, errorThrown) {
@@ -54,10 +54,24 @@
         event.stopPropagation();
     }
 
+    function deleteCite(event) {
+        $.ajax({
+            type:   'DELETE',
+            url:    this.href,
+            success: function(response) {},
+            error:   function (XMLHttpRequest, textStatus, errorThrown) {
+                throw new Error('Cant do AJAX request: ' + textStatus);
+            }
+        });
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
     $(function() {
         $('#fancy').hide();
         $('#mailadress').amail();
         $('#nextCite').click(randomCite).click();
+        $('#deleteCite').click(deleteCite);
         $('#submitCite').fancybox({
             'type':          'inline',
             'autoScale':          true,
