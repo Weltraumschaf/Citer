@@ -30,8 +30,11 @@
                 throw new Error('Cant do AJAX request: ' + textStatus);
             }
         });
-        event.preventDefault();
-        event.stopPropagation();
+
+        if (event) {
+            event.preventDefault();
+            event.stopPropagation();
+        }
     }
 
     function submitCite(event) {
@@ -50,6 +53,7 @@
                 throw new Error('Cant do AJAX request: ' + textStatus);
             }
         });
+
         event.preventDefault();
         event.stopPropagation();
     }
@@ -58,7 +62,7 @@
         $.ajax({
             type:   'DELETE',
             url:    this.href,
-            success: function(response) {},
+            success: randomCite,
             error:   function (XMLHttpRequest, textStatus, errorThrown) {
                 throw new Error('Cant do AJAX request: ' + textStatus);
             }
@@ -71,7 +75,7 @@
         $('#fancy').hide();
         $('#mailadress').amail();
         $('#nextCite').click(randomCite).click();
-        $('#deleteCite').click(deleteCite);
+        $('#centeredContainer').delegate('a.deleteCite', 'click', deleteCite);
         $('#submitCite').fancybox({
             'type':          'inline',
             'autoScale':          true,

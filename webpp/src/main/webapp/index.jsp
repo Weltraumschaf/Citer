@@ -60,7 +60,7 @@
                 <small>
                     (einetragen am: {{date dateCreated}} &ndash; bearbeitet am: {{date dateUpdated}}) &ndash;
                     bearbeiten &ndash;
-                    <a id="deleteCite" href="{{uri}}">löschen</a>
+                    <a class="deleteCite" href="{{uri}}">löschen</a>
                 </small>
             </p>
         </script>
