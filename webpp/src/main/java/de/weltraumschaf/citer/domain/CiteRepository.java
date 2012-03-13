@@ -1,6 +1,7 @@
 package de.weltraumschaf.citer.domain;
 
 import static de.weltraumschaf.citer.domain.RelTypes.A_CITE;
+import static de.weltraumschaf.citer.domain.RelTypes.CREATED_BY;
 import static de.weltraumschaf.citer.domain.RelTypes.REF_CITES;
 import java.util.Map;
 import java.util.UUID;
@@ -89,6 +90,7 @@ public class CiteRepository implements Repository<Cite> {
         try {
             Node citeNode = cite.getUnderlyingNode();
             index.remove(citeNode, Cite.ID, cite.getId());
+            citeNode.getSingleRelationship(CREATED_BY, Direction.OUTGOING).delete();
             citeNode.getSingleRelationship(A_CITE, Direction.INCOMING).delete();
             // @todo remove originator, if last cite of her.
             citeNode.delete();
