@@ -26,6 +26,7 @@
             <p>
                 <a id="nextCite" href="javascript:;">nächstes</a> &ndash;
                 <a id="submitCite" href="#citeForm">eintragen</a> &ndash;
+                <a id="allCites" href="javascript:;">alle</a> &ndash;
                 <a href="${pageContext.request.contextPath}/api">API</a> &ndash;
                 <a href="${pageContext.request.contextPath}/apitest.jsp">API-Test</a>
             </p>
@@ -53,7 +54,6 @@
         </div>
 
         <script id="citeTpl" type="text/x-handlebars-template">
-            <h2>zufülliges Zitat</h2>
             <p>
                 <strong>{{originator.name}}</strong><br />
                 <cite>{{text}}</cite><br />

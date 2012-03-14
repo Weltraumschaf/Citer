@@ -23,8 +23,11 @@
             type:   'GET',
             url:    serviceUrl + 'cite/random',
             success: function(response) {
+                var html = "<h2>Zufülliges Zitat</h2>";
+
                 response.uri = serviceUrl + 'cite/' + response.id;
-                $("#content").html(citeTpl(response));
+                html += citeTpl(response);
+                $("#content").html(html);
             },
             error:   function (XMLHttpRequest, textStatus, errorThrown) {
                 throw new Error('Cant do AJAX request: ' + textStatus);
@@ -46,7 +49,9 @@
                 text: $('#text').val()
             }),
             success: function(response) {
-                $("#content").html(citeTpl(response));
+                var html = "<h2>Neues Zitat</h2>";
+                html += citeTpl(response);
+                $("#content").html(html);
                 $.fancybox.close();
             },
             error:   function (XMLHttpRequest, textStatus, errorThrown) {
@@ -71,10 +76,33 @@
         event.stopPropagation();
     }
 
+    function allCites(event) {
+        $.ajax({
+            type:   'GET',
+            url:    serviceUrl + 'cite',
+            success: function(response) {
+                var i, l, html = "<h2>Alle Zitate</h2>";
+
+                for (i = 0, l = response.length; i < l; ++i) {
+                    response[i].uri = serviceUrl + 'cite/' + response[i].id;
+                    html += citeTpl(response[i]);
+                }
+
+                $("#content").html(html);
+            },
+            error:   function (XMLHttpRequest, textStatus, errorThrown) {
+                throw new Error('Cant do AJAX request: ' + textStatus);
+            }
+        });
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
     $(function() {
         $('#fancy').hide();
         $('#mailadress').amail();
         $('#nextCite').click(randomCite).click();
+        $('#allCites').click(allCites);
         $('#centeredContainer').delegate('a.deleteCite', 'click', deleteCite);
         $('#submitCite').fancybox({
             'type':          'inline',

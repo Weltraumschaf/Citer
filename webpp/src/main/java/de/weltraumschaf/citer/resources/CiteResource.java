@@ -25,17 +25,8 @@ import org.joda.time.DateTime;
 @Produces(MediaType.APPLICATION_JSON)
 public class CiteResource extends BaseResource {
 
-    @GET public JSONArray allCites() {
-        JSONArray cites = new JSONArray();
-
-        for (Cite cite : getCiteRepo().getAll()) {
-            URI uri = getUriInfo().getAbsolutePathBuilder()
-                                  .path(cite.getId())
-                                  .build();
-            cites.put(uri.toString());
-        }
-
-        return cites;
+    @GET public Iterable<Cite> allCites() {
+        return getCiteRepo().getAll();
     }
 
     @Consumes(MediaType.APPLICATION_JSON)
