@@ -1,5 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE HTML>
+<!DOCTYPE HTML public "citer">
 <html lang="en">
     <head>
         <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
