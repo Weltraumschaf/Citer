@@ -1,18 +1,30 @@
+/*
+ * LICENSE
+ *
+ * "THE BEER-WARE LICENSE" (Revision 43):
+ * "Sven Strittmatter" <weltraumschaf(at)googlemail(dot)com> wrote this file.
+ * As long as you retain this notice you can do whatever you want with
+ * this stuff. If we meet some day, and you think this stuff is worth it,
+ * you can buy me a non alcohol-free beer in return.
+ *
+ * Copyright (C) 2012 "Sven Strittmatter" <weltraumschaf(at)googlemail(dot)com>
+ */
 package de.weltraumschaf.citer.domain;
 
 import de.weltraumschaf.citer.Factory;
 import java.util.HashMap;
 import java.util.Map;
 import static org.junit.Assert.*;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
  *
- * @author Sven Strittmatter <weltraumschaf@googlemail.com> @license
- * http://www.weltraumschaf.de/the-beer-ware-license.txt THE BEER-WARE LICENSE
+ * @author "Sven Strittmatter" <weltraumschaf@googlemail.com>
  */
 public class CiteRepositoryTest extends NeoBase {
 
+    @Ignore
     @Test public void createFindAndDeleteCite() {
         CiteRepository repo = Factory.createCiteRepo(db());
         String text = "This is a test cite";

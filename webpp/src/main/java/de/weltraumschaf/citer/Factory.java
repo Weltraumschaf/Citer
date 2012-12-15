@@ -1,3 +1,14 @@
+/*
+ * LICENSE
+ *
+ * "THE BEER-WARE LICENSE" (Revision 43):
+ * "Sven Strittmatter" <weltraumschaf(at)googlemail(dot)com> wrote this file.
+ * As long as you retain this notice you can do whatever you want with
+ * this stuff. If we meet some day, and you think this stuff is worth it,
+ * you can buy me a non alcohol-free beer in return.
+ *
+ * Copyright (C) 2012 "Sven Strittmatter" <weltraumschaf(at)googlemail(dot)com>
+ */
 package de.weltraumschaf.citer;
 
 import de.weltraumschaf.citer.domain.CiteRepository;
@@ -10,27 +21,30 @@ import org.neo4j.kernel.EmbeddedGraphDatabase;
 /**
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
- * @license http://www.weltraumschaf.de/the-beer-ware-license.txt THE BEER-WARE LICENSE
  */
-public class Factory {
+public final class Factory {
 
     private static final String CITES_BY_ID = "citesById";
     private static final String ORIGINATOR_BY_ID = "originatorsById";
     private static final String ORIGINATOR_BY_NAME = "originatorsByName";
 
-    public static GraphDatabaseService createGraphDb(String path) {
+    private Factory() {
+        super();
+    }
+
+    public static GraphDatabaseService createGraphDb(final String path) {
         return new EmbeddedGraphDatabase(path);
     }
 
-    public static Index<Node> createNodeIndex(GraphDatabaseService db, String name) {
+    public static Index<Node> createNodeIndex(final GraphDatabaseService db, final String name) {
         return db.index().forNodes(name);
     }
 
-    public static CiteRepository createCiteRepo(GraphDatabaseService db) {
+    public static CiteRepository createCiteRepo(final GraphDatabaseService db) {
         return new CiteRepository(db, createNodeIndex(db, CITES_BY_ID));
     }
 
-    public static OriginatorRepository createOriginatorRepo(GraphDatabaseService db) {
+    public static OriginatorRepository createOriginatorRepo(final GraphDatabaseService db) {
         return new OriginatorRepository(
             db,
             createNodeIndex(db, ORIGINATOR_BY_ID),
