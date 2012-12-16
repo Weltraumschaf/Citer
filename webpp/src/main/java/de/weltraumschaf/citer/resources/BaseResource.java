@@ -12,12 +12,10 @@
 package de.weltraumschaf.citer.resources;
 
 import com.sun.jersey.api.NotFoundException;
-import de.weltraumschaf.citer.CiterContextListener;
-import de.weltraumschaf.citer.Factory;
+import de.weltraumschaf.citer.CiterRegistry;
 import de.weltraumschaf.citer.domain.CiteRepository;
 import de.weltraumschaf.citer.domain.OriginatorRepository;
 import javax.servlet.ServletConfig;
-import javax.servlet.ServletContext;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
@@ -31,18 +29,16 @@ import org.neo4j.graphdb.GraphDatabaseService;
  */
 public abstract class BaseResource {
 
-    private ServletConfig config;
+    private ServletConfig servletConfig;
     private UriInfo uriInfo;
-    private CiteRepository citeRepo;
-    private OriginatorRepository originatorRepo;
 
     public ServletConfig getConfig() {
-        return config;
+        return servletConfig;
     }
 
     @Context
     public void setConfig(ServletConfig config) {
-        this.config = config;
+        this.servletConfig = config;
     }
 
     public UriInfo getUriInfo() {
@@ -54,20 +50,17 @@ public abstract class BaseResource {
         this.uriInfo = uriInfo;
     }
 
+    protected CiterRegistry getRegistry() {
+        return (CiterRegistry) servletConfig.getServletContext().getAttribute(CiterRegistry.KEY);
+    }
+
     /**
      * Getter for neo4j graph database.
      *
      * @return Returns a neo4j embedded graph database.
      */
     protected GraphDatabaseService getGraphDb() {
-        ServletContext context = config.getServletContext();
-        GraphDatabaseService db = (GraphDatabaseService)context.getAttribute(CiterContextListener.DB);
-
-        if (null == db) {
-            throw new RuntimeException("Can't obtain graph db from servlet context!");
-        }
-
-        return db;
+        return getRegistry().getDatabase();
     }
 
     /**
@@ -76,11 +69,7 @@ public abstract class BaseResource {
      * @return Returns a repository object to deal with cites.
      */
     protected CiteRepository getCiteRepo() {
-        if (null == citeRepo) {
-            citeRepo = Factory.createCiteRepo(getGraphDb());
-        }
-
-        return citeRepo;
+        return (CiteRepository) getRegistry().getCiteRepository();
     }
 
     /**
@@ -89,11 +78,7 @@ public abstract class BaseResource {
      * @return Returns a repository object to deal with cites.
      */
     protected OriginatorRepository getOriginatorRepo() {
-        if (null == originatorRepo) {
-            originatorRepo = Factory.createOriginatorRepo(getGraphDb());
-        }
-
-        return originatorRepo;
+        return (OriginatorRepository) getRegistry().getOriginatorRepository();
     }
 
     protected Response createErrorResponse(String message) {

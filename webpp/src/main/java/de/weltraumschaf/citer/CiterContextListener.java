@@ -27,22 +27,24 @@ public class CiterContextListener implements ServletContextListener {
     /**
      * File where to store the database.
      */
-    private static final String DB_PATH = "/tmp/citer.db";
-
-    /**
-     * Servlet context attribute key for the database.
-     */
-    public static final String DB = "db";
+    private static final String DB_PATH = "~/tmp/citer.db";
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        sce.getServletContext().setAttribute(DB, Factory.createGraphDb(DB_PATH));
+        final DbFactory dbFactory = new DbFactory();
+        final CiterRegistry registry = new CiterRegistry(dbFactory);
+        registry.setDatabase(dbFactory.createGraphDb(DB_PATH));
+        sce.getServletContext().setAttribute(CiterRegistry.KEY, registry);
     }
 
     @Override
     public void contextDestroyed(ServletContextEvent sce) {
-        GraphDatabaseService db = (GraphDatabaseService)sce.getServletContext().getAttribute(DB);
-        db.shutdown();
+        final CiterRegistry registry = (CiterRegistry) sce.getServletContext().getAttribute(CiterRegistry.KEY);
+        final GraphDatabaseService db = registry.getDatabase();
+
+        if (null != db) {
+            db.shutdown();
+        }
     }
 
 }

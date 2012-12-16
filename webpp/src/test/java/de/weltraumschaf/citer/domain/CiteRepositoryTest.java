@@ -11,7 +11,7 @@
  */
 package de.weltraumschaf.citer.domain;
 
-import de.weltraumschaf.citer.Factory;
+import de.weltraumschaf.citer.DbFactory;
 import java.util.HashMap;
 import java.util.Map;
 import static org.junit.Assert.*;
@@ -26,7 +26,7 @@ public class CiteRepositoryTest extends NeoBase {
 
     @Ignore
     @Test public void createFindAndDeleteCite() {
-        CiteRepository repo = Factory.createCiteRepo(db());
+        CiteRepository repo = new DbFactory().createCiteRepo(db());
         String text = "This is a test cite";
         Map<String, Object> params = new HashMap<String, Object>();
         params.put(Cite.TEXT, text);

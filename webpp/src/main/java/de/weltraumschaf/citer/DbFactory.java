@@ -11,8 +11,12 @@
  */
 package de.weltraumschaf.citer;
 
+import de.weltraumschaf.citer.domain.Cite;
 import de.weltraumschaf.citer.domain.CiteRepository;
+import de.weltraumschaf.citer.domain.NodeEntity;
+import de.weltraumschaf.citer.domain.Originator;
 import de.weltraumschaf.citer.domain.OriginatorRepository;
+import de.weltraumschaf.citer.domain.Repository;
 import org.neo4j.graphdb.GraphDatabaseService;
 import org.neo4j.graphdb.Node;
 import org.neo4j.graphdb.index.Index;
@@ -22,29 +26,29 @@ import org.neo4j.kernel.EmbeddedGraphDatabase;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public final class Factory {
+public final class DbFactory {
 
     private static final String CITES_BY_ID = "citesById";
     private static final String ORIGINATOR_BY_ID = "originatorsById";
     private static final String ORIGINATOR_BY_NAME = "originatorsByName";
 
-    private Factory() {
+    public DbFactory() {
         super();
     }
 
-    public static GraphDatabaseService createGraphDb(final String path) {
+    public GraphDatabaseService createGraphDb(final String path) {
         return new EmbeddedGraphDatabase(path);
     }
 
-    public static Index<Node> createNodeIndex(final GraphDatabaseService db, final String name) {
+    public Index<Node> createNodeIndex(final GraphDatabaseService db, final String name) {
         return db.index().forNodes(name);
     }
 
-    public static CiteRepository createCiteRepo(final GraphDatabaseService db) {
+    public CiteRepository createCiteRepo(final GraphDatabaseService db) {
         return new CiteRepository(db, createNodeIndex(db, CITES_BY_ID));
     }
 
-    public static OriginatorRepository createOriginatorRepo(final GraphDatabaseService db) {
+    public OriginatorRepository createOriginatorRepo(final GraphDatabaseService db) {
         return new OriginatorRepository(
             db,
             createNodeIndex(db, ORIGINATOR_BY_ID),

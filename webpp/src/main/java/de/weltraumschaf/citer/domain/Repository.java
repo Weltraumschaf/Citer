@@ -17,7 +17,7 @@ import java.util.Map;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-public interface Repository<E> {
+public interface Repository<E extends NodeEntity> {
 
     public E create(Map<String, Object> params) throws Exception;
     public E findById(String id);

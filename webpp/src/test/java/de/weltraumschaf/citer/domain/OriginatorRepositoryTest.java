@@ -1,6 +1,17 @@
+/*
+ * LICENSE
+ *
+ * "THE BEER-WARE LICENSE" (Revision 43):
+ * "Sven Strittmatter" <weltraumschaf(at)googlemail(dot)com> wrote this file.
+ * As long as you retain this notice you can do whatever you want with
+ * this stuff. If we meet some day, and you think this stuff is worth it,
+ * you can buy me a non alcohol-free beer in return.
+ *
+ * Copyright (C) 2012 "Sven Strittmatter" <weltraumschaf(at)googlemail(dot)com>
+ */
 package de.weltraumschaf.citer.domain;
 
-import de.weltraumschaf.citer.Factory;
+import de.weltraumschaf.citer.DbFactory;
 import java.util.HashMap;
 import java.util.Map;
 import static org.junit.Assert.*;
@@ -10,7 +21,6 @@ import org.junit.Test;
 /**
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
- * @license http://www.weltraumschaf.de/the-beer-ware-license.txt THE BEER-WARE LICENSE
  */
 public class OriginatorRepositoryTest extends NeoBase {
 
@@ -18,7 +28,7 @@ public class OriginatorRepositoryTest extends NeoBase {
 
     @Before
     public void setUp() {
-        repo = Factory.createOriginatorRepo(db());
+        repo = new DbFactory().createOriginatorRepo(db());
     }
 
     @Test public void createFindAndDeleteOriginator() throws Exception {
