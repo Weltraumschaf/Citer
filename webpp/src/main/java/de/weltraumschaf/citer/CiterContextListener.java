@@ -11,6 +11,7 @@
  */
 package de.weltraumschaf.citer;
 
+import java.io.File;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import org.neo4j.graphdb.GraphDatabaseService;
@@ -24,16 +25,26 @@ import org.neo4j.graphdb.GraphDatabaseService;
  */
 public class CiterContextListener implements ServletContextListener {
 
+    private final DbFactory dbFactory = new DbFactory();
+    private final CiterRegistry registry = new CiterRegistry(dbFactory);
+
+    public CiterContextListener() {
+        super();
+    }
+
+
     /**
      * File where to store the database.
      */
-    private static final String DB_PATH = "~/tmp/citer.db";
+    private static final String DB_FILE = "citer.db";
 
     @Override
     public void contextInitialized(ServletContextEvent sce) {
-        final DbFactory dbFactory = new DbFactory();
-        final CiterRegistry registry = new CiterRegistry(dbFactory);
-        registry.setDatabase(dbFactory.createGraphDb(DB_PATH));
+        final Config config = new Config(System.getenv("HOME") + File.separator + ".citer");
+        new InstallTask(config.getHomeDir()).execute();
+
+        registry.setDatabase(dbFactory.createGraphDb(config.getHomeDir() + File.separator + DB_FILE));
+        registry.setConfig(config);
         sce.getServletContext().setAttribute(CiterRegistry.KEY, registry);
     }
 

@@ -12,11 +12,8 @@
 
 package de.weltraumschaf.citer;
 
-import de.weltraumschaf.citer.domain.Cite;
 import de.weltraumschaf.citer.domain.CiteRepository;
-import de.weltraumschaf.citer.domain.Originator;
 import de.weltraumschaf.citer.domain.OriginatorRepository;
-import de.weltraumschaf.citer.domain.Repository;
 import org.neo4j.graphdb.GraphDatabaseService;
 
 /**
@@ -33,6 +30,7 @@ public final class CiterRegistry {
     private GraphDatabaseService graphDb;
     private CiteRepository citeRepo;
     private OriginatorRepository originatorRepo;
+    private Config config;
 
     public CiterRegistry() {
         this(new DbFactory());
@@ -69,6 +67,10 @@ public final class CiterRegistry {
         synchronized (lock) {
             return originatorRepo;
         }
+    }
+
+    void setConfig(final Config c) {
+        config = c;
     }
 
 }
