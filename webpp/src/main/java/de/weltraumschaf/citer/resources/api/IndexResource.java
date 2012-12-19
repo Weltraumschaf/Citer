@@ -9,8 +9,9 @@
  *
  * Copyright (C) 2012 "Sven Strittmatter" <weltraumschaf(at)googlemail(dot)com>
  */
-package de.weltraumschaf.citer.resources;
+package de.weltraumschaf.citer.resources.api;
 
+import de.weltraumschaf.citer.resources.BaseResource;
 import de.weltraumschaf.citer.util.Html5;
 import java.util.Arrays;
 import java.util.Enumeration;
@@ -25,9 +26,10 @@ import org.neo4j.graphdb.GraphDatabaseService;
 
 /**
  *
- * @license http://www.weltraumschaf.de/the-beer-ware-license.txt THE BEER-WARE LICENSE
+ * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-@Path("/") public class IndexResource extends BaseResource {
+@Path("/")
+public class IndexResource extends BaseResource {
 
     private static final Logger LOGGER = Logger.getLogger(IndexResource.class.getName());
     private static final List<String> PATHS = Arrays.asList("cite", "originator", "test", "neo4j");

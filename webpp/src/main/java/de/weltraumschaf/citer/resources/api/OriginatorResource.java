@@ -9,9 +9,10 @@
  *
  * Copyright (C) 2012 "Sven Strittmatter" <weltraumschaf(at)googlemail(dot)com>
  */
-package de.weltraumschaf.citer.resources;
+package de.weltraumschaf.citer.resources.api;
 
 import de.weltraumschaf.citer.domain.Originator;
+import de.weltraumschaf.citer.resources.BaseResource;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;

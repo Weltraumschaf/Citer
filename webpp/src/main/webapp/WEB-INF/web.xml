@@ -15,18 +15,31 @@
     </listener>
 
     <servlet>
+        <servlet-name>AdminResources</servlet-name>
+        <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
+        <init-param>
+            <param-name>com.sun.jersey.config.property.packages</param-name>
+            <param-value>de.weltraumschaf.citer.resources.admin</param-value>
+        </init-param>
+        <init-param>
+            <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
+            <param-value>true</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet>
         <servlet-name>ApiResources</servlet-name>
         <servlet-class>com.sun.jersey.spi.container.servlet.ServletContainer</servlet-class>
         <init-param>
             <param-name>com.sun.jersey.config.property.packages</param-name>
-            <param-value>de.weltraumschaf.citer.resources</param-value>
+            <param-value>de.weltraumschaf.citer.resources.api</param-value>
         </init-param>
         <init-param>
             <param-name>com.sun.jersey.api.json.POJOMappingFeature</param-name>
             <param-value>true</param-value>
         </init-param>
         <!-- debugging -->
-<!--        <init-param>
+        <!--        <init-param>
             <param-name>com.sun.jersey.spi.container.ContainerRequestFilters</param-name>
             <param-value>com.sun.jersey.api.container.filter.LoggingFilter</param-value>
         </init-param>
@@ -38,18 +51,13 @@
     </servlet>
 
     <servlet-mapping>
+        <servlet-name>AdminResources</servlet-name>
+        <url-pattern>/admin/*</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
         <servlet-name>ApiResources</servlet-name>
         <url-pattern>/api/*</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>AdminServlet</servlet-name>
-        <servlet-class>de.weltraumschaf.citer.servlets.AdminServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>AdminServlet</servlet-name>
-        <url-pattern>/admin/*</url-pattern>
     </servlet-mapping>
 
 </web-app>
