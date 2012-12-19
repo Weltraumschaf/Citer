@@ -13,13 +13,21 @@
 package de.weltraumschaf.citer.resources.admin;
 
 import de.weltraumschaf.citer.resources.BaseResource;
+import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
 
 /**
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-//@Path("/admin/")
-public class AdminBaseResource extends BaseResource {
+@Path("search/")
+public class SearchResource extends BaseResource {
+
+    @Produces(MediaType.TEXT_HTML)
+    @GET public String indexAsHtml() {
+        return "search";
+    }
 
 }

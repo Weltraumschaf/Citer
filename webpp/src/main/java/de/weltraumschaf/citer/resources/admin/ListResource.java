@@ -12,7 +12,7 @@
 
 package de.weltraumschaf.citer.resources.admin;
 
-import de.weltraumschaf.citer.util.Html5;
+import de.weltraumschaf.citer.resources.BaseResource;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -22,18 +22,12 @@ import javax.ws.rs.core.MediaType;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-@Path("/")
-public class AdminIndexResource {
+@Path("/list")
+public class ListResource extends BaseResource {
 
     @Produces(MediaType.TEXT_HTML)
     @GET public String indexAsHtml() {
-        String title = "Admin Index";
-        Html5 html = new Html5(title);
-        html.append("<h1>")
-            .append(title)
-            .append("</h1>")
-            .append("<p>helo</p>");
-        return html.toString();
+        return "list";
     }
 
 }
