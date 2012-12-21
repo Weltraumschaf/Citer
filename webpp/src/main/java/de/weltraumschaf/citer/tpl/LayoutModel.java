@@ -25,6 +25,15 @@ public final class LayoutModel {
     private String title = "";
     private String baseUri = "";
     private String content = "";
+    private String faviconUri = "";
+
+    public String getFaviconUri() {
+        return faviconUri;
+    }
+
+    public void setFaviconUri(final String faviconUri) {
+        this.faviconUri = faviconUri;
+    }
 
     public void addJavaScriptUri(final String javaScriptUri) {
         javaScriptUris.add(javaScriptUri);

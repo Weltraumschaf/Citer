@@ -9,7 +9,6 @@
  *
  * Copyright (C) 2012 "Sven Strittmatter" <weltraumschaf@googlemail.com>
  */
-
 package de.weltraumschaf.citer.tpl;
 
 import freemarker.template.Configuration;
@@ -28,7 +27,6 @@ import java.io.Writer;
 public class SiteLayout {
 
     private static final String TEMPLATE_PREFIX = "/de/weltraumschaf/citer/resources";
-
     private final LayoutModel model = new LayoutModel();
     private final Configuration config;
     private final Template layout;
@@ -62,6 +60,10 @@ public class SiteLayout {
         model.addCssUri(cssUri);
     }
 
+    public void setFaviconUri(final String faviconUri) {
+        model.setFaviconUri(faviconUri);
+    }
+
     public SiteContent newSiteContent(final String templateFile) throws IOException {
         final SiteContent siteContent = new SiteContent(config, templateFile);
         siteContent.getModel().setLayout(model);
@@ -75,5 +77,4 @@ public class SiteLayout {
         writer.flush();
         return writer.toString();
     }
-
 }

@@ -34,7 +34,9 @@ public class IndexResource extends BaseResource {
         try {
             final SiteLayout layout = createLayout("layout.tpl");
             layout.setTitle("Citer Admin - Index");
-            layout.setBaseUri(getUriInfo().getBaseUri().toString());
+            final String baseUri = getUriInfo().getBaseUri().toString();
+            layout.setBaseUri(baseUri);
+            layout.setFaviconUri(baseUri + "../img/favicon.ico");
 //            throw new IOException("foobar");
             final SiteContent content = layout.newSiteContent("admin/index.tpl");
             return layout.render(content);
@@ -44,5 +46,4 @@ public class IndexResource extends BaseResource {
             return createErrorResponse(formatError(ex)).toString();
         }
     }
-
 }
