@@ -27,7 +27,7 @@ public class SearchResource extends BaseResource {
 
     @Produces(MediaType.TEXT_HTML)
     @GET public String indexAsHtml() {
-        return "search";
+        return formatUriInfo();
     }
 
 }

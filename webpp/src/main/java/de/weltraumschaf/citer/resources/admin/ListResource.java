@@ -27,7 +27,7 @@ public class ListResource extends BaseResource {
 
     @Produces(MediaType.TEXT_HTML)
     @GET public String indexAsHtml() {
-        return "list";
+        return formatUriInfo();
     }
 
 }

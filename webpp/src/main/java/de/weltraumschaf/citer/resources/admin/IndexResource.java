@@ -12,16 +12,10 @@
 package de.weltraumschaf.citer.resources.admin;
 
 import de.weltraumschaf.citer.resources.BaseResource;
-import freemarker.template.Configuration;
-import freemarker.template.DefaultObjectWrapper;
-import freemarker.template.Template;
+import de.weltraumschaf.citer.tpl.SiteContent;
+import de.weltraumschaf.citer.tpl.SiteLayout;
 import freemarker.template.TemplateException;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -37,36 +31,18 @@ public class IndexResource extends BaseResource {
     @Produces(MediaType.TEXT_HTML)
     @GET
     public String indexAsHtml() {
-        final Configuration cfg = new Configuration();
-        cfg.setClassForTemplateLoading(this.getClass(), "/de/weltraumschaf/citer/resources/admin");
-        cfg.setObjectWrapper(new DefaultObjectWrapper());
-        final Writer writer = new StringWriter();
-
         try {
-            final Template temp = cfg.getTemplate("index.tpl");
-            temp.process(new Object(), writer);
-            writer.flush();
+            final SiteLayout layout = createLayout("layout.tpl");
+            layout.setTitle("Citer Admin - Index");
+            layout.setBaseUri(getUriInfo().getBaseUri().toString());
+//            throw new IOException("foobar");
+            final SiteContent content = layout.newSiteContent("admin/index.tpl");
+            return layout.render(content);
         } catch (IOException ex) {
-            return formatError(ex);
+            return createErrorResponse(formatError(ex)).toString();
         } catch (TemplateException ex) {
-            return formatError(ex);
+            return createErrorResponse(formatError(ex)).toString();
         }
-
-
-        return writer.toString();
     }
 
-    private String formatError(final Exception ex) {
-        final StringBuilder buffer = new StringBuilder();
-        buffer.append(String.format("<h1>%s</h1>", ex.getMessage()));
-        final Writer writer = new StringWriter();
-        ex.printStackTrace(new PrintWriter(writer));
-        try {
-            writer.flush();
-        } catch (IOException ex1) {
-            // Doesn't do any IO.
-        }
-        buffer.append(String.format("<pre>%s</pre>", writer.toString()));
-        return buffer.toString();
-    }
 }

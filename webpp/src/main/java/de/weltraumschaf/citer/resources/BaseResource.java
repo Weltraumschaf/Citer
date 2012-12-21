@@ -15,6 +15,14 @@ import com.sun.jersey.api.NotFoundException;
 import de.weltraumschaf.citer.CiterRegistry;
 import de.weltraumschaf.citer.domain.CiteRepository;
 import de.weltraumschaf.citer.domain.OriginatorRepository;
+import de.weltraumschaf.citer.tpl.SiteContent;
+import de.weltraumschaf.citer.tpl.SiteLayout;
+import freemarker.template.Configuration;
+import freemarker.template.DefaultObjectWrapper;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 import javax.servlet.ServletConfig;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.Context;
@@ -31,6 +39,14 @@ public abstract class BaseResource {
 
     private ServletConfig servletConfig;
     private UriInfo uriInfo;
+
+    public BaseResource() {
+        super();
+    }
+
+    public SiteLayout createLayout(final String layout) throws IOException {
+        return SiteLayout.newLayout(layout);
+    }
 
     public ServletConfig getConfig() {
         return servletConfig;
@@ -96,4 +112,33 @@ public abstract class BaseResource {
         String message = String.format("Property '%s' missing!", name);
         throw new WebApplicationException(createErrorResponse(message));
     }
+
+    protected String formatUriInfo() {
+        return formatUriInfo(getUriInfo());
+    }
+
+    protected String formatUriInfo(UriInfo info) {
+        final String FORMAT = "%s: %s%n";
+        final StringBuilder buffer = new StringBuilder();
+        buffer.append("<pre>");
+        buffer.append(String.format(FORMAT, "Path", info.getPath()));
+        buffer.append(String.format(FORMAT, "BaseUri", info.getBaseUri().toString()));
+        buffer.append(String.format(FORMAT, "AbsolutePath", info.getAbsolutePath().toString()));
+        return buffer.toString();
+    }
+
+    protected String formatError(final Exception ex) {
+        final StringBuilder buffer = new StringBuilder();
+        buffer.append(String.format("<h1>%s</h1>", ex.getMessage()));
+        final Writer writer = new StringWriter();
+        ex.printStackTrace(new PrintWriter(writer));
+        try {
+            writer.flush();
+        } catch (IOException ex1) {
+            // Doesn't do any IO.
+        }
+        buffer.append(String.format("<pre>%s</pre>", writer.toString()));
+        return buffer.toString();
+    }
+
 }
