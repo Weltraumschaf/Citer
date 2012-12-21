@@ -37,6 +37,7 @@ public class IndexResource extends BaseResource {
             final String baseUri = getUriInfo().getBaseUri().toString();
             layout.setBaseUri(baseUri);
             layout.setFaviconUri(baseUri + "../img/favicon.ico");
+            layout.addCssUri(baseUri + "../css/main.css");
 //            throw new IOException("foobar");
             final SiteContent content = layout.newSiteContent("admin/index.tpl");
             return layout.render(content);

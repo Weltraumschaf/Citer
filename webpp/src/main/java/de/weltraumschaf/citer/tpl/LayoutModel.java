@@ -20,7 +20,7 @@ import java.util.List;
  */
 public final class LayoutModel {
 
-    private final List<String> javaScriptUris = Lists.newArrayList();
+    private final List<String> jsUris = Lists.newArrayList();
     private final List<String> cssUris = Lists.newArrayList();
     private String title = "";
     private String baseUri = "";
@@ -35,12 +35,12 @@ public final class LayoutModel {
         this.faviconUri = faviconUri;
     }
 
-    public void addJavaScriptUri(final String javaScriptUri) {
-        javaScriptUris.add(javaScriptUri);
+    public void addJsUri(final String javaScriptUri) {
+        jsUris.add(javaScriptUri);
     }
 
-    public List<String> getJavaScripts() {
-        return javaScriptUris;
+    public List<String> getJsUris() {
+        return jsUris;
     }
 
     public void addCssUri(final String cssUri) {
