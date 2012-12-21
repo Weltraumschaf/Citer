@@ -32,12 +32,8 @@ public class IndexResource extends BaseResource {
     @GET
     public String indexAsHtml() {
         try {
-            final SiteLayout layout = createLayout("layout.tpl");
+            final SiteLayout layout = createLayout();
             layout.setTitle("Citer Admin - Index");
-            final String baseUri = getUriInfo().getBaseUri().toString();
-            layout.setBaseUri(baseUri);
-            layout.setFaviconUri(baseUri + "../img/favicon.ico");
-            layout.addCssUri(baseUri + "../css/main.css");
 //            throw new IOException("foobar");
             final SiteContent content = layout.newSiteContent("admin/index.tpl");
             return layout.render(content);

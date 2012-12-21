@@ -1,0 +1,69 @@
+/**
+ * LICENSE
+ *
+ * "THE BEER-WARE LICENSE" (Revision 42):
+ * "Sven Strittmatter" <ich@weltraumschaf.de> wrote this file.
+ * As long as you retain this notice you can do whatever you want with
+ * this stuff. If we meet some day, and you think this stuff is worth it,
+ * you can buy me a beer in return.
+ *
+ * @author    Weltraumschaf
+ * @copyright Copyright (c) 01.12.2010, Sven Strittmatter.
+ * @version   0.2
+ * @license   http://www.weltraumschaf.de/the-beer-ware-license.txt
+*/
+
+body {
+    height: 100%;
+    font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+    color: #000;
+    background: #fff;
+}
+
+td {
+    vertical-align: top;
+}
+
+a {
+    color: #8c8c8c;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: normal;
+    font-size: 100%;
+}
+
+p {
+    margin-bottom: 1em;
+}
+
+small {
+    font-size: 75%;
+}
+
+em {
+    font-style: italic;
+}
+
+ol {
+    margin-left: 30px;
+}
+
+li {
+    padding-bottom: 7px;
+}
+
+h2 {
+    font-size: 170%;
+    margin: 7px 0 10px 10px;
+}
+
+h3 {
+    font-size: 135%;
+    margin-bottom: 7px;
+}

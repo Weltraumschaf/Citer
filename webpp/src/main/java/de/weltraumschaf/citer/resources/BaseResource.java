@@ -44,8 +44,19 @@ public abstract class BaseResource {
         super();
     }
 
-    public SiteLayout createLayout(final String layout) throws IOException {
-        return SiteLayout.newLayout(layout);
+    public SiteLayout createLayout() throws IOException {
+        return createLayout("layout.tpl");
+    }
+    
+    public SiteLayout createLayout(final String layoutFile) throws IOException {
+        final SiteLayout layout = SiteLayout.newLayout(layoutFile);
+        final String baseUri = getUriInfo().getBaseUri().toString();
+        layout.setBaseUri(baseUri);
+        layout.setFaviconUri(baseUri + "../img/favicon.ico");
+        layout.addCssUri(baseUri + "../css/admin/main.css");
+        layout.addJsUri(baseUri + "../js/jquery.js");
+        layout.addJsUri(baseUri + "../js/admin/main.js");
+        return layout;
     }
 
     public ServletConfig getConfig() {
@@ -99,8 +110,8 @@ public abstract class BaseResource {
 
     protected Response createErrorResponse(String message) {
         return Response.serverError()
-                       .entity(message)
-                       .build();
+                .entity(message)
+                .build();
     }
 
     protected void raiseIdNotFoundError(String resource, String id) throws WebApplicationException {
@@ -140,5 +151,4 @@ public abstract class BaseResource {
         buffer.append(String.format("<pre>%s</pre>", writer.toString()));
         return buffer.toString();
     }
-
 }

@@ -52,7 +52,7 @@ public class SiteLayout {
         model.setBaseUri(baseUri);
     }
 
-    public void addJavaScriptUri(final String javaScriptUri) {
+    public void addJsUri(final String javaScriptUri) {
         model.addJsUri(javaScriptUri);
     }
 

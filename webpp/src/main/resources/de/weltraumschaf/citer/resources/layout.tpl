@@ -9,5 +9,10 @@
 
         <title>${title}</title>
     </head>
-    <body>${content}</body>
+    <body>
+        ${content}
+        <#list jsUris as uri>
+        <script type="text/javascript" src="${uri}"></script>
+        </#list>
+    </body>
 </html>

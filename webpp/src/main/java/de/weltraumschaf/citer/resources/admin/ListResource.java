@@ -13,6 +13,10 @@
 package de.weltraumschaf.citer.resources.admin;
 
 import de.weltraumschaf.citer.resources.BaseResource;
+import de.weltraumschaf.citer.tpl.SiteContent;
+import de.weltraumschaf.citer.tpl.SiteLayout;
+import freemarker.template.TemplateException;
+import java.io.IOException;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -27,7 +31,16 @@ public class ListResource extends BaseResource {
 
     @Produces(MediaType.TEXT_HTML)
     @GET public String indexAsHtml() {
-        return formatUriInfo();
+        try {
+            final SiteLayout layout = createLayout();
+            layout.setTitle("Citer Admin - List");
+            final SiteContent content = layout.newSiteContent("admin/list.tpl");
+            return layout.render(content);
+        } catch (IOException ex) {
+            return createErrorResponse(formatError(ex)).toString();
+        } catch (TemplateException ex) {
+            return createErrorResponse(formatError(ex)).toString();
+        }
     }
 
 }
