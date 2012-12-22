@@ -21,10 +21,10 @@ import java.util.Map;
  */
 public final class ContentModel {
 
-    private final Map<String, String> vars = Maps.newHashMap();
+    private final Map<String, Object> vars = Maps.newHashMap();
     private LayoutModel layoutModel;
 
-    public void assign(final String name, final String value) {
+    public void assign(final String name, final Object value) {
         if (name == null) {
             throw new NullPointerException();
         }
@@ -36,7 +36,7 @@ public final class ContentModel {
         vars.put(name, value);
     }
 
-    public Map<String, String> getVars() {
+    public Map<String, Object> getVars() {
         return vars;
     }
 

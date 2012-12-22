@@ -11,18 +11,16 @@
  */
 package de.weltraumschaf.citer.resources.api;
 
+import com.google.common.collect.Maps;
 import de.weltraumschaf.citer.domain.Cite;
 import de.weltraumschaf.citer.domain.Originator;
 import de.weltraumschaf.citer.resources.BaseResource;
 import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
-import javax.servlet.ServletConfig;
 import javax.ws.rs.*;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.UriInfo;
 import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
@@ -50,16 +48,16 @@ public class CiteResource extends BaseResource {
             raiseMissingPropertyError(Originator.NAME);
         }
 
-        String name = jsonEntity.getString(Originator.NAME);
+        final String name = jsonEntity.getString(Originator.NAME);
         Originator originator = getOriginatorRepo().findByName(name);
 
         if (null == originator) {
-            Map params  = new HashMap<String, Object>();
-            params.put(Originator.NAME, name);
-            originator = getOriginatorRepo().create(params);
+            final Map<String, Object> originatorParams  = Maps.newHashMap();
+            originatorParams.put(Originator.NAME, name);
+            originator = getOriginatorRepo().create(originatorParams);
         }
 
-        Map params = new HashMap<String, Object>();
+        final Map <String, Object> params = Maps.newHashMap();
         params.put(Cite.TEXT, jsonEntity.getString(Cite.TEXT));
         Cite newCite = getCiteRepo().create(params);
         newCite.setOriginator(originator);
@@ -90,8 +88,8 @@ public class CiteResource extends BaseResource {
             raiseMissingPropertyError(Cite.TEXT);
         }
 
-        String text = jsonEntity.getString(Cite.TEXT);
-        Cite cite   =  getCiteRepo().findById(id);
+        final String text = jsonEntity.getString(Cite.TEXT);
+        final Cite cite   =  getCiteRepo().findById(id);
 
         if (null == cite) {
             raiseIdNotFoundError("cite", id);

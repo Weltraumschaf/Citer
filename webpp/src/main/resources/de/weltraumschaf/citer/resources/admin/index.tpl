@@ -3,4 +3,5 @@
 <ul>
     <li><a href="${layout.baseUri}list">list</a></li>
     <li><a href="${layout.baseUri}search">search</a></li>
+    <li><a href="${layout.baseUri}cite">cite</a></li>
 </ul>

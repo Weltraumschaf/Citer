@@ -20,6 +20,7 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 /**
  *
@@ -30,17 +31,20 @@ public class IndexResource extends BaseResource {
 
     @Produces(MediaType.TEXT_HTML)
     @GET
-    public String indexAsHtml() {
+    public Response indexAsHtml() {
+        Response response;
         try {
             final SiteLayout layout = createLayout();
             layout.setTitle("Citer Admin - Index");
 //            throw new IOException("foobar");
             final SiteContent content = layout.newSiteContent("admin/index.tpl");
-            return layout.render(content);
-        } catch (IOException ex) {
-            return createErrorResponse(formatError(ex)).toString();
-        } catch (TemplateException ex) {
-            return createErrorResponse(formatError(ex)).toString();
+            response = Response.ok()
+                .entity(layout.render(content))
+                .build();
+        } catch (Exception ex) {
+            response = createErrorResponse(formatError(ex));
         }
+
+        return response;
     }
 }
