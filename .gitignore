@@ -1,3 +1,7 @@
 target/
 .sass-cache/
 .DS_Store
+.project
+.settings/
+.settings/
+.setting/
