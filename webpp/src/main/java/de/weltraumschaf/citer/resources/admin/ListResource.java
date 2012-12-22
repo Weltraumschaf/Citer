@@ -14,6 +14,7 @@ package de.weltraumschaf.citer.resources.admin;
 
 import com.google.common.collect.Lists;
 import de.weltraumschaf.citer.domain.Cite;
+import de.weltraumschaf.citer.domain.Originator;
 import de.weltraumschaf.citer.resources.BaseResource;
 import de.weltraumschaf.citer.tpl.SiteContent;
 import de.weltraumschaf.citer.tpl.SiteLayout;
@@ -27,18 +28,54 @@ import javax.ws.rs.core.Response;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-@Path("/list")
+@Path("list/")
+@Produces(MediaType.TEXT_HTML)
 public class ListResource extends BaseResource {
 
-    @Produces(MediaType.TEXT_HTML)
     @GET public Response indexAsHtml() {
         Response response;
-        final Iterable<Cite> cites = getCiteRepo().getAll();
         try {
             final SiteLayout layout = createLayout();
             layout.setTitle("Citer Admin - List");
             final SiteContent content = layout.newSiteContent("admin/list.tpl");
+            response = Response.ok()
+                .entity(layout.render(content))
+                .build();
+        } catch (Exception ex) {
+            response = createErrorResponse(formatError(ex));
+        }
+
+        return response;
+    }
+
+    @Path("cites")
+    @GET public Response citesAsHtml() {
+        Response response;
+        final Iterable<Cite> cites = getCiteRepo().getAll();
+        try {
+            final SiteLayout layout = createLayout();
+            layout.setTitle("Citer Admin - List cites");
+            final SiteContent content = layout.newSiteContent("admin/list.cites.tpl");
             content.assign("cites", Lists.newArrayList(cites));
+            response = Response.ok()
+                .entity(layout.render(content))
+                .build();
+        } catch (Exception ex) {
+            response = createErrorResponse(formatError(ex));
+        }
+
+        return response;
+    }
+
+    @Path("originators")
+    @GET public Response originatorsAsHtml() {
+        Response response;
+        final Iterable<Originator> originators = getOriginatorRepo().getAll();
+        try {
+            final SiteLayout layout = createLayout();
+            layout.setTitle("Citer Admin - List Originators");
+            final SiteContent content = layout.newSiteContent("admin/list.originators.tpl");
+            content.assign("originators", Lists.newArrayList(originators));
             response = Response.ok()
                 .entity(layout.render(content))
                 .build();

@@ -1,5 +1,6 @@
 <h1>${layout.title}</h1>
 
-<#list vars.cites as cite>
-    ${cite}
-</#list>
+<ul>
+    <li><a href="${layout.baseUri}list/cites">cites</a></li>
+    <li><a href="${layout.baseUri}list/originators">originators</a></li>
+</ul>

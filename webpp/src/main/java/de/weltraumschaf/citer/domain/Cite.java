@@ -80,6 +80,6 @@ public class Cite extends NodeEntity {
             text = text.substring(0, 15);
         }
 
-        return String.format("Cite[%s, %s, %s]", getId(), text, getOriginator().getName());
+        return String.format("Cite[%s, %s, %s]", getId(), text, ""/*getOriginator().getName()*/);
     }
 }
