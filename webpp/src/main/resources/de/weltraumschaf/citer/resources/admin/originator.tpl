@@ -5,6 +5,7 @@
         <tr>
             <td>ID</td>
             <td>Name</td>
+            <td colspan="2"/>
         </tr>
     </thead>
     <tbody>
@@ -12,6 +13,8 @@
         <tr>
             <td>${originator.id}</td>
             <td>${originator.name}</td>
+            <td><a id="edit_originator" href="${layout.baseUri}originator/edit/${originator.id}">edit</a></td>
+            <td><a id="delete_originator" href="javascript:;">delete</a></td>
         </tr>
     </#list>
     </tbody>

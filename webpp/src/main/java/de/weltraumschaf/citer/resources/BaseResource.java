@@ -15,10 +15,7 @@ import com.sun.jersey.api.NotFoundException;
 import de.weltraumschaf.citer.CiterRegistry;
 import de.weltraumschaf.citer.domain.CiteRepository;
 import de.weltraumschaf.citer.domain.OriginatorRepository;
-import de.weltraumschaf.citer.tpl.SiteContent;
 import de.weltraumschaf.citer.tpl.SiteLayout;
-import freemarker.template.Configuration;
-import freemarker.template.DefaultObjectWrapper;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -47,7 +44,7 @@ public abstract class BaseResource {
     public SiteLayout createLayout() throws IOException {
         return createLayout("layout.tpl");
     }
-    
+
     public SiteLayout createLayout(final String layoutFile) throws IOException {
         final SiteLayout layout = SiteLayout.newLayout(layoutFile);
         final String baseUri = getUriInfo().getBaseUri().toString();
@@ -151,4 +148,13 @@ public abstract class BaseResource {
         buffer.append(String.format("<pre>%s</pre>", writer.toString()));
         return buffer.toString();
     }
+
+    protected Response stringOkResponse(final String entity) {
+        Response response;
+        response = Response.ok()
+            .entity(entity)
+            .build();
+        return response;
+    }
+
 }

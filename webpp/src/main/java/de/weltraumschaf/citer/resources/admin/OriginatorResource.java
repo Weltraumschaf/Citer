@@ -13,12 +13,10 @@
 package de.weltraumschaf.citer.resources.admin;
 
 import com.google.common.collect.Lists;
-import de.weltraumschaf.citer.domain.Cite;
+import de.weltraumschaf.citer.domain.Originator;
 import de.weltraumschaf.citer.resources.BaseResource;
 import de.weltraumschaf.citer.tpl.SiteContent;
 import de.weltraumschaf.citer.tpl.SiteLayout;
-import de.weltraumschaf.citer.util.Randomator;
-import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -31,22 +29,17 @@ import javax.ws.rs.core.Response;
  *
  * @author Sven Strittmatter <weltraumschaf@googlemail.com>
  */
-@Path("cite/")
-public class CiteResource extends BaseResource {
-
-    @Produces(MediaType.APPLICATION_JSON)
-    @DELETE public Response delete() {
-        return stringOkResponse("");
-    }
+@Path("originator/")
+public class OriginatorResource extends BaseResource {
 
     @Produces(MediaType.TEXT_HTML)
-    @GET public Response citesAsHtml() {
-        final Iterable<Cite> cites = getCiteRepo().getAll();
+    @GET public Response originatorsAsHtml() {
+        final Iterable<Originator> originators = getOriginatorRepo().getAll();
         try {
             final SiteLayout layout = createLayout();
-            layout.setTitle("Citer Admin - List cites");
-            final SiteContent content = layout.newSiteContent("admin/cite.tpl");
-            content.assign("cites", Lists.newArrayList(cites));
+            layout.setTitle("Citer Admin - List Originators");
+            final SiteContent content = layout.newSiteContent("admin/originator.tpl");
+            content.assign("originators", Lists.newArrayList(originators));
             return stringOkResponse(layout.render(content));
         } catch (Exception ex) {
             return createErrorResponse(formatError(ex));
@@ -58,10 +51,10 @@ public class CiteResource extends BaseResource {
     @GET public Response editAsHtml(@PathParam("id") String id) {
         try {
             final SiteLayout layout = createLayout();
-            layout.setTitle("Citer Admin - Cite edit");
-            final SiteContent content = layout.newSiteContent("admin/cite.edit.tpl");
+            layout.setTitle("Citer Admin - Originator edit");
+            final SiteContent content = layout.newSiteContent("admin/originator.edit.tpl");
             content.assign("actionUri", getUriInfo().getAbsolutePath().toString());
-            content.assign("cite", getCiteRepo().findById(id));
+            content.assign("originator", getOriginatorRepo().findById(id));
             return stringOkResponse(layout.render(content));
         } catch (Exception ex) {
             return createErrorResponse(formatError(ex));
@@ -72,24 +65,6 @@ public class CiteResource extends BaseResource {
     @Produces(MediaType.APPLICATION_JSON)
     @PUT public Response saveAsJson() {
         return createErrorResponse("Not implemented yet!");
-    }
-
-    @Path("generate/{count}")
-    @Produces(MediaType.TEXT_HTML)
-    @GET public Response generate(@PathParam("count") String count) {
-        final int cnt = Integer.valueOf(count);
-        final Randomator generator = new Randomator(getCiteRepo(), getOriginatorRepo());
-
-        try {
-            final Iterable<Cite> cites = generator.createCites(cnt);
-            final SiteLayout layout = createLayout();
-            layout.setTitle("Citer Admin - Created random cites");
-            final SiteContent content = layout.newSiteContent("admin/cite.generate.tpl");
-            content.assign("cites", cites);
-            return stringOkResponse(layout.render(content));
-        } catch (Exception ex) {
-            return createErrorResponse(formatError(ex));
-        }
     }
 
 }
