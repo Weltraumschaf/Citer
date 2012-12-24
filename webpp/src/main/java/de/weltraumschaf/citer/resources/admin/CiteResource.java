@@ -39,7 +39,7 @@ public class CiteResource extends BaseResource {
         try {
             final SiteLayout layout = createLayout();
             layout.setTitle("Citer Admin - List cites");
-            final SiteContent content = layout.newSiteContent("admin/cite.tpl");
+            final SiteContent content = layout.newSiteContent("admin/cites.tpl");
             content.assign("cites", Lists.newArrayList(cites));
             return stringOkResponse(layout.render(content));
         } catch (Exception ex) {

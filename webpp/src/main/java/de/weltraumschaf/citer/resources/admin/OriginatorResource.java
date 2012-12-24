@@ -19,7 +19,6 @@ import de.weltraumschaf.citer.tpl.SiteContent;
 import de.weltraumschaf.citer.tpl.SiteLayout;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -39,8 +38,22 @@ public class OriginatorResource extends BaseResource {
         try {
             final SiteLayout layout = createLayout();
             layout.setTitle("Citer Admin - List Originators");
-            final SiteContent content = layout.newSiteContent("admin/originator.tpl");
+            final SiteContent content = layout.newSiteContent("admin/originators.tpl");
             content.assign("originators", Lists.newArrayList(originators));
+            return stringOkResponse(layout.render(content));
+        } catch (Exception ex) {
+            return createErrorResponse(formatError(ex));
+        }
+    }
+
+    @Path("{id}")
+    @Produces(MediaType.TEXT_HTML)
+    @GET public Response originatorAsHtml(@PathParam("id") String id) {
+        try {
+            final SiteLayout layout = createLayout();
+            layout.setTitle("Citer Admin - Originator");
+            final SiteContent content = layout.newSiteContent("admin/originator.tpl");
+            content.assign("originator", getOriginatorRepo().findById(id));
             return stringOkResponse(layout.render(content));
         } catch (Exception ex) {
             return createErrorResponse(formatError(ex));
