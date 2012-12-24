@@ -13,7 +13,6 @@ package de.weltraumschaf.citer.tpl;
 
 import freemarker.template.Configuration;
 import freemarker.template.ObjectWrapper;
-import freemarker.template.SimpleHash;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import java.io.IOException;
@@ -26,7 +25,7 @@ import java.io.Writer;
  */
 public class SiteLayout {
 
-    private static final String TEMPLATE_PREFIX = "/de/weltraumschaf/citer/resources";
+
     private final LayoutModel model = new LayoutModel();
     private final Configuration config;
     private final Template layout;
@@ -35,13 +34,6 @@ public class SiteLayout {
         super();
         config = cfg;
         layout = cfg.getTemplate(layoutFile);
-    }
-
-    public static SiteLayout newLayout(final String layoutFile) throws IOException {
-        final Configuration cfg = new Configuration();
-        cfg.setClassForTemplateLoading(SiteLayout.class, TEMPLATE_PREFIX);
-        cfg.setObjectWrapper(ObjectWrapper.BEANS_WRAPPER);
-        return new SiteLayout(cfg, layoutFile);
     }
 
     public void setTitle(final String title) {

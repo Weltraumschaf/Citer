@@ -14,6 +14,7 @@ package de.weltraumschaf.citer;
 
 import de.weltraumschaf.citer.domain.CiteRepository;
 import de.weltraumschaf.citer.domain.OriginatorRepository;
+import freemarker.template.Configuration;
 import org.neo4j.graphdb.GraphDatabaseService;
 
 /**
@@ -31,6 +32,7 @@ public final class CiterRegistry {
     private CiteRepository citeRepo;
     private OriginatorRepository originatorRepo;
     private Config config;
+    private Configuration templateConfig;
 
     public CiterRegistry() {
         this(new DbFactory());
@@ -69,8 +71,16 @@ public final class CiterRegistry {
         }
     }
 
-    void setConfig(final Config c) {
+    public void setConfig(final Config c) {
         config = c;
+    }
+
+    void setTemplateConfig(final Configuration cfg) {
+        templateConfig = cfg;
+    }
+
+    public Configuration getTemplateConfig() {
+        return templateConfig;
     }
 
 }

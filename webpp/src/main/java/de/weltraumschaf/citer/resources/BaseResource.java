@@ -46,7 +46,7 @@ public abstract class BaseResource {
     }
 
     public SiteLayout createLayout(final String layoutFile) throws IOException {
-        final SiteLayout layout = SiteLayout.newLayout(layoutFile);
+        final SiteLayout layout = new SiteLayout(getRegistry().getTemplateConfig(), layoutFile);
         final String baseUri = getUriInfo().getBaseUri().toString();
         layout.setBaseUri(baseUri);
         layout.setFaviconUri(baseUri + "../img/favicon.ico");

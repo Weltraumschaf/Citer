@@ -11,6 +11,9 @@
  */
 package de.weltraumschaf.citer;
 
+import de.weltraumschaf.citer.tpl.SiteLayout;
+import freemarker.template.Configuration;
+import freemarker.template.ObjectWrapper;
 import java.io.File;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -25,13 +28,14 @@ import org.neo4j.graphdb.GraphDatabaseService;
  */
 public class CiterContextListener implements ServletContextListener {
 
+    private static final String TEMPLATE_PREFIX = "/de/weltraumschaf/citer/resources";
+
     private final DbFactory dbFactory = new DbFactory();
     private final CiterRegistry registry = new CiterRegistry(dbFactory);
 
     public CiterContextListener() {
         super();
     }
-
 
     /**
      * File where to store the database.
@@ -41,16 +45,21 @@ public class CiterContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         final Config config = new Config(System.getenv("HOME") + File.separator + ".citer");
+        registry.setConfig(config);
         new InstallTask(config.getHomeDir()).execute();
 
         registry.setDatabase(dbFactory.createGraphDb(config.getHomeDir() + File.separator + DB_FILE));
-        registry.setConfig(config);
+
+        final Configuration cfg = new Configuration();
+        cfg.setClassForTemplateLoading(SiteLayout.class, TEMPLATE_PREFIX);
+        cfg.setObjectWrapper(ObjectWrapper.BEANS_WRAPPER);
+        registry.setTemplateConfig(cfg);
+
         sce.getServletContext().setAttribute(CiterRegistry.KEY, registry);
     }
 
     @Override
-    public void contextDestroyed(ServletContextEvent sce) {
-        final CiterRegistry registry = (CiterRegistry) sce.getServletContext().getAttribute(CiterRegistry.KEY);
+    public void contextDestroyed(final ServletContextEvent sce) {
         final GraphDatabaseService db = registry.getDatabase();
 
         if (null != db) {
