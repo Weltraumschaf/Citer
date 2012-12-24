@@ -29,6 +29,7 @@ import java.util.Random;
  */
 public class Randomator {
 
+    private static final Random RANDOM = new Random();
     private final CiteRepository citeRepo;
     private final OriginatorRepository originatorRepo;
 
@@ -38,22 +39,20 @@ public class Randomator {
     }
 
     public List<Cite> createCites(int cnt) throws Exception {
-        final List<Originator> originators = createOriginators();
         final List<Cite> cites = Lists.newArrayList();
 
         for (int i = 0; i < cnt; ++i) {
-            final Cite cite = citeRepo.create(createRandomParams(originators));
+            final Cite cite = citeRepo.create(createRandomParams());
+            cite.setOriginator(getRandomOriginator());
             cites.add(cite);
         }
 
         return cites;
     }
 
-    private Map<String, Object> createRandomParams(final List<Originator> originators) {
+    private Map<String, Object> createRandomParams() {
         final Map<String, Object> params  = new HashMap<String, Object>();
         params.put(Cite.TEXT, createText());
-        final Cite newCite = citeRepo.create(params);
-        newCite.setOriginator(getRandomOriginator(originators));
         return params;
     }
 
@@ -79,10 +78,9 @@ public class Randomator {
         return "Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam";
     }
 
-    private final Random rand = new Random();
-
-    private Originator getRandomOriginator(List<Originator> originators) {
-        final int index = rand.nextInt(originators.size());
+    private Originator getRandomOriginator() throws Exception {
+        final List<Originator> originators = createOriginators();
+        final int index = RANDOM.nextInt(originators.size());
         return originators.get(index);
     }
 
