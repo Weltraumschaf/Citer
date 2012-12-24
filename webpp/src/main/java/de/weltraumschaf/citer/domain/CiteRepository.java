@@ -16,6 +16,7 @@ import static de.weltraumschaf.citer.domain.RelTypes.CREATED_BY;
 import static de.weltraumschaf.citer.domain.RelTypes.REF_CITES;
 import java.util.Map;
 import java.util.UUID;
+import java.util.logging.Logger;
 import org.joda.time.DateTime;
 import org.neo4j.graphdb.*;
 import org.neo4j.graphdb.index.Index;
@@ -83,7 +84,7 @@ public class CiteRepository implements Repository<Cite> {
     }
 
     @Override
-    public Cite findById(String id) {
+    public Cite findById(final String id) {
         Node citeNode = index.get(Cite.ID, id).getSingle();
 
         if (null == citeNode) {
@@ -94,14 +95,28 @@ public class CiteRepository implements Repository<Cite> {
     }
 
     @Override
-    public void delete(Cite cite) {
+    public void delete(final Cite cite) {
         Transaction tx = graphDb.beginTx();
 
         try {
             Node citeNode = cite.getUnderlyingNode();
             index.remove(citeNode, Cite.ID, cite.getId());
-            citeNode.getSingleRelationship(CREATED_BY, Direction.OUTGOING).delete();
-            citeNode.getSingleRelationship(A_CITE, Direction.INCOMING).delete();
+            final Relationship originatedBy = citeNode.getSingleRelationship(CREATED_BY, Direction.OUTGOING);
+
+            if (null == originatedBy) {
+                LOG.warning(String.format("Cite '%s' has no originator relation!", cite.getId()));
+            } else {
+                originatedBy.delete();
+            }
+
+            final Relationship citeInIndex = citeNode.getSingleRelationship(A_CITE, Direction.INCOMING);
+
+            if (null == citeInIndex) {
+                LOG.warning(String.format("Cite '%s' not on index!", cite.getId()));
+            } else {
+                citeInIndex.delete();
+            }
+
             // @todo remove originator, if last cite of her.
             citeNode.delete();
             tx.success();
@@ -109,6 +124,7 @@ public class CiteRepository implements Repository<Cite> {
             tx.finish();
         }
     }
+    private static final Logger LOG = Logger.getLogger(CiteRepository.class.getName());
 
     @Override
     public Iterable<Cite> getAll() {

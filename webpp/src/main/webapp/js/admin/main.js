@@ -16,6 +16,19 @@
 (function($) {
 
     $(function() {
-
+        $("a.delete").bind("click", function(event) {
+            $.ajax({
+               url: event.target.href,
+               type: "DELETE",
+               success: function(data, textStatus, jqXHR) {
+                   window.alert("Cite deleted.");
+                   window.location.href = data;
+               },
+               error: function(jqXHR, textStatus, errorThrown) {
+                   window.alert(errorThrown);
+               }
+            });
+            return false;
+        });
     });
 }(jQuery));

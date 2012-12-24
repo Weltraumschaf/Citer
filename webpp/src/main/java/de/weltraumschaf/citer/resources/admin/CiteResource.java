@@ -20,7 +20,6 @@ import de.weltraumschaf.citer.tpl.SiteLayout;
 import de.weltraumschaf.citer.util.Randomator;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
-import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -33,11 +32,6 @@ import javax.ws.rs.core.Response;
  */
 @Path("cite/")
 public class CiteResource extends BaseResource {
-
-    @Produces(MediaType.APPLICATION_JSON)
-    @DELETE public Response delete() {
-        return stringOkResponse("");
-    }
 
     @Produces(MediaType.TEXT_HTML)
     @GET public Response citesAsHtml() {
@@ -68,10 +62,16 @@ public class CiteResource extends BaseResource {
         }
     }
 
-    @Path("edit/{id}")
-    @Produces(MediaType.APPLICATION_JSON)
-    @PUT public Response saveAsJson() {
-        return createErrorResponse("Not implemented yet!");
+    @Path("{id}")
+    @Produces(MediaType.TEXT_PLAIN)
+    @DELETE public Response delete(@PathParam("id") String id) {
+        try {
+            final Cite cite = getCiteRepo().findById(id);
+            getCiteRepo().delete(cite);
+            return stringOkResponse(getUriInfo().getBaseUri().toString() + "cite/");
+        } catch (Exception ex) {
+            return createErrorResponse(formatError(ex));
+        }
     }
 
     @Path("generate/{count}")

@@ -4,6 +4,8 @@
     <li><a href="${layout.baseUri}cite/generate/1">generate random cite</a></li>
 </ul>
 
+<h2>${vars.cites.size()} Cites</h2>
+
 <table>
     <thead>
         <tr>
@@ -19,8 +21,8 @@
             <td>${cite.id}</td>
             <td>${cite.text}</td>
             <td>n/a</td>
-            <td><a id="edit_cite" href="${layout.baseUri}cite/edit/${cite.id}">edit</a></td>
-            <td><a id="delete_cite" href="javascript:;">delete</a></td>
+            <td><a href="${layout.baseUri}cite/edit/${cite.id}">edit</a></td>
+            <td><a class="delete" href="${layout.baseUri}cite/${cite.id}">delete</a></td>
         </tr>
     </#list>
     </tbody>
